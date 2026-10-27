@@ -21,11 +21,11 @@
     <!-- ============ HERO ============ -->
     <section class="hero" aria-label="Welcome">
       <div class="hero__slides" aria-hidden="true">
-        <!-- Video slides: background video (muted, looping). data-video-id = YouTube video ID; data-video-start = start point in seconds (9004 = 2:30:04). All three use the same video until final links are provided.
+        <!-- Video slides: background video (muted, looping). data-video-id = YouTube video ID; data-video-start = start point in seconds (9004 = 2:30:04). Each slide plays an 8-second clip from its start time (data-video-end = start + 8) and shows for 8 seconds (data-duration 8000), then moves on; the slides loop. The background-image photo shows until the video is actually playing. Slide 2 plays 8 seconds from 59:26 (data-video-start 3566, no end needed); slide 3 starts at 36:26 (2186).
              background-image = each slide's fallback photo, shown while the video loads, when it can't play, or with reduced motion. -->
-        <div class="hero__slide hero__slide--video" data-video-id="UICCHfqBZSA" data-video-start="9004" data-duration="12000" style="background-image:url('assets/images/hero-5.jpg')"></div>
-        <div class="hero__slide hero__slide--video" data-video-id="UICCHfqBZSA" data-video-start="9004" data-duration="12000" style="background-image:url('assets/images/hero-2.jpg'); background-position:center 30%"></div>
-        <div class="hero__slide hero__slide--video" data-video-id="UICCHfqBZSA" data-video-start="9004" data-duration="12000" style="background-image:url('assets/images/church-1716.jpg')"></div>
+        <div class="hero__slide hero__slide--video" data-video-id="UICCHfqBZSA" data-video-start="9004" data-video-end="9012" data-duration="8000" style="background-image:url('assets/images/hero-5.jpg')"></div>
+        <div class="hero__slide hero__slide--video" data-video-id="7cy7owEra9E" data-video-start="3566" data-duration="8000" style="background-image:url('assets/images/hero-2.jpg'); background-position:center 30%"></div>
+        <div class="hero__slide hero__slide--video" data-video-id="br71u1OJGAA" data-video-start="2186" data-video-end="2194" data-duration="8000" style="background-image:url('assets/images/church-1716.jpg')"></div>
       </div>
       <div class="container hero__inner">
         <div class="hero__grid">
@@ -54,8 +54,8 @@
           <div class="anim" style="--d:.7s">
             <div class="hero__thumbs" aria-label="Choose a slide">
               <button class="hero__thumb hero__thumb--video" type="button" aria-label="Slide 1: Mercy and Grace"><img src="https://i.ytimg.com/vi/UICCHfqBZSA/mqdefault.jpg" alt=""><i data-lucide="play"></i></button>
-              <button class="hero__thumb hero__thumb--video" type="button" aria-label="Slide 2: Presence and Purpose"><img src="https://i.ytimg.com/vi/UICCHfqBZSA/mqdefault.jpg" alt=""><i data-lucide="play"></i></button>
-              <button class="hero__thumb hero__thumb--video" type="button" aria-label="Slide 3: Come as you are"><img src="https://i.ytimg.com/vi/UICCHfqBZSA/mqdefault.jpg" alt=""><i data-lucide="play"></i></button>
+              <button class="hero__thumb hero__thumb--video" type="button" aria-label="Slide 2: Presence and Purpose"><img src="https://i.ytimg.com/vi/7cy7owEra9E/mqdefault.jpg" alt=""><i data-lucide="play"></i></button>
+              <button class="hero__thumb hero__thumb--video" type="button" aria-label="Slide 3: Come as you are"><img src="https://i.ytimg.com/vi/br71u1OJGAA/mqdefault.jpg" alt=""><i data-lucide="play"></i></button>
             </div>
             <div class="hero__progress"><span></span></div>
           </div>
