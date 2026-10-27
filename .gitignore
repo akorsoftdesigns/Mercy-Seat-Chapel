@@ -1,0 +1,14 @@
+# Files kept on this computer only. They are not uploaded to GitHub,
+# so they never appear on the published site.
+# To publish one of them, delete its line below.
+
+# Project notes (not part of the website)
+CLAUDE.md
+design-system.md
+
+# Local preview server and editor settings
+.claude/
+
+# Windows system files
+Thumbs.db
+desktop.ini

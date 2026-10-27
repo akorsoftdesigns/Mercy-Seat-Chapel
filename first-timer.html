@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>First Timer Info – Mercy Seat Chapel</title>
+  <meta name="description" content="Welcome to Mercy Seat Chapel! Fill out our First Time Visitor info card so we can connect with you.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="assets/images/logo-ms-mark.png">
+</head>
+<body>
+  <div data-site-header></div>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="page-hero__bg" style="background-image:url('assets/images/church-1709.jpg'); background-position:center 25%"></div>
+      <div class="container">
+        <ol class="crumbs"><li><a href="index.html">Home</a></li><li><a href="contact.html">Contact</a></li><li>First Timer Info</li></ol>
+        <h1>First Timer Info</h1>
+        <p>We’re so glad you’ve joined us! Tell us a little about yourself so we can connect with you.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container with-aside">
+        <form class="form-card reveal" data-demo novalidate>
+          <h2 style="font-size:32px">First Time Visitor info card</h2>
+          <p class="muted" style="margin-bottom:28px">Fields marked <span style="color:var(--c-accent)">*</span> are required.</p>
+          <div class="form-grid">
+            <div class="field"><label for="ft-first">First name <span class="req">*</span></label><input id="ft-first" name="first_name" autocomplete="given-name" required></div>
+            <div class="field"><label for="ft-last">Last name <span class="req">*</span></label><input id="ft-last" name="last_name" autocomplete="family-name" required></div>
+            <div class="field"><label for="ft-email">Email <span class="req">*</span></label><input id="ft-email" name="email" type="email" autocomplete="email" required></div>
+            <div class="field"><label for="ft-phone">Phone</label><input id="ft-phone" name="phone" type="tel" autocomplete="tel"></div>
+            <div class="field full"><label for="ft-address">Address</label><input id="ft-address" name="address" autocomplete="street-address"></div>
+            <div class="field"><label for="ft-bday">Birthday</label><input id="ft-bday" name="birthday" type="date"></div>
+            <fieldset class="field"><legend>Gender</legend><div class="choices"><label class="choice"><input type="radio" name="gender" value="Male"><span>Male</span></label><label class="choice"><input type="radio" name="gender" value="Female"><span>Female</span></label></div></fieldset>
+            <fieldset class="field"><legend>Which service did you attend?</legend><div class="choices"><label class="choice"><input type="radio" name="service" value="In-Person"><span>In-Person Service</span></label><label class="choice"><input type="radio" name="service" value="Online"><span>On-Line Service</span></label></div></fieldset>
+            <div class="field"><label for="ft-day">What day did you attend the service?</label><select id="ft-day" name="day"><option value="">Select…</option><option>Today</option><option>Yesterday</option><option>Last Sunday</option><option>Last Wednesday</option></select></div>
+            <fieldset class="field full"><legend>My decision today</legend><div class="choices"><label class="choice"><input type="checkbox" name="decision" value="salvation"><span>I prayed to receive Salvation</span></label><label class="choice"><input type="checkbox" name="decision" value="rededicated"><span>I rededicated my life to Christ</span></label><label class="choice"><input type="checkbox" name="decision" value="talk"><span>I would like to talk to someone about Salvation</span></label></div></fieldset>
+
+            <div class="full notice"><i data-lucide="gift"></i><p><strong>Your “Thank You” Gift Is On The Way!</strong> We’re so glad you’ve joined us today! If you’ve joined us online, please be sure to enter your address clearly above so that we can send you a “Thank You” Gift to show our appreciation (our in-person guests will receive a gift in-person 😊).</p></div>
+            <fieldset class="field full"><legend>Is your address correctly entered above?</legend><div class="choices"><label class="choice"><input type="radio" name="address_ok" value="yes"><span>Yes - My address is correct!</span></label><label class="choice"><input type="radio" name="address_ok" value="no"><span>Thank you - But not interested!</span></label></div></fieldset>
+
+            <div class="field"><label for="ft-sname">Spouse name</label><input id="ft-sname" name="spouse_name"></div>
+            <div class="field"><label for="ft-sphone">Spouse phone number</label><input id="ft-sphone" name="spouse_phone" type="tel"></div>
+            <div class="field"><label for="ft-semail">Spouse email</label><input id="ft-semail" name="spouse_email" type="email"></div>
+            <div class="field"><label for="ft-sbday">Spouse birthday</label><input id="ft-sbday" name="spouse_birthday" type="date"></div>
+
+            <fieldset class="field full"><legend>How did you hear about us?</legend><div class="choices"><label class="choice"><input type="radio" name="heard" value="Email"><span>Email</span></label><label class="choice"><input type="radio" name="heard" value="Family/Friend"><span>Family/Friend</span></label><label class="choice"><input type="radio" name="heard" value="Social Media"><span>Social Media</span></label><label class="choice"><input type="radio" name="heard" value="Community Event"><span>Community Event</span></label><label class="choice"><input type="radio" name="heard" value="Other"><span>Other</span></label></div></fieldset>
+            <div class="field full"><label for="ft-msg">Questions/Comments/Feedback</label><textarea id="ft-msg" name="message"></textarea></div>
+          </div>
+          <button class="btn btn--secondary" type="submit" style="margin-top:28px">Submit</button>
+          <div class="form-success" role="status" tabindex="-1">Thank you for visiting Mercy Seat Chapel! (Prototype: no information has been sent.)</div>
+        </form>
+
+        <aside class="reveal reveal--right">
+          <img src="assets/images/hero-4.jpg" alt="A smiling member worshipping during a Sunday service" loading="lazy" style="border-radius:var(--r-card); aspect-ratio:4/5; object-fit:cover; object-position:15% center; width:100%; margin-bottom:20px">
+          <div class="icon-card">
+            <h3>New here?</h3>
+            <p>We love people here at Mercy Seat Chapel and we hope you will give us a chance to connect with you to enjoy getting to know you.</p>
+            <a class="link-arrow" href="plan-a-visit.html" style="margin-top:14px">Plan a Visit <i data-lucide="arrow-right"></i></a>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <div data-site-footer></div>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
