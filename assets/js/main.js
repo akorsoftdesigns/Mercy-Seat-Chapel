@@ -277,13 +277,12 @@ function initHeader() {
 }
 
 /* Home hero: crossfading slider (photos + optional background video) with thumbnails.
-   A slide with data-video-id plays that YouTube video muted on loop; its
+   A slide with data-video-id plays that YouTube video muted; its
    background-image is the poster shown while loading or with reduced motion.
-   data-video-start (seconds) sets where playback begins. Each video loads the
-   first time its slide is shown, so the page doesn't load every video at once.
-   Optional data-video-end (seconds) plays just that clip: it stops at the end
-   time and restarts from data-video-start each time the slide comes round.
-   With a start time but no end, the clip lasts as long as the slide (data-duration).
+   data-video-start (seconds) sets where playback begins. The first slide's video
+   loads straight away and the others shortly after the page has loaded.
+   Each time a slide comes round its video restarts from data-video-start and
+   plays for as long as the slide shows (data-duration), then pauses.
    data-duration (ms) overrides the default 6s per slide.
    .hero__text blocks (headline + lead) switch in step with the slides. */
 function initHero() {
@@ -297,40 +296,47 @@ function initHero() {
   // YouTube refuses to play ("Video player configuration error") without a referrer,
   // which a page opened straight from disk (file://) can't send — keep the poster there.
   const canEmbed = location.protocol.startsWith("http");
+  // Every player is loaded once, then waits paused on its start frame; showing a
+  // slide just presses play, so the video starts at once instead of loading each time.
+  // Commands use YouTube's postMessage API (enablejsapi=1), no library needed.
+  const YT = "https://www.youtube-nocookie.com";
+  const cmd = (s, func, args = []) => s.querySelector("iframe")?.contentWindow.postMessage(JSON.stringify({ event: "command", func, args }), YT);
+  const startOf = (s) => Number(s.dataset.videoStart) || 0;
   const loadVideo = (s) => {
-    // No data-video-end but a start time: play from the start for as long as the slide shows
-    const startAt = Number(s.dataset.videoStart) || 0, showFor = Number(s.dataset.duration) || 0;
-    const end = Number(s.dataset.videoEnd) || (startAt && showFor ? startAt + Math.round(showFor / 1000) : 0);
-    // A clip (with an end time) reloads every time so it starts from the top again
-    if (reduce || !canEmbed || !s.dataset.videoId || (s.querySelector("iframe") && !end)) return;
-    const id = s.dataset.videoId, start = Number(s.dataset.videoStart) || 0;
-    const origin = encodeURIComponent(location.origin);
-    // YouTube's loop ignores start/end (it restarts the whole video), so clips don't loop
-    const play = end ? `&end=${end}` : `&loop=1&playlist=${id}`;
-    s.classList.remove("is-playing"); // fallback photo shows until the video is actually playing
-    s.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1${play}&start=${start}&controls=0&disablekb=1&modestbranding=1&playsinline=1&rel=0&enablejsapi=1&origin=${origin}" title="Background video" tabindex="-1" allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
+    if (reduce || !canEmbed || !s.dataset.videoId || s.querySelector("iframe")) return;
+    const id = s.dataset.videoId, origin = encodeURIComponent(location.origin);
+    s.innerHTML = `<iframe src="${YT}/embed/${id}?autoplay=1&mute=1&start=${startOf(s)}&controls=0&disablekb=1&modestbranding=1&playsinline=1&rel=0&enablejsapi=1&origin=${origin}" title="Background video" tabindex="-1" allow="autoplay; encrypted-media" referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
     const frame = s.querySelector("iframe");
-    // Ask the player to report its state (YouTube's postMessage API, no library needed)
-    frame.addEventListener("load", () => frame.contentWindow.postMessage(JSON.stringify({ event: "listening" }), "https://www.youtube-nocookie.com"));
+    // Ask the player to report its state
+    frame.addEventListener("load", () => frame.contentWindow.postMessage(JSON.stringify({ event: "listening" }), YT));
   };
-  // When a player reports "playing" (state 1), fade its video in over the photo
+  // A player reporting "playing" (state 1): if its slide is showing, fade the video in over
+  // the photo; if it was preloaded in the background, park it paused on its start frame
   addEventListener("message", (e) => {
     if (!/^https:\/\/www\.youtube(-nocookie)?\.com$/.test(e.origin) || typeof e.data !== "string") return;
     let d; try { d = JSON.parse(e.data); } catch { return; }
     const state = d.event === "onStateChange" ? d.info : d.info && d.info.playerState;
     if (state !== 1) return;
     const s = slides.find((x) => x.querySelector("iframe")?.contentWindow === e.source);
-    s && s.classList.add("is-playing");
+    if (!s) return;
+    s.classList.add("is-playing");
+    if (!s.classList.contains("is-active")) { cmd(s, "pauseVideo"); cmd(s, "seekTo", [startOf(s), true]); }
   });
   if (slides.length < 2) { slides[0] && loadVideo(slides[0]); return; }
+  // Once the page has loaded, warm up the other slides' players in the background
+  addEventListener("load", () => setTimeout(() => slides.forEach(loadVideo), 1500));
   let i = 0, timer;
   const go = (n) => {
+    const prev = slides[i];
     [slides, thumbs, texts].forEach((set) => set[i] && set[i].classList.remove("is-active"));
     texts[i] && texts[i].setAttribute("aria-hidden", "true");
     i = (n + slides.length) % slides.length;
     [slides, thumbs, texts].forEach((set) => set[i] && set[i].classList.add("is-active"));
     texts[i] && texts[i].removeAttribute("aria-hidden");
-    loadVideo(slides[i]);
+    // Park the slide we left on its start frame; play (or first load) the new one
+    if (prev !== slides[i]) { cmd(prev, "pauseVideo"); cmd(prev, "seekTo", [startOf(prev), true]); }
+    if (slides[i].querySelector("iframe")) { cmd(slides[i], "seekTo", [startOf(slides[i]), true]); cmd(slides[i], "playVideo"); }
+    else loadVideo(slides[i]);
     const ms = Number(slides[i].dataset.duration) || 6000;
     if (bar) { bar.style.animationDuration = ms + "ms"; bar.classList.remove("run"); void bar.offsetWidth; if (!reduce) bar.classList.add("run"); }
     clearTimeout(timer); if (!reduce) timer = setTimeout(() => go(i + 1), ms);
@@ -363,7 +369,7 @@ function initFloatGallery() {
   });
 }
 
-/* Events slider: arrows + dots, auto-advances every 8s, pauses on hover/focus */
+/* Events slider: arrows + dots + swipe (touch screens), auto-advances every 8s, pauses on hover/focus */
 function initSliders() {
   document.querySelectorAll("[data-slider]").forEach((root) => {
     const slides = [...root.querySelectorAll(".event-slider__slide")];
@@ -388,6 +394,14 @@ function initSliders() {
     };
     root.querySelector("[data-prev]")?.addEventListener("click", () => go(i - 1));
     root.querySelector("[data-next]")?.addEventListener("click", () => go(i + 1));
+    // Swipe: a mostly-sideways swipe of 40px+ moves to the next (left) or previous (right) event
+    const track = root.querySelector(".event-slider__track");
+    let sx = 0, sy = 0;
+    track?.addEventListener("touchstart", (e) => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+    track?.addEventListener("touchend", (e) => {
+      const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) go(i + (dx < 0 ? 1 : -1));
+    }, { passive: true });
     const pause = (on) => { paused = on; go(i); };
     root.addEventListener("mouseenter", () => pause(true));
     root.addEventListener("mouseleave", () => pause(false));
