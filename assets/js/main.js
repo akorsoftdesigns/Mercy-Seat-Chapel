@@ -24,6 +24,11 @@ const SITE = {
   appStoreUrl: "#",
   playStoreUrl: "#",
   youtubeChannelId: "UCVoCauuDqWoSh4fDPtVdt5g",
+  // Watch Live page player: the YouTube video ID of the live broadcast to show
+  // (the part after youtube.com/watch?v= or studio.youtube.com/video/). YouTube gives
+  // each broadcast its own ID, so update this for each new stream; set it to ""
+  // to show whatever the channel is streaming live at the time instead.
+  liveVideoId: "Zg8AQ9CMOZ4",
   social: {
     youtube: "https://www.youtube.com/c/Mercyseatchapel",
     instagram: "https://www.instagram.com/mercyseatchapel/",
@@ -479,6 +484,11 @@ function ytUploadsMarkup() {
   return `<iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=${list}&rel=0" title="Latest videos from ${SITE.name}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
 }
 function initVideos() {
+  // A .yt[data-live] box plays SITE.liveVideoId, or the channel's current live stream if that's empty
+  document.querySelectorAll(".yt[data-live]").forEach((box) => {
+    if (SITE.liveVideoId) { box.dataset.id = SITE.liveVideoId; delete box.dataset.src; }
+    else box.dataset.src = `https://www.youtube-nocookie.com/embed/live_stream?channel=${SITE.youtubeChannelId}&autoplay=1`;
+  });
   document.querySelectorAll(".yt[data-uploads]").forEach((box) => { box.innerHTML = ytUploadsMarkup(); });
   document.querySelectorAll(".yt[data-id], .yt[data-uploads]").forEach((box) => {
     if (!box.innerHTML.trim()) box.innerHTML = ytMarkup(box.dataset.id, box.dataset.title || "video");
