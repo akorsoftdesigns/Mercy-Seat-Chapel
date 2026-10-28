@@ -10,6 +10,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="icon" href="assets/images/logo-ms-mark.png">
+
+  <!-- FORM SETTINGS for the Welcome Registration Card.
+       submitUrl: the secure address that will receive and store cards. While it is "" Submit stays off and nothing is sent. -->
+  <script>
+    const FORM_SETTINGS = {
+      submitUrl: "",
+      text: {
+        draft: "Online submission is switched off while this form is in draft/testing. Nothing you enter is sent or saved.",
+        incomplete: "Complete all required answers and tick the privacy box to submit.",
+        error: "Sorry, your registration card could not be submitted, and nothing has been saved. Please check your connection and try again. If the problem continues, contact the church office."
+      }
+    };
+  </script>
 </head>
 <body>
   <div data-site-header></div>
@@ -26,35 +39,153 @@
 
     <section class="section">
       <div class="container with-aside">
-        <form class="form-card reveal" data-demo novalidate>
-          <h2 style="font-size:32px">First Time Visitor info card</h2>
-          <p class="muted" style="margin-bottom:28px">Fields marked <span style="color:var(--c-accent)">*</span> are required.</p>
-          <div class="form-grid">
-            <div class="field"><label for="ft-first">First name <span class="req">*</span></label><input id="ft-first" name="first_name" autocomplete="given-name" required></div>
-            <div class="field"><label for="ft-last">Last name <span class="req">*</span></label><input id="ft-last" name="last_name" autocomplete="family-name" required></div>
-            <div class="field"><label for="ft-email">Email <span class="req">*</span></label><input id="ft-email" name="email" type="email" autocomplete="email" required></div>
-            <div class="field"><label for="ft-phone">Phone</label><input id="ft-phone" name="phone" type="tel" autocomplete="tel"></div>
-            <div class="field full"><label for="ft-address">Address</label><input id="ft-address" name="address" autocomplete="street-address"></div>
-            <div class="field"><label for="ft-bday">Birthday</label><input id="ft-bday" name="birthday" type="date"></div>
-            <fieldset class="field"><legend>Gender</legend><div class="choices"><label class="choice"><input type="radio" name="gender" value="Male"><span>Male</span></label><label class="choice"><input type="radio" name="gender" value="Female"><span>Female</span></label></div></fieldset>
-            <fieldset class="field"><legend>Which service did you attend?</legend><div class="choices"><label class="choice"><input type="radio" name="service" value="In-Person"><span>In-Person Service</span></label><label class="choice"><input type="radio" name="service" value="Online"><span>On-Line Service</span></label></div></fieldset>
-            <div class="field"><label for="ft-day">What day did you attend the service?</label><select id="ft-day" name="day"><option value="">Select…</option><option>Today</option><option>Yesterday</option><option>Last Sunday</option><option>Last Wednesday</option></select></div>
-            <fieldset class="field full"><legend>My decision today</legend><div class="choices"><label class="choice"><input type="checkbox" name="decision" value="salvation"><span>I prayed to receive Salvation</span></label><label class="choice"><input type="checkbox" name="decision" value="rededicated"><span>I rededicated my life to Christ</span></label><label class="choice"><input type="checkbox" name="decision" value="talk"><span>I would like to talk to someone about Salvation</span></label></div></fieldset>
+        <div class="reveal">
+        <!-- MSC Welcome Registration Card: four-step form (assets/js/job-application.js, settings in FORM_SETTINGS below).
+             While submitUrl is "" the Submit button stays off and nothing is sent. -->
+        <form class="form-card app-form" data-application method="post" novalidate>
+          <h2 style="font-size:30px">MSC Welcome Registration Card</h2>
+          <p class="muted">Kindly fill out all sections as completely as possible. We also crave your comments on the just concluded service. Thank you.</p>
+          <!-- Spam trap: people never see or fill this field -->
+          <div class="app-trap" aria-hidden="true"><label for="wc-fax">Leave this empty</label><input id="wc-fax" name="company_fax" tabindex="-1" autocomplete="off"></div>
 
-            <div class="full notice"><i data-lucide="gift"></i><p><strong>Your “Thank You” Gift Is On The Way!</strong> We’re so glad you’ve joined us today! If you’ve joined us online, please be sure to enter your address clearly above so that we can send you a “Thank You” Gift to show our appreciation (our in-person guests will receive a gift in-person 😊).</p></div>
-            <fieldset class="field full"><legend>Is your address correctly entered above?</legend><div class="choices"><label class="choice"><input type="radio" name="address_ok" value="yes"><span>Yes, my address is correct!</span></label><label class="choice"><input type="radio" name="address_ok" value="no"><span>Thank you, but not interested!</span></label></div></fieldset>
+          <ol class="app-steps" aria-label="Registration card progress">
+            <li><button type="button"><span class="app-steps__num">1</span><span class="app-steps__label">About You</span></button></li>
+            <li><button type="button"><span class="app-steps__num">2</span><span class="app-steps__label">Contact Details</span></button></li>
+            <li><button type="button"><span class="app-steps__num">3</span><span class="app-steps__label">Your Visit</span></button></li>
+            <li><button type="button"><span class="app-steps__num">4</span><span class="app-steps__label">Review &amp; Submit</span></button></li>
+          </ol>
+          <div class="app-progress" aria-hidden="true"><span class="app-progress__text"></span><span class="app-progress__bar"><span></span></span></div>
+          <p class="app-required-note"><span class="req">*</span> Required</p>
 
-            <div class="field"><label for="ft-sname">Spouse name</label><input id="ft-sname" name="spouse_name"></div>
-            <div class="field"><label for="ft-sphone">Spouse phone number</label><input id="ft-sphone" name="spouse_phone" type="tel"></div>
-            <div class="field"><label for="ft-semail">Spouse email</label><input id="ft-semail" name="spouse_email" type="email"></div>
-            <div class="field"><label for="ft-sbday">Spouse birthday</label><input id="ft-sbday" name="spouse_birthday" type="date"></div>
+          <!-- STEP 1 -->
+          <section class="app-step" data-title="About You" aria-labelledby="wc-step1-h">
+            <h3 id="wc-step1-h" tabindex="-1">About You</h3>
+            <div class="form-grid">
+              <fieldset class="field full"><legend>Title <span class="req">*</span></legend>
+                <div class="choices">
+                  <label class="choice"><input type="radio" name="title" value="Mr." required><span>Mr.</span></label>
+                  <label class="choice"><input type="radio" name="title" value="Mrs."><span>Mrs.</span></label>
+                  <label class="choice"><input type="radio" name="title" value="Ms."><span>Ms.</span></label>
+                  <label class="choice"><input type="radio" name="title" value="Other"><span>Other</span></label>
+                </div>
+              </fieldset>
+              <div class="field full app-cond" data-show-if="title=Other" hidden><label for="wc-title-other">Your title <span class="req">*</span></label><input id="wc-title-other" name="title_other" autocomplete="honorific-prefix" required></div>
+              <div class="field"><label for="wc-first">First name <span class="req">*</span></label><input id="wc-first" name="first_name" autocomplete="given-name" required></div>
+              <div class="field"><label for="wc-last">Last name / surname <span class="req">*</span></label><input id="wc-last" name="last_name" autocomplete="family-name" required></div>
+              <fieldset class="field"><legend>Gender <span class="opt">(optional)</span></legend>
+                <div class="choices"><label class="choice"><input type="radio" name="gender" value="Female"><span>Female</span></label><label class="choice"><input type="radio" name="gender" value="Male"><span>Male</span></label></div>
+              </fieldset>
+              <div class="field"><label for="wc-nationality">Nationality <span class="opt">(optional)</span></label><input id="wc-nationality" name="nationality"></div>
+              <fieldset class="field full"><legend>Age group <span class="req">*</span></legend>
+                <div class="choices">
+                  <label class="choice"><input type="radio" name="age_group" value="13-19" required><span>13–19</span></label>
+                  <label class="choice"><input type="radio" name="age_group" value="20-29"><span>20–29</span></label>
+                  <label class="choice"><input type="radio" name="age_group" value="30-39"><span>30–39</span></label>
+                  <label class="choice"><input type="radio" name="age_group" value="40-49"><span>40–49</span></label>
+                  <label class="choice"><input type="radio" name="age_group" value="50-59"><span>50–59</span></label>
+                  <label class="choice"><input type="radio" name="age_group" value="60+"><span>60+</span></label>
+                </div>
+              </fieldset>
+            </div>
+          </section>
 
-            <fieldset class="field full"><legend>How did you hear about us?</legend><div class="choices"><label class="choice"><input type="radio" name="heard" value="Email"><span>Email</span></label><label class="choice"><input type="radio" name="heard" value="Family/Friend"><span>Family/Friend</span></label><label class="choice"><input type="radio" name="heard" value="Social Media"><span>Social Media</span></label><label class="choice"><input type="radio" name="heard" value="Community Event"><span>Community Event</span></label><label class="choice"><input type="radio" name="heard" value="Other"><span>Other</span></label></div></fieldset>
-            <div class="field full"><label for="ft-msg">Questions/Comments/Feedback</label><textarea id="ft-msg" name="message"></textarea></div>
+          <!-- STEP 2 -->
+          <section class="app-step" data-title="Contact Details" aria-labelledby="wc-step2-h" hidden>
+            <h3 id="wc-step2-h" tabindex="-1">Contact Details</h3>
+            <div class="form-grid">
+              <div class="field"><label for="wc-phone">Phone <span class="req">*</span></label><input id="wc-phone" name="phone" type="tel" autocomplete="tel" required></div>
+              <div class="field"><label for="wc-email">Email address <span class="req">*</span></label><input id="wc-email" name="email" type="email" autocomplete="email" required></div>
+              <div class="field full"><label for="wc-address">Address <span class="req">*</span></label><input id="wc-address" name="address" autocomplete="address-line1" required></div>
+              <div class="field"><label for="wc-address2">Address 2 (apt no.) <span class="opt">(optional)</span></label><input id="wc-address2" name="address_2" autocomplete="address-line2"></div>
+              <div class="field"><label for="wc-state">State <span class="req">*</span></label><select id="wc-state" name="state" autocomplete="address-level1" data-us-states required><option value="">Select a state</option></select></div>
+              <div class="field"><label for="wc-city">City <span class="req">*</span></label><input id="wc-city" name="city" autocomplete="address-level2" data-city-for="state" aria-describedby="wc-city-hint" required><p class="hint" id="wc-city-hint">Choose your state first, then start typing to see its cities.</p></div>
+              <div class="field"><label for="wc-zip">Zip code <span class="req">*</span></label><input id="wc-zip" name="zip_code" inputmode="numeric" autocomplete="postal-code" pattern="\d{5}(-\d{4})?" maxlength="10" data-pattern-message="Enter a 5-digit zip code, like 20877." required></div>
+              <div class="field full"><label for="wc-call">Best place and time to call <span class="req">*</span></label><input id="wc-call" name="best_time_to_call" placeholder="e.g. Cell phone, weekday evenings after 6 PM" required></div>
+            </div>
+          </section>
+
+          <!-- STEP 3 -->
+          <section class="app-step" data-title="Your Visit" aria-labelledby="wc-step3-h" hidden>
+            <h3 id="wc-step3-h" tabindex="-1">Your Visit</h3>
+            <div class="form-grid">
+              <fieldset class="field full"><legend>How did you worship with us today? <span class="req">*</span></legend>
+                <div class="choices"><label class="choice"><input type="radio" name="worship_mode" value="Online" required><span>Online</span></label><label class="choice"><input type="radio" name="worship_mode" value="In Person"><span>In Person</span></label></div>
+              </fieldset>
+              <fieldset class="field full"><legend>Are you interested in being a member of the Church? <span class="req">*</span></legend>
+                <div class="choices">
+                  <label class="choice"><input type="radio" name="membership_interest" value="Yes" required><span>Yes</span></label>
+                  <label class="choice"><input type="radio" name="membership_interest" value="No"><span>No</span></label>
+                  <label class="choice"><input type="radio" name="membership_interest" value="Maybe"><span>Maybe</span></label>
+                  <label class="choice"><input type="radio" name="membership_interest" value="Other"><span>Other</span></label>
+                </div>
+              </fieldset>
+              <div class="field full app-cond" data-show-if="membership_interest=Other" hidden><label for="wc-interest-other">Please tell us more <span class="opt">(optional)</span></label><input id="wc-interest-other" name="membership_interest_other"></div>
+              <fieldset class="field full"><legend>How did you hear about Mercy Seat Chapel? <span class="req">*</span> <span class="opt">(choose all that apply)</span></legend>
+                <div class="choices">
+                  <label class="choice"><input type="checkbox" name="heard_about" value="Word of Mouth / Invited by member" required><span>Word of Mouth / Invited by member</span></label>
+                  <label class="choice"><input type="checkbox" name="heard_about" value="Just Walked in"><span>Just Walked in</span></label>
+                  <label class="choice"><input type="checkbox" name="heard_about" value="Facebook"><span>Facebook</span></label>
+                  <label class="choice"><input type="checkbox" name="heard_about" value="Instagram"><span>Instagram</span></label>
+                  <label class="choice"><input type="checkbox" name="heard_about" value="Twitter / X"><span>Twitter / X</span></label>
+                  <label class="choice"><input type="checkbox" name="heard_about" value="Car Magnet"><span>Car Magnet</span></label>
+                  <label class="choice"><input type="checkbox" name="heard_about" value="Lawn Signs"><span>Lawn Signs</span></label>
+                  <label class="choice"><input type="checkbox" name="heard_about" value="Flyers"><span>Flyers</span></label>
+                  <label class="choice"><input type="checkbox" name="heard_about" value="Website"><span>Website</span></label>
+                  <label class="choice"><input type="checkbox" name="heard_about" value="Email"><span>Email</span></label>
+                  <label class="choice"><input type="checkbox" name="heard_about" value="Posters"><span>Posters</span></label>
+                  <label class="choice"><input type="checkbox" name="heard_about" value="Banner"><span>Banner</span></label>
+                  <label class="choice"><input type="checkbox" name="heard_about" value="Event Partners"><span>Event Partners</span></label>
+                </div>
+              </fieldset>
+              <div class="field full"><label for="wc-invited">If invited, please include the name of the member who invited you <span class="opt">(optional)</span></label><input id="wc-invited" name="invited_by"></div>
+              <div class="field full"><label for="wc-comments">Your comments on today’s service <span class="opt">(optional)</span></label><textarea id="wc-comments" name="service_comments" maxlength="1000"></textarea></div>
+            </div>
+          </section>
+
+          <!-- STEP 4 -->
+          <section class="app-step" data-title="Review & Submit" aria-labelledby="wc-step4-h" hidden>
+            <h3 id="wc-step4-h" tabindex="-1">Review Your Answers</h3>
+            <p>Check your answers below. Use <strong>Edit</strong> to go back and make changes; nothing you have entered will be lost.</p>
+            <div class="app-review" data-review></div>
+
+            <div class="app-notices">
+              <h4>How we use your information</h4>
+              <p>Mercy Seat Chapel uses the details on this card only to welcome you, follow up on your visit, answer your questions and keep in touch about church life. They are seen only by our pastors and the welcome and follow-up team, and we never sell or share them for advertising.</p>
+              <p>You can ask us to update or delete your details, or stop contacting you, at any time by contacting the church office at <a data-site="email" href="#">info@mercyseatchapel.org</a> or <a data-site="phone" href="#">(301) 740-8118</a>. For full details, please read our <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</p>
+            </div>
+
+            <div class="app-stack app-consents">
+              <div class="consent field"><label><input type="checkbox" name="privacy_ack" value="Yes" required><span>I have read how Mercy Seat Chapel will use my information and the <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>, and I agree to be contacted about my visit. <span class="req">*</span></span></label></div>
+              <div class="consent field"><label><input type="checkbox" name="communications_opt_in" value="Yes"><span>I would like to receive church news and updates by email or text message. I can unsubscribe at any time. <span class="opt">(optional)</span></span></label></div>
+            </div>
+          </section>
+
+          <div class="app-error" role="alert" hidden></div>
+
+          <div class="app-actions">
+            <button class="btn btn--outline" type="button" data-prev>Previous</button>
+            <button class="btn btn--secondary" type="button" data-next>Next</button>
+            <button class="btn btn--primary" type="submit" data-submit disabled>Submit</button>
           </div>
-          <button class="btn btn--secondary" type="submit" style="margin-top:28px">Submit</button>
-          <div class="form-success" role="status" tabindex="-1">Thank you for visiting Mercy Seat Chapel! (Prototype: no information has been sent.)</div>
+          <p class="app-status" data-status aria-live="polite"></p>
+          <!-- Test only: appears while submissions are switched off, to check the confirmation screen -->
+          <p class="app-test" data-test-only hidden><button class="link-btn" type="button" data-preview>Preview the confirmation screen (test only, nothing is sent)</button></p>
         </form>
+
+        <!-- Shown only after the system confirms the card was stored -->
+        <div class="form-card app-success" data-success hidden>
+          <p class="app-success__test" data-success-test hidden><strong>Test preview:</strong> nothing was submitted or stored.</p>
+          <div class="app-success__icon"><i data-lucide="circle-check"></i></div>
+          <h3 tabindex="-1">Welcome to Mercy Seat Chapel!</h3>
+          <p>Thank you for worshipping with us and for filling out your Welcome Registration Card. A member of our team will be in touch soon. We can’t wait to get to know you.</p>
+          <dl class="job-terms">
+            <div><dt>Reference number</dt><dd data-success-ref></dd></div>
+            <div><dt>Submission date</dt><dd data-success-date></dd></div>
+          </dl>
+          <div class="btn-row"><a class="btn btn--secondary" href="plan-a-visit.html">Plan Your Next Visit</a><a class="btn btn--outline" href="index.html">Return to Homepage</a></div>
+          <p class="app-test" data-success-test hidden><button class="link-btn" type="button" data-back-to-form>Return to the form (test only)</button></p>
+        </div>
+        </div>
 
         <aside class="reveal reveal--right">
           <img src="assets/images/hero-4.jpg" alt="A smiling member worshipping during a Sunday service" loading="lazy" style="border-radius:var(--r-card); aspect-ratio:4/5; object-fit:cover; object-position:15% center; width:100%; margin-bottom:20px">
@@ -71,5 +202,6 @@
   <div data-site-footer></div>
   <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/job-application.js"></script>
 </body>
 </html>

@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Membership Form – Mercy Seat Chapel</title>
+  <meta name="description" content="Mercy Seat Chapel membership form.">
+  <!-- PRIVATE PAGE: shared by direct link only. Not in any menu, footer or site search, and kept out of search engines. -->
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="referrer" content="no-referrer">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="assets/images/logo-ms-mark.png">
+
+  <!-- ==================================================================
+       FORM SETTINGS
+       submitUrl: the secure address that will receive and store membership
+       forms. While it is "" the Submit button stays off and nothing is sent.
+       ================================================================== -->
+  <script>
+    const FORM_SETTINGS = {
+      submitUrl: "",
+      text: {
+        draft: "Online submission is switched off while this form is in draft/testing. Nothing you enter is sent or saved.",
+        incomplete: "Complete all required answers and tick the three required boxes to submit.",
+        error: "Sorry, your membership form could not be submitted, and nothing has been saved. Please check your connection and try again. If the problem continues, contact the church office."
+      }
+    };
+  </script>
+</head>
+<body>
+  <div data-site-header></div>
+
+  <main id="main">
+    <section class="page-hero page-hero--compact">
+      <div class="page-hero__bg" style="background-image:url('assets/images/church-1705.jpg')"></div>
+      <div class="container on-dark">
+        <span class="eyebrow">MSC Membership</span>
+        <h1>Membership Form</h1>
+        <p>Thank you for taking the step to become a full member of Mercy Seat Chapel. This form takes about 5 minutes.</p>
+      </div>
+    </section>
+
+    <section class="section section--soft" id="form">
+      <!-- Two columns: details on the left (stays in view on large screens), form on the right -->
+      <div class="container app-split">
+        <div class="app-split__intro">
+          <div class="section-head section-head--left">
+            <span class="eyebrow">MSC Membership Database</span>
+            <h2>Become a Member</h2>
+            <p>Membership is more than a name on a list. It’s a commitment to grow in Christ with a church family that knows you, prays with you and walks with you through every season of life. As a member, you’ll receive personal pastoral care, find a place to serve in our ministries and departments, grow through the Believer’s Foundation Academy and Workers Training, and share in the life and vision of Mercy Seat Chapel as we reach our community for Christ.</p>
+          </div>
+          <div class="notice"><i data-lucide="lock"></i><p>Your details are private. They are seen only by the pastors and authorized membership administrators.</p></div>
+          <div class="notice"><i data-lucide="phone"></i><p>Questions about membership? Contact the church office at <a data-site="email" href="#">info@mercyseatchapel.org</a> or <a data-site="phone" href="#">(301) 740-8118</a>.</p></div>
+        </div>
+
+        <div class="app-split__form">
+        <form class="form-card app-form" data-application method="post" novalidate>
+          <!-- Spam trap: people never see or fill this field -->
+          <div class="app-trap" aria-hidden="true"><label for="mf-fax">Leave this empty</label><input id="mf-fax" name="company_fax" tabindex="-1" autocomplete="off"></div>
+
+          <ol class="app-steps" aria-label="Membership form progress">
+            <li><button type="button"><span class="app-steps__num">1</span><span class="app-steps__label">Personal Details</span></button></li>
+            <li><button type="button"><span class="app-steps__num">2</span><span class="app-steps__label">Contact &amp; Address</span></button></li>
+            <li><button type="button"><span class="app-steps__num">3</span><span class="app-steps__label">Background</span></button></li>
+            <li><button type="button"><span class="app-steps__num">4</span><span class="app-steps__label">Faith &amp; Family</span></button></li>
+            <li><button type="button"><span class="app-steps__num">5</span><span class="app-steps__label">Review &amp; Submit</span></button></li>
+          </ol>
+          <div class="app-progress" aria-hidden="true"><span class="app-progress__text"></span><span class="app-progress__bar"><span></span></span></div>
+          <p class="app-required-note"><span class="req">*</span> Required</p>
+
+          <!-- STEP 1 -->
+          <section class="app-step" data-title="Personal Details" aria-labelledby="mf-step1-h">
+            <h3 id="mf-step1-h" tabindex="-1">Personal Details</h3>
+            <div class="form-grid">
+              <div class="field"><label for="mf-last">Last name <span class="req">*</span></label><input id="mf-last" name="last_name" autocomplete="family-name" required></div>
+              <div class="field"><label for="mf-first">First name <span class="req">*</span></label><input id="mf-first" name="first_name" autocomplete="given-name" required></div>
+              <div class="field"><label for="mf-middle">Middle name <span class="opt">(optional)</span></label><input id="mf-middle" name="middle_name" autocomplete="additional-name"></div>
+              <div class="field"><label for="mf-dob">Date of birth <span class="req">*</span></label><input id="mf-dob" name="date_of_birth" type="date" autocomplete="bday" required></div>
+              <fieldset class="field full"><legend>Sex <span class="req">*</span></legend>
+                <div class="choices"><label class="choice"><input type="radio" name="sex" value="Female" required><span>Female</span></label><label class="choice"><input type="radio" name="sex" value="Male"><span>Male</span></label></div>
+              </fieldset>
+              <fieldset class="field full"><legend>Marital status <span class="req">*</span></legend>
+                <div class="choices">
+                  <label class="choice"><input type="radio" name="marital_status" value="Married" required><span>Married</span></label>
+                  <label class="choice"><input type="radio" name="marital_status" value="Single"><span>Single</span></label>
+                  <label class="choice"><input type="radio" name="marital_status" value="Widowed"><span>Widowed</span></label>
+                  <label class="choice"><input type="radio" name="marital_status" value="Divorced"><span>Divorced</span></label>
+                  <label class="choice"><input type="radio" name="marital_status" value="Separated"><span>Separated</span></label>
+                </div>
+              </fieldset>
+              <div class="field app-cond" data-show-if="marital_status=Married" hidden><label for="mf-dom">Date of marriage <span class="opt">(optional)</span></label><input id="mf-dom" name="date_of_marriage" type="date"></div>
+            </div>
+          </section>
+
+          <!-- STEP 2 -->
+          <section class="app-step" data-title="Contact & Address" aria-labelledby="mf-step2-h" hidden>
+            <h3 id="mf-step2-h" tabindex="-1">Contact &amp; Address</h3>
+            <div class="form-grid">
+              <div class="field full"><label for="mf-street">Address <span class="req">*</span></label><input id="mf-street" name="street_address" autocomplete="address-line1" aria-describedby="mf-street-hint" required><p class="hint" id="mf-street-hint">House number and street name</p></div>
+              <div class="field"><label for="mf-apt">Apt no. <span class="opt">(optional)</span></label><input id="mf-apt" name="apt_no" autocomplete="address-line2"></div>
+              <div class="field"><label for="mf-state">State <span class="req">*</span></label><select id="mf-state" name="state" autocomplete="address-level1" data-us-states required><option value="">Select a state</option></select></div>
+              <div class="field"><label for="mf-city">City <span class="req">*</span></label><input id="mf-city" name="city" autocomplete="address-level2" data-city-for="state" aria-describedby="mf-city-hint" required><p class="hint" id="mf-city-hint">Choose your state first, then start typing to see its cities.</p></div>
+              <div class="field"><label for="mf-zip">Zip code <span class="req">*</span></label><input id="mf-zip" name="zip_code" inputmode="numeric" autocomplete="postal-code" pattern="\d{5}(-\d{4})?" maxlength="10" data-pattern-message="Enter a 5-digit zip code, like 20877." required></div>
+              <div class="field full"><label for="mf-email">Email <span class="req">*</span></label><input id="mf-email" name="email" type="email" autocomplete="email" required></div>
+              <div class="field"><label for="mf-cell">Cell phone <span class="opt">(optional)</span></label><input id="mf-cell" name="cell_phone" type="tel" autocomplete="tel"></div>
+              <div class="field"><label for="mf-home">Home phone <span class="opt">(optional)</span></label><input id="mf-home" name="home_phone" type="tel"></div>
+            </div>
+          </section>
+
+          <!-- STEP 3 -->
+          <section class="app-step" data-title="Background" aria-labelledby="mf-step3-h" hidden>
+            <h3 id="mf-step3-h" tabindex="-1">Background</h3>
+            <div class="form-grid">
+              <div class="field"><label for="mf-edu">Highest level of education <span class="req">*</span></label><input id="mf-edu" name="education" required></div>
+              <div class="field"><label for="mf-prof">Profession / vocation <span class="opt">(optional)</span></label><input id="mf-prof" name="profession" autocomplete="organization-title"></div>
+              <fieldset class="field full"><legend>Employment status <span class="req">*</span></legend>
+                <div class="choices">
+                  <label class="choice"><input type="radio" name="employment_status" value="Employed" required><span>Employed</span></label>
+                  <label class="choice"><input type="radio" name="employment_status" value="Self-employed"><span>Self-employed</span></label>
+                  <label class="choice"><input type="radio" name="employment_status" value="Not employed"><span>Not employed</span></label>
+                  <label class="choice"><input type="radio" name="employment_status" value="Student"><span>Student</span></label>
+                  <label class="choice"><input type="radio" name="employment_status" value="Military"><span>Military</span></label>
+                  <label class="choice"><input type="radio" name="employment_status" value="Retired"><span>Retired</span></label>
+                </div>
+              </fieldset>
+              <fieldset class="field full"><legend>Race <span class="opt">(optional)</span></legend>
+                <div class="choices">
+                  <label class="choice"><input type="radio" name="race" value="Asian / Pacific Islander"><span>Asian / Pacific Islander</span></label>
+                  <label class="choice"><input type="radio" name="race" value="Black or African American"><span>Black or African American</span></label>
+                  <label class="choice"><input type="radio" name="race" value="Hispanic or Latino"><span>Hispanic or Latino</span></label>
+                  <label class="choice"><input type="radio" name="race" value="Native American or American Indian"><span>Native American or American Indian</span></label>
+                  <label class="choice"><input type="radio" name="race" value="White"><span>White</span></label>
+                  <label class="choice"><input type="radio" name="race" value="Prefer not to say"><span>Prefer not to say</span></label>
+                </div>
+              </fieldset>
+              <div class="field"><label for="mf-country">Country of origin <span class="req">*</span></label><input id="mf-country" name="country_of_origin" autocomplete="country-name" required></div>
+            </div>
+          </section>
+
+          <!-- STEP 4 -->
+          <section class="app-step" data-title="Faith & Family" aria-labelledby="mf-step4-h" hidden>
+            <h3 id="mf-step4-h" tabindex="-1">Faith &amp; Family</h3>
+            <div class="form-grid">
+              <div class="field"><label for="mf-joined">Date joined MSC <span class="req">*</span></label><input id="mf-joined" name="date_joined" type="date" required></div>
+              <fieldset class="field"><legend>Are you born again? <span class="req">*</span></legend>
+                <div class="choices"><label class="choice"><input type="radio" name="born_again" value="Yes" required><span>Yes</span></label><label class="choice"><input type="radio" name="born_again" value="No"><span>No</span></label></div>
+              </fieldset>
+              <div class="field app-cond" data-show-if="born_again=Yes" hidden><label for="mf-ba-date">If yes, date <span class="opt">(optional)</span></label><input id="mf-ba-date" name="born_again_date" type="date"></div>
+              <fieldset class="field full"><legend>Have you been baptized by immersion? <span class="req">*</span></legend>
+                <div class="choices"><label class="choice"><input type="radio" name="baptized" value="Yes" required><span>Yes</span></label><label class="choice"><input type="radio" name="baptized" value="No"><span>No</span></label></div>
+              </fieldset>
+              <div class="field app-cond" data-show-if="baptized=Yes" hidden><label for="mf-bap-church">Name of church <span class="opt">(optional)</span></label><input id="mf-bap-church" name="baptism_church"></div>
+              <div class="field app-cond" data-show-if="baptized=Yes" hidden><label for="mf-bap-date">Date of baptism <span class="opt">(optional)</span></label><input id="mf-bap-date" name="baptism_date" type="date"></div>
+              <fieldset class="field full"><legend>Have you taken RCCG’s a) Foundation Class; b) Workers Training? <span class="req">*</span></legend>
+                <div class="choices"><label class="choice"><input type="radio" name="foundation_workers" value="Yes" required><span>Yes</span></label><label class="choice"><input type="radio" name="foundation_workers" value="No"><span>No</span></label></div>
+              </fieldset>
+              <fieldset class="field full app-cond" data-show-if="foundation_workers=No" hidden><legend>If no, are you interested? <span class="opt">(optional)</span></legend>
+                <div class="choices"><label class="choice"><input type="radio" name="foundation_interested" value="Yes"><span>Yes</span></label><label class="choice"><input type="radio" name="foundation_interested" value="No"><span>No</span></label></div>
+              </fieldset>
+              <fieldset class="field full"><legend>Do you have children under the age of 18 in MSC? <span class="req">*</span></legend>
+                <div class="choices"><label class="choice"><input type="radio" name="children_under_18" value="Yes" required><span>Yes</span></label><label class="choice"><input type="radio" name="children_under_18" value="No"><span>No</span></label></div>
+              </fieldset>
+            </div>
+          </section>
+
+          <!-- STEP 5 -->
+          <section class="app-step" data-title="Review & Submit" aria-labelledby="mf-step5-h" hidden>
+            <h3 id="mf-step5-h" tabindex="-1">Review Your Answers</h3>
+            <p>Check your answers below. Use <strong>Edit</strong> to go back and make changes; nothing you have entered will be lost.</p>
+            <div class="app-review" data-review></div>
+
+            <div class="app-notices">
+              <h4>Membership Privacy Notice</h4>
+              <p><strong>What we collect and why.</strong> Mercy Seat Chapel uses the information in this form to keep its membership records, provide pastoral care, organise ministries and children’s and youth activities, and keep in touch with you about church life.</p>
+              <p><strong>Sensitive information.</strong> Some answers (your faith journey, baptism and, if you choose to give it, your race) are sensitive personal information. We use them only for membership and pastoral purposes and only with your consent below. Race is optional.</p>
+              <p><strong>Who can see it.</strong> Only the pastors and authorized church membership administrators. Where appropriate it may be shared with relevant RCCG administrative bodies for legitimate church purposes. We never sell your information or share it for advertising.</p>
+              <p><strong>How it is kept.</strong> Records are stored securely and kept only while you are a member or as required by law. You can ask to see, correct or delete your information, or withdraw your consent, at any time by contacting the church office at <a data-site="email" href="#">info@mercyseatchapel.org</a> or <a data-site="phone" href="#">(301) 740-8118</a>.</p>
+              <p>For full details, please read our <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</p>
+            </div>
+
+            <div class="app-stack app-consents">
+              <div class="consent field"><label><input type="checkbox" name="declaration" value="Yes" required><span>I confirm that the information I have provided is accurate and complete to the best of my knowledge. <span class="req">*</span></span></label></div>
+              <div class="consent field"><label><input type="checkbox" name="privacy_ack" value="Yes" required><span>I have read the Membership Privacy Notice above and the <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>, and I understand how Mercy Seat Chapel will use my information. <span class="req">*</span></span></label></div>
+              <div class="consent field"><label><input type="checkbox" name="sensitive_consent" value="Yes" required><span>I consent to Mercy Seat Chapel keeping the sensitive information I have provided (such as my faith journey and baptism, and race if given) for membership and pastoral purposes. I can withdraw this consent at any time. <span class="req">*</span></span></label></div>
+              <div class="consent field"><label><input type="checkbox" name="communications_opt_in" value="Yes"><span>I would like to receive church news and updates by email or text message. I can unsubscribe at any time. <span class="opt">(optional)</span></span></label></div>
+            </div>
+          </section>
+
+          <div class="app-error" role="alert" hidden></div>
+
+          <div class="app-actions">
+            <button class="btn btn--outline" type="button" data-prev>Previous</button>
+            <button class="btn btn--secondary" type="button" data-next>Next</button>
+            <button class="btn btn--primary" type="submit" data-submit disabled>Submit Membership Form</button>
+          </div>
+          <p class="app-status" data-status aria-live="polite"></p>
+          <!-- Test only: appears while submissions are switched off, to check the confirmation screen -->
+          <p class="app-test" data-test-only hidden><button class="link-btn" type="button" data-preview>Preview the confirmation screen (test only, nothing is sent)</button></p>
+        </form>
+
+        <!-- Shown only after the membership system confirms the form was stored -->
+        <div class="form-card app-success" data-success hidden>
+          <p class="app-success__test" data-success-test hidden><strong>Test preview:</strong> nothing was submitted or stored.</p>
+          <div class="app-success__icon"><i data-lucide="circle-check"></i></div>
+          <h3 tabindex="-1">Membership Form Submitted!</h3>
+          <p>Thank you for taking this step to become a full member of Mercy Seat Chapel. Your form has been received, and a member of the church team will be in touch with you about the next steps.</p>
+          <dl class="job-terms">
+            <div><dt>Reference number</dt><dd data-success-ref></dd></div>
+            <div><dt>Submission date</dt><dd data-success-date></dd></div>
+          </dl>
+          <div class="btn-row"><a class="btn btn--secondary" href="index.html">Return to Homepage</a></div>
+          <p class="app-test" data-success-test hidden><button class="link-btn" type="button" data-back-to-form>Return to the form (test only)</button></p>
+        </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div data-site-footer></div>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/job-application.js"></script>
+</body>
+</html>

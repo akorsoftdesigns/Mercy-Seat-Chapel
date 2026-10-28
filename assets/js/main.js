@@ -8,7 +8,8 @@
 
 const SITE = {
   name: "Mercy Seat Chapel",
-  phone: "(301) 740-8118",
+  logo: "assets/images/logo-mercy-seat-white.png", // white logo for the blue header, mobile menu and footer
+  phone:"(301) 740-8118",
   phoneHref: "tel:+13017408118",
   prayerLine: "1 857 216 6700, code 860476",
   prayerLineHref: "tel:+18572166700,,860476#",
@@ -46,12 +47,11 @@ const SITE = {
 const NAV = [
   { label: "Home", href: "index.html" },
   { label: "About", href: "about.html", children: [
+    { label: "RCCG", href: "rccg.html" },
     { label: "About MSC", href: "about.html" },
     { label: "Our Beliefs", href: "about.html#beliefs" },
     { label: "Pastor’s Message", href: "about.html#pastor" },
-    { label: "Leadership", href: "about.html#leadership" },
-    { label: "RCCG", href: "rccg.html" },
-    { label: "General Overseer", href: "rccg.html#general-overseer" }
+    { label: "Leadership", href: "about.html#leadership" }
   ]},
   // Connect has no page of its own: the label opens the dropdown (href "#" is never followed)
   // "pages" = extra pages that should highlight this menu item as the current section
@@ -60,7 +60,8 @@ const NAV = [
     { label: "Departments", href: "departments.html" },
     { label: "Events & Programs", href: "events.html" },
     { label: "Outreach & Community", href: "outreach.html" },
-    { label: "Testimonies", href: "testimonies.html" }
+    { label: "Testimonies", href: "testimonies.html" },
+    { label: "Gallery", href: "gallery.html" }
   ]},
   { label: "Sermons", href: "sermons.html", children: [
     { label: "Latest Messages", href: "sermons.html" },
@@ -116,9 +117,10 @@ function renderHeader() {
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header" id="site-header">
     <div class="nav-shell">
-      <a class="brand" href="index.html" aria-label="${SITE.name} home"><img src="assets/images/logo-msc-white.png" alt="${SITE.name}" width="134" height="40"></a>
-      <nav class="primary-nav" aria-label="Primary"><ul>${items}</ul></nav>
+      <a class="brand" href="index.html" aria-label="${SITE.name} home"><img src="${SITE.logo}" alt="${SITE.name}" width="178" height="40"></a>
+      <nav class="primary-nav" aria-label="Primary"><ul>${items}<li>${searchBtn("")}</li></ul></nav>
       <div class="nav-actions">
+        ${searchBtn(" nav-search--compact")}
         <a class="btn btn--outline-light nav-cta nav-give" href="give.html">Give</a>
         <a class="btn btn--primary nav-cta nav-visit" href="plan-a-visit.html">Plan Your Visit</a>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><i data-lucide="menu"></i><span>Menu</span></button>
@@ -127,7 +129,7 @@ function renderHeader() {
   </header>
   <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Site menu">
     <div class="mobile-menu__top">
-      <img src="assets/images/logo-msc-white.png" alt="${SITE.name}">
+      <img src="${SITE.logo}" alt="${SITE.name}">
       <button class="mobile-close" type="button" aria-label="Close menu"><i data-lucide="x"></i></button>
     </div>
     <nav aria-label="Mobile">${mobile}</nav>
@@ -136,7 +138,23 @@ function renderHeader() {
       <a class="btn btn--outline-light" href="give.html">Give an Offering</a>
     </div>
     <div class="mobile-menu__meta">${SITE.address}<br><a href="${SITE.phoneHref}" style="color:inherit">${SITE.phone}</a></div>
+  </div>
+  <div class="search-panel" id="site-search" role="dialog" aria-modal="true" aria-label="Search the site">
+    <div class="search-panel__box">
+      <form class="search-panel__form" role="search">
+        <i data-lucide="search"></i>
+        <input id="site-search-input" type="search" placeholder="Search the site" aria-label="Search the site" autocomplete="off">
+        <button class="search-panel__close" type="button" aria-label="Close search"><i data-lucide="x"></i></button>
+      </form>
+      <p class="search-panel__status" aria-live="polite"></p>
+      <ul class="search-panel__results"></ul>
+    </div>
   </div>`;
+}
+
+// Search button in the header: one inside the centre menu (wide screens), one beside the Menu button (smaller screens)
+function searchBtn(cls) {
+  return `<button class="nav-search${cls}" type="button" aria-label="Search the site" aria-controls="site-search" aria-expanded="false"><i data-lucide="search"></i></button>`;
 }
 
 function renderFooter() {
@@ -147,7 +165,7 @@ function renderFooter() {
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <img src="assets/images/logo-msc-white.png" alt="${SITE.name}">
+          <img src="${SITE.logo}" alt="${SITE.name}">
           <p>MERCY SEAT CHAPEL is a mission of The Redeemed Christian Church of God (RCCG). We are bible-believing, multi-racial, loving and family oriented followers of Jesus Christ.</p>
         </div>
         <div>
@@ -183,7 +201,7 @@ function renderFooter() {
       <div class="footer-bottom">
         <span>Copyright © ${new Date().getFullYear()} Mercy Seat Chapel. All rights reserved.</span>
         <a class="footer-parish" href="rccg.html"><img src="assets/images/rccg-logo-white.png" alt="" width="32" height="32">A parish of RCCG</a>
-        <nav aria-label="Legal"><a href="privacy.html">Privacy Policy</a><a href="cookies.html">Cookie Policy</a><a href="#">Terms of Use</a></nav>
+        <nav aria-label="Legal"><a href="privacy.html">Privacy Policy</a><a href="cookies.html">Cookie Policy</a><a href="terms.html">Terms of Use</a></nav>
       </div>
     </div>
     <div class="footer-marquee" aria-hidden="true"><div class="footer-marquee__track">${`<span>${SITE.name}</span>`.repeat(4)}</div></div>
@@ -220,6 +238,10 @@ function fillSiteData() {
     else if (key === "play-store") { if (el.tagName === "A") el.href = SITE.playStoreUrl; }
     else if (key === "socials") { el.innerHTML = socialLinks(el.dataset.class || "social-btn"); }
     else if (SITE.social[key] && el.tagName === "A") { el.href = SITE.social[key]; }
+  });
+  // Links to other organisations' social pages: data-brand="facebook" adds that icon
+  document.querySelectorAll("[data-brand]").forEach((el) => {
+    if (BRAND_ICONS[el.dataset.brand]) el.insertAdjacentHTML("afterbegin", BRAND_ICONS[el.dataset.brand]);
   });
 }
 
@@ -279,6 +301,82 @@ function initHeader() {
     g.classList.toggle("is-open", open);
     b.setAttribute("aria-expanded", String(open));
   }));
+}
+
+/* Site search: the header's search buttons open a panel that searches the text of
+   every page linked from the header and footer (plus SEARCH_EXTRA_PAGES and the
+   NAV "pages" lists). Pages are read the first time the panel opens, so nothing
+   needs updating when content changes. Needs the site served over http (as when
+   hosted); opened straight from disk it shows a short notice instead. */
+const SEARCH_EXTRA_PAGES = ["first-timer.html"];
+function initSearch() {
+  const panel = document.getElementById("site-search");
+  if (!panel) return;
+  const input = panel.querySelector("input");
+  const status = panel.querySelector(".search-panel__status");
+  const list = panel.querySelector(".search-panel__results");
+  const openers = document.querySelectorAll(".nav-search");
+  let pages, opener, timer;
+
+  const setOpen = (open, btn) => {
+    panel.classList.toggle("is-open", open);
+    document.body.classList.toggle("menu-open", open);
+    openers.forEach((b) => b.setAttribute("aria-expanded", String(open)));
+    if (open) { opener = btn; pages ||= loadPages(); setTimeout(() => input.focus(), 60); }
+    else opener?.focus();
+  };
+  openers.forEach((b) => b.addEventListener("click", () => setOpen(true, b)));
+  panel.querySelector(".search-panel__close").addEventListener("click", () => setOpen(false));
+  panel.addEventListener("click", (e) => { if (e.target === panel) setOpen(false); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && panel.classList.contains("is-open")) setOpen(false); });
+  panel.querySelector("form").addEventListener("submit", (e) => e.preventDefault());
+  input.addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(search, 150); });
+
+  async function loadPages() {
+    const links = [...document.querySelectorAll(".site-header a[href], .site-footer a[href]")].map((a) => a.getAttribute("href").split("#")[0]);
+    const urls = [...new Set([...links, ...NAV.flatMap((n) => n.pages || []), ...SEARCH_EXTRA_PAGES])].filter((h) => /^[\w-]+\.html$/.test(h));
+    const found = await Promise.all(urls.map(async (url) => {
+      try {
+        const res = await fetch(url);
+        if (!res.ok) return null;
+        const doc = new DOMParser().parseFromString(await res.text(), "text/html");
+        const main = doc.querySelector("main");
+        if (!main) return null;
+        main.querySelectorAll("script, style, [aria-hidden='true']").forEach((n) => n.remove());
+        const title = url === "index.html" ? "Home" : doc.title.split(" – ")[0].trim();
+        // Join text pieces with spaces so separate blocks ("Service times" / "Sundays") don't run together
+        const parts = [], walk = doc.createTreeWalker(main, NodeFilter.SHOW_TEXT);
+        while (walk.nextNode()) parts.push(walk.currentNode.nodeValue);
+        return { url, title, text: parts.join(" ").replace(/\s+/g, " ").replace(/ ([,.;:!?’”)])/g, "$1").trim() };
+      } catch (e) { return null; }
+    }));
+    return found.filter(Boolean);
+  }
+
+  const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  async function search() {
+    const q = input.value.trim();
+    if (q.length < 2) { list.innerHTML = ""; status.textContent = ""; return; }
+    const all = await pages;
+    if (!all.length) { status.textContent = "Search works once the site is on a web server."; return; }
+    const words = q.toLowerCase().split(/\s+/);
+    // A page matches when every word appears in it; title matches rank first, then the exact phrase, then how often the words appear
+    const phrase = words.join(" ");
+    const hits = all.map((p) => {
+      const text = p.text.toLowerCase(), title = p.title.toLowerCase();
+      if (!words.every((w) => text.includes(w) || title.includes(w))) return null;
+      const exact = text.indexOf(phrase);
+      const score = words.reduce((n, w) => n + (title.includes(w) ? 50 : 0) + text.split(w).length - 1, exact >= 0 ? 30 : 0);
+      return { p, score, at: exact >= 0 ? exact : text.indexOf(words[0]) };
+    }).filter(Boolean).sort((a, b) => b.score - a.score).slice(0, 8);
+    status.textContent = hits.length ? `${hits.length} page${hits.length > 1 ? "s" : ""} found` : `No results for “${q}”`;
+    const mark = new RegExp(`(${words.map((w) => esc(w).replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})`, "gi");
+    list.innerHTML = hits.map(({ p, at }) => {
+      const start = Math.max(0, at - 60);
+      const snippet = (start ? "…" : "") + p.text.slice(start, start + 170) + "…";
+      return `<li><a href="${p.url}"><strong>${esc(p.title)}</strong><span>${esc(snippet).replace(mark, "<mark>$1</mark>")}</span></a></li>`;
+    }).join("");
+  }
 }
 
 /* Home hero: crossfading slider (photos + optional background video) with thumbnails.
@@ -371,6 +469,155 @@ function initFloatGallery() {
       start();
     });
     g.addEventListener("pointerleave", () => { tx = 0; ty = 0; start(); });
+  });
+}
+
+/* Photo gallery: turns the page's photo list into three full-width rows that scroll
+   endlessly (left, right, left; the CSS animation pauses on hover), plus a lightbox (<dialog>)
+   with previous/next, arrow keys and swipe. Each row holds its photos twice so the loop is
+   seamless; only the first row's first set is focusable/announced, so keyboard and
+   screen-reader users meet each photo once. Without JavaScript the list shows as a grid. */
+const PHOTO_ROWS = 3;
+const ROW_SPEED = { fastest: 20, slowest: 160, apart: 25 }; // seconds per full loop, picked at random on each visit; rows differ by at least "apart"
+function randomRowSpeeds() {
+  const speeds = [];
+  while (speeds.length < PHOTO_ROWS) {
+    const s = Math.round(ROW_SPEED.fastest + Math.random() * (ROW_SPEED.slowest - ROW_SPEED.fastest));
+    if (speeds.every((t) => Math.abs(t - s) >= ROW_SPEED.apart)) speeds.push(s);
+  }
+  return speeds;
+}
+function initGallery() {
+  document.querySelectorAll("[data-gallery]").forEach((root) => {
+    const photos = [...root.querySelectorAll(".gallery__item")].map((a) => ({ href: a.getAttribute("href"), src: a.querySelector("img").getAttribute("src"), alt: a.querySelector("img").alt }));
+    if (!photos.length) return;
+    const tile = (n, quiet) => `<a class="photo-rows__item" href="${escAttr(photos[n].href)}" data-index="${n}"${quiet ? ' tabindex="-1" aria-hidden="true"' : ""}><img src="${escAttr(photos[n].src)}" alt="${quiet ? "" : escAttr(photos[n].alt)}" loading="lazy" decoding="async"></a>`;
+    const speeds = randomRowSpeeds();
+    const rows = Array.from({ length: PHOTO_ROWS }, (_, r) => {
+      // Each row gets its own random order on every visit (Fisher–Yates shuffle of the photo numbers)
+      const order = photos.map((_, k) => k);
+      for (let k = order.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); [order[k], order[j]] = [order[j], order[k]]; }
+      const set = (quiet) => order.map((n) => tile(n, quiet)).join("");
+      return `<div class="photo-rows__row"><div class="photo-rows__track" style="--row-speed:${speeds[r]}s">${set(r > 0)}${set(true)}</div></div>`;
+    }).join("");
+    root.insertAdjacentHTML("afterbegin", `<div class="photo-rows__rows">${rows}</div>
+      <div class="container photo-rows__bar"><button class="pause-toggle" type="button" aria-pressed="false"><i data-lucide="pause"></i><i data-lucide="play"></i><span>Pause scrolling</span></button></div>`);
+    root.classList.add("is-scrolling");
+    const toggle = root.querySelector(".pause-toggle");
+    toggle.addEventListener("click", () => {
+      const paused = root.classList.toggle("is-paused");
+      toggle.setAttribute("aria-pressed", String(paused));
+      toggle.querySelector("span").textContent = paused ? "Play scrolling" : "Pause scrolling";
+    });
+
+    const box = document.createElement("dialog");
+    box.className = "lightbox";
+    box.setAttribute("aria-label", "Photo viewer");
+    box.innerHTML = `<figure class="lightbox__figure"><img alt=""><figcaption><span class="lightbox__cap"></span> <span class="lightbox__count"></span></figcaption></figure>
+      <button class="lightbox__btn lightbox__close" type="button" aria-label="Close"><i data-lucide="x"></i></button>
+      <button class="lightbox__btn lightbox__prev" type="button" aria-label="Previous photo"><i data-lucide="chevron-left"></i></button>
+      <button class="lightbox__btn lightbox__next" type="button" aria-label="Next photo"><i data-lucide="chevron-right"></i></button>`;
+    document.body.appendChild(box);
+    const img = box.querySelector("img"), cap = box.querySelector(".lightbox__cap"), count = box.querySelector(".lightbox__count");
+    let i = 0, opener = null;
+    const show = (n) => {
+      i = (n + photos.length) % photos.length;
+      img.src = photos[i].href; img.alt = photos[i].alt;
+      cap.textContent = photos[i].alt; count.textContent = `${i + 1} / ${photos.length}`;
+    };
+    root.addEventListener("click", (e) => {
+      const link = e.target.closest(".photo-rows__item, .gallery__item");
+      if (!link || typeof box.showModal !== "function") return; // old browsers: follow the link
+      e.preventDefault();
+      opener = link;
+      show(link.dataset.index ? Number(link.dataset.index) : photos.findIndex((p) => p.href === link.getAttribute("href")));
+      box.showModal();
+    });
+    box.addEventListener("close", () => opener?.focus({ preventScroll: true }));
+    box.addEventListener("click", (e) => { if (e.target === box) box.close(); }); // click outside the photo
+    box.querySelector(".lightbox__close").addEventListener("click", () => box.close());
+    box.querySelector(".lightbox__prev").addEventListener("click", () => show(i - 1));
+    box.querySelector(".lightbox__next").addEventListener("click", () => show(i + 1));
+    box.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") show(i - 1);
+      if (e.key === "ArrowRight") show(i + 1);
+    });
+    let sx = 0;
+    box.addEventListener("touchstart", (e) => { sx = e.touches[0].clientX; }, { passive: true });
+    box.addEventListener("touchend", (e) => {
+      const dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 40) show(i + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+  });
+}
+
+/* Flipbook: a two-page book that turns through the gallery's photos endlessly.
+   Hovering the right page flips forward, the left page flips back (tap on touch screens).
+   It only runs while on screen, has a Pause button, and doesn't auto-flip for reduced motion.
+   Decorative (aria-hidden): every photo is also in the scrolling rows with its description. */
+const FLIP = { turn: 900, auto: 3200, hover: 1500 }; // milliseconds: one page turn, auto pace, pace while hovering
+function initFlipbook() {
+  document.querySelectorAll("[data-flipbook]").forEach((root) => {
+    const photos = [...document.querySelectorAll(".gallery img")].map((img) => img.getAttribute("src"));
+    if (photos.length < 4) return;
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const page = (cls) => `<div class="${cls}"><img alt="" decoding="async"></div>`;
+    root.innerHTML = `<div class="flipbook__book" aria-hidden="true">
+        ${page("flipbook__page flipbook__page--left")}${page("flipbook__page flipbook__page--right")}
+        <div class="flipbook__leaf" hidden>${page("flipbook__face flipbook__face--front")}${page("flipbook__face flipbook__face--back")}</div>
+      </div>
+      <div class="flipbook__bar">
+        <p class="flipbook__hint">Hover over a page to flip back or forward.</p>
+        <button class="pause-toggle" type="button" aria-pressed="false"><i data-lucide="pause"></i><i data-lucide="play"></i><span>Pause</span></button>
+      </div>`;
+    const book = root.querySelector(".flipbook__book"), leaf = root.querySelector(".flipbook__leaf");
+    const [left, right, front, back] = [...root.querySelectorAll("img")];
+    const at = (k) => photos[((k % photos.length) + photos.length) % photos.length];
+    let i = 0, busy = false, hoverDir = 0, paused = reduce, visible = false, timer;
+    const show = () => { left.src = at(i); right.src = at(i + 1); new Image().src = at(i + 2); new Image().src = at(i + 3); };
+
+    // One page turn: forward lifts the right page over the spine, back lifts the left page
+    const flip = (dir) => {
+      if (busy) return;
+      const next = i + 2 * dir;
+      if (reduce) { i = next; show(); return; }
+      busy = true;
+      leaf.className = `flipbook__leaf flipbook__leaf--${dir > 0 ? "forward" : "back"}`;
+      front.src = dir > 0 ? at(i + 1) : at(i);
+      back.src = dir > 0 ? at(next) : at(next + 1);
+      (dir > 0 ? right : left).src = dir > 0 ? at(next + 1) : at(next); // page revealed underneath
+      leaf.hidden = false;
+      leaf.animate([{ transform: "rotateY(0deg)" }, { transform: `rotateY(${dir * -180}deg)` }],
+        { duration: FLIP.turn, easing: "cubic-bezier(.45, .05, .35, 1)" }).finished.then(() => {
+        i = next; show(); leaf.hidden = true; busy = false;
+      });
+    };
+    const schedule = () => {
+      clearTimeout(timer);
+      if (!visible || (paused && !hoverDir)) return;
+      timer = setTimeout(() => { flip(hoverDir || 1); schedule(); }, hoverDir ? FLIP.hover : FLIP.auto);
+    };
+    const side = (e) => { const r = book.getBoundingClientRect(); return e.clientX < r.left + r.width / 2 ? -1 : 1; };
+
+    book.addEventListener("pointermove", (e) => {
+      if (e.pointerType !== "mouse" || side(e) === hoverDir) return;
+      hoverDir = side(e); flip(hoverDir); schedule();
+    });
+    book.addEventListener("pointerleave", () => { hoverDir = 0; schedule(); });
+    book.addEventListener("click", (e) => { if (e.pointerType !== "mouse") { flip(side(e)); schedule(); } });
+
+    const toggle = root.querySelector(".pause-toggle");
+    if (reduce) toggle.remove();
+    toggle.addEventListener("click", () => {
+      paused = !paused;
+      toggle.setAttribute("aria-pressed", String(paused));
+      toggle.querySelector("span").textContent = paused ? "Play" : "Pause";
+      schedule();
+    });
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(([en]) => { visible = en.isIntersecting; schedule(); }, { threshold: .3 }).observe(book);
+    } else { visible = true; schedule(); }
+    show();
   });
 }
 
@@ -769,9 +1016,12 @@ initCityLists();
 loadIncludes().then(() => {
   fillSiteData();
   initHeader();
+  initSearch();
   initHero();
   initFloatGallery();
   initSliders();
+  initGallery();
+  initFlipbook();
   openTargetDetails();
   initTabs();
   initVideos();

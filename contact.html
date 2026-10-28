@@ -26,10 +26,11 @@
 
     <!-- Contact -->
     <section class="section">
-      <div class="container split" style="align-items:stretch">
+      <div class="container split split--top">
         <div class="reveal reveal--left">
           <span class="eyebrow">Contact</span>
           <h2>Get in touch</h2>
+          <p class="lead">Have a question or need to reach the church office? Reach us directly or send us a message and we’ll get back to you.</p>
           <ul class="info-list" style="margin-top:28px">
             <li><span class="ico"><i data-lucide="map-pin"></i></span><div><strong>Location</strong><a data-site="address" href="#" target="_blank" rel="noopener">17604 Washington Grove Lane, Gaithersburg, MD 20877</a></div></li>
             <li><span class="ico"><i data-lucide="phone"></i></span><div><strong>Phone</strong><a data-site="phone" href="#">(301) 740-8118</a></div></li>
@@ -37,11 +38,25 @@
             <li><span class="ico"><i data-lucide="share-2"></i></span><div><strong>Social Media</strong><div class="footer-socials footer-socials--light" data-site="socials" data-class="" style="margin-top:10px"></div></div></li>
           </ul>
         </div>
-        <div class="reveal reveal--right">
-          <iframe class="map" title="Map to Mercy Seat Chapel" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=17604+Washington+Grove+Lane,+Gaithersburg,+MD+20877&amp;output=embed"></iframe>
-        </div>
+        <!-- Contact form -->
+        <form class="form-card reveal reveal--right" id="message" style="scroll-margin-top:110px" data-demo novalidate>
+          <h3 style="font-size:24px">Send us a message</h3>
+          <div class="form-grid" style="margin-top:20px">
+            <div class="field"><label for="ct-name">Name <span class="req">*</span></label><input id="ct-name" name="name" autocomplete="name" required></div>
+            <div class="field"><label for="ct-email">Email <span class="req">*</span></label><input id="ct-email" name="email" type="email" autocomplete="email" required></div>
+            <div class="field"><label for="ct-phone">Phone</label><input id="ct-phone" name="phone" type="tel" autocomplete="tel"></div>
+            <div class="field"><label for="ct-subject">Subject <span class="req">*</span></label><select id="ct-subject" name="subject" required><option value="">Select…</option><option>General question</option><option>Visiting the church</option><option>Pastoral care</option><option>Events &amp; programs</option><option>Other</option></select></div>
+            <div class="field full"><label for="ct-msg">Message <span class="req">*</span></label><textarea id="ct-msg" name="message" required></textarea></div>
+          </div>
+          <button class="btn btn--secondary" type="submit" style="margin-top:24px">Send Message</button>
+          <p class="form-note">Your message goes only to the church office. See our <a href="privacy.html">Privacy Policy</a>.</p>
+          <div class="form-success" role="status" tabindex="-1">Thank you for reaching out. We’ll be in touch soon. (Prototype: no information has been sent.)</div>
+        </form>
       </div>
     </section>
+
+    <!-- Map: full screen width -->
+    <iframe class="map map--full" title="Map to Mercy Seat Chapel" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=17604+Washington+Grove+Lane,+Gaithersburg,+MD+20877&amp;output=embed"></iframe>
 
     <!-- First-time visitors + Job Center: two short cards linking to their own pages -->
     <section class="section section--white" id="get-connected">
@@ -67,7 +82,7 @@
 
     <!-- Prayer form -->
     <section class="section section--soft" id="prayer" style="scroll-margin-top:90px">
-      <div class="container split">
+      <div class="container split split--top split--sticky">
         <div class="reveal reveal--left">
           <span class="eyebrow">We’re here for you</span>
           <h2>How Can We Pray for You?</h2>
@@ -84,7 +99,7 @@
             <div class="field"><label for="pr-msg">Prayer Request <span class="req">*</span></label><textarea id="pr-msg" name="prayer_request" required></textarea></div>
           </div>
           <button class="btn btn--secondary" type="submit" style="margin-top:24px">Send</button>
-          <p class="form-note">Your request is shared only with our pastoral and prayer team.</p>
+          <p class="form-note">Your request is shared only with our pastoral and prayer team and is never displayed publicly. See our <a href="privacy.html">Privacy Policy</a>.</p>
           <div class="form-success" role="status" tabindex="-1">Thank you. We are praying with you. (Prototype: no information has been sent.)</div>
         </form>
       </div>

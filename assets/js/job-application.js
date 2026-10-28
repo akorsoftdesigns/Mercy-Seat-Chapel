@@ -15,7 +15,14 @@
    <meta name="csrf-token" content="...">, its value is sent as X-CSRF-Token.
    ========================================================================== */
 (() => {
-  if (typeof JOB === "undefined") return;
+  // Settings come from JOB (job pages) or FORM_SETTINGS (other multi-step forms, e.g. the membership form)
+  const CFG = typeof JOB !== "undefined" ? JOB : typeof FORM_SETTINGS !== "undefined" ? FORM_SETTINGS : null;
+  if (!CFG) return;
+  const TEXT = Object.assign({
+    draft: "Online applications are switched off while this page is in draft/testing. Nothing you enter is sent or saved.",
+    incomplete: "Complete all required answers and tick both declarations to submit.",
+    error: "Sorry, your application could not be submitted, and nothing has been saved. Please check your connection and try again. If the problem continues, contact the church office."
+  }, CFG.text);
 
   const PENDING = "To be confirmed";
   const MAX_FILE_MB = 5;
@@ -24,14 +31,14 @@
 
   /* ---------- Job details from JOB settings ---------- */
   document.querySelectorAll("[data-job]").forEach((el) => {
-    const value = JOB[el.dataset.job];
+    const value = CFG[el.dataset.job];
     el.textContent = value || PENDING;
     el.classList.toggle("is-pending", !value);
   });
-  document.querySelectorAll("[data-job-value]").forEach((el) => { el.value = JOB[el.dataset.jobValue] || ""; });
+  document.querySelectorAll("[data-job-value]").forEach((el) => { el.value = CFG[el.dataset.jobValue] || ""; });
   // Links to documents that may not exist yet (e.g. the Recruitment Privacy Notice)
   document.querySelectorAll("[data-job-link]").forEach((a) => {
-    const url = JOB[a.dataset.jobLink];
+    const url = CFG[a.dataset.jobLink];
     if (url) { a.href = url; a.target = "_blank"; a.rel = "noopener"; return; }
     const span = document.createElement("span");
     span.textContent = `${a.textContent} (not yet published)`;
@@ -52,7 +59,8 @@
   const progressText = form.querySelector(".app-progress__text");
   const progressBar = form.querySelector(".app-progress__bar span");
   const success = document.querySelector("[data-success]");
-  const configured = Boolean(JOB.submitUrl);
+  const configured = Boolean(CFG.submitUrl);
+  const submitLabel = submitBtn.textContent;
   const last = steps.length - 1;
   let current = 0, reached = 0, busy = false;
 
@@ -97,6 +105,7 @@
     const value = c.value.trim();
     if (!value) return c.required ? (c.tagName === "SELECT" ? "Please choose an option." : "This field is required.") : "";
     if (c.type === "email" && c.validity.typeMismatch) return "Enter a valid email address, like name@example.com.";
+    if (c.validity.patternMismatch) return c.dataset.patternMessage || "Please check the format of this answer.";
     if (c.type === "url" && c.validity.typeMismatch) return "Enter a full web address starting with https://";
     if (c.type === "tel" && (!/^[+\d\s().-]+$/.test(value) || value.replace(/\D/g, "").length < 10)) return "Enter a valid phone number, including the area code.";
     const maxWords = Number(c.dataset.maxWords);
@@ -217,8 +226,8 @@
     const ready = steps.every((_, k) => !checkStep(k, false));
     submitBtn.disabled = !configured || !ready;
     status.textContent = !configured
-      ? "Online applications are switched off while this page is in draft/testing. Nothing you enter is sent or saved."
-      : ready ? "" : "Complete all required answers and tick both declarations to submit.";
+      ? TEXT.draft
+      : ready ? "" : TEXT.incomplete;
   }
 
   function showSuccess(reference, submittedAt, test) {
@@ -259,7 +268,7 @@
   const updateConds = () => conds.forEach((el) => {
     const [name, value] = el.dataset.showIf.split("=");
     el.hidden = form.elements[name].value !== value;
-    el.querySelectorAll("input, textarea").forEach((c) => { c.disabled = el.hidden; });
+    el.querySelectorAll("input, select, textarea").forEach((c) => { c.disabled = el.hidden; });
   });
 
   // Once every message on a step is fixed, drop the "Please check…" note too
@@ -297,7 +306,7 @@
     errorBox.hidden = true;
     try {
       const csrf = document.querySelector('meta[name="csrf-token"]')?.content;
-      const res = await fetch(JOB.submitUrl, {
+      const res = await fetch(CFG.submitUrl, {
         method: "POST",
         body: new FormData(form),
         credentials: "same-origin",
@@ -308,11 +317,11 @@
       form.reset(); // clear the answers from the page once they're safely stored
       showSuccess(data.reference, data.submittedAt, false);
     } catch (err) {
-      errorBox.textContent = "Sorry, your application could not be submitted, and nothing has been saved. Please check your connection and try again. If the problem continues, contact the church office.";
+      errorBox.textContent = TEXT.error;
       errorBox.hidden = false;
       busy = false;
       submitBtn.classList.remove("is-loading");
-      submitBtn.textContent = "Submit Application";
+      submitBtn.textContent = submitLabel;
       form.removeAttribute("aria-busy");
       updateSubmit();
     }

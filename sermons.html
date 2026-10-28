@@ -30,20 +30,18 @@
           <div><span class="eyebrow">Featured</span><h2>Recent services</h2></div>
           <a class="btn btn--outline" data-site="youtube" href="#" target="_blank" rel="noopener">Subscribe on YouTube <i data-lucide="arrow-up-right"></i></a>
         </div>
-        <!-- data-youtube-feed="8": the list is replaced with the channel's 8 newest uploads (newest first, pulled live from SITE.youtubeChannelId) and the newest is featured. The markup below is only the fallback shown if the feed can't be reached. -->
-        <div class="messages reveal" data-playlist data-youtube-feed="8">
+        <!-- data-youtube-feed="5": the list is replaced with the channel's 5 newest uploads (newest first, pulled live from SITE.youtubeChannelId) and the newest is featured. 5 items fill the player's height exactly (video-list--fit), so there is no scrollbar. The markup below is only the fallback shown if the feed can't be reached. -->
+        <div class="messages reveal" data-playlist data-youtube-feed="5">
           <div class="video-feature">
             <div class="yt" data-uploads></div>
             <div class="video-feature__body"><h3>Latest from our channel</h3><p>Newest service first · updates automatically</p></div>
           </div>
-          <div class="video-list" aria-label="Recent services">
+          <div class="video-list video-list--fit" aria-label="Recent services">
             <button class="video-list__item is-active" data-uploads data-title="Latest from our channel" data-meta="Newest service first · updates automatically"><span class="video-list__thumb"><i data-lucide="radio"></i></span><span><strong>Latest from our channel</strong><span>Updates automatically</span></span></button>
             <button class="video-list__item" data-id="DEQygtr16JM" data-title="MSC Livestream, October 18, 2026" data-meta="Mercy Seat Chapel · October 18, 2026"><img src="https://i.ytimg.com/vi/DEQygtr16JM/mqdefault.jpg" alt="" loading="lazy"><span><strong>MSC Livestream</strong><span>October 18, 2026</span></span></button>
             <button class="video-list__item" data-id="leklo-Cz5k4" data-title="MSC Livestream, October 11, 2026" data-meta="Mercy Seat Chapel · October 11, 2026"><img src="https://i.ytimg.com/vi/leklo-Cz5k4/mqdefault.jpg" alt="" loading="lazy"><span><strong>MSC Livestream</strong><span>October 11, 2026</span></span></button>
             <button class="video-list__item" data-id="4D3wv85v-bk" data-title="The Seed and The Future | POM | July 2026" data-meta="Pillars of Mercy · July 2026"><img src="https://i.ytimg.com/vi/4D3wv85v-bk/mqdefault.jpg" alt="" loading="lazy"><span><strong>The Seed and The Future | POM</strong><span>Pillars of Mercy · July 2026</span></span></button>
             <button class="video-list__item" data-id="lgdozYubxw4" data-title="Thanksgiving Service, October 2026" data-meta="Mercy Seat Chapel · October 2026"><img src="https://i.ytimg.com/vi/lgdozYubxw4/mqdefault.jpg" alt="" loading="lazy"><span><strong>Thanksgiving Service, October 2026</strong><span>October 2026</span></span></button>
-            <button class="video-list__item" data-id="93u3Kma5rXY" data-title="Real Talk" data-meta="Mercy Seat Chapel · September 2026"><img src="https://i.ytimg.com/vi/93u3Kma5rXY/mqdefault.jpg" alt="" loading="lazy"><span><strong>Real Talk</strong><span>September 2026</span></span></button>
-            <button class="video-list__item" data-id="0X1rbTR4cx8" data-title="Kingdom Stewardship | Dcn. ’Lekan ABIOYE" data-meta="Dcn. ’Lekan Abioye · September 2026"><img src="https://i.ytimg.com/vi/0X1rbTR4cx8/mqdefault.jpg" alt="" loading="lazy"><span><strong>Kingdom Stewardship</strong><span>Dcn. ’Lekan Abioye</span></span></button>
           </div>
         </div>
       </div>
