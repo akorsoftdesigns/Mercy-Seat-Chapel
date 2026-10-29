@@ -30,6 +30,9 @@ const SITE = {
   // each broadcast its own ID, so update this for each new stream; set it to ""
   // to show whatever the channel is streaming live at the time instead.
   liveVideoId: "Zg8AQ9CMOZ4",
+  // "Watch on YouTube" link under the Watch Live player: always opens the channel's current
+  // (or next scheduled) live stream on YouTube, so it never needs updating
+  youtubeLiveUrl: "https://www.youtube.com/@MercySeatChapel/live",
   social: {
     youtube: "https://www.youtube.com/c/Mercyseatchapel",
     instagram: "https://www.instagram.com/mercyseatchapel/",
@@ -111,7 +114,7 @@ function renderHeader() {
     if (!item.children) return `<div class="m-group"><a href="${item.href}">${item.label}</a></div>`;
     return `<div class="m-group"><button type="button" aria-expanded="false">${item.label}<i data-lucide="plus"></i></button>
       <div class="m-sub"><div>${item.children.map((c) => `<a href="${c.href}">${c.label}</a>`).join("")}</div></div></div>`;
-  }).join("");
+  }).join("") + `<div class="m-group"><button class="m-search" type="button" aria-controls="site-search" aria-expanded="false">Search<i data-lucide="search"></i></button></div>`;
 
   el.outerHTML = `
   <a class="skip-link" href="#main">Skip to content</a>
@@ -120,7 +123,6 @@ function renderHeader() {
       <a class="brand" href="index.html" aria-label="${SITE.name} home"><img src="${SITE.logo}" alt="${SITE.name}" width="178" height="40"></a>
       <nav class="primary-nav" aria-label="Primary"><ul>${items}<li>${searchBtn("")}</li></ul></nav>
       <div class="nav-actions">
-        ${searchBtn(" nav-search--compact")}
         <a class="btn btn--outline-light nav-cta nav-give" href="give.html">Give</a>
         <a class="btn btn--primary nav-cta nav-visit" href="plan-a-visit.html">Plan Your Visit</a>
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><i data-lucide="menu"></i><span>Menu</span></button>
@@ -152,7 +154,7 @@ function renderHeader() {
   </div>`;
 }
 
-// Search button in the header: one inside the centre menu (wide screens), one beside the Menu button (smaller screens)
+// Search button in the header's centre menu (wide screens); smaller screens use the Search item in the mobile menu
 function searchBtn(cls) {
   return `<button class="nav-search${cls}" type="button" aria-label="Search the site" aria-controls="site-search" aria-expanded="false"><i data-lucide="search"></i></button>`;
 }
@@ -234,6 +236,7 @@ function fillSiteData() {
     else if (key === "mailing-address") { el.textContent = SITE.mailingAddress; }
     else if (key === "maps") { if (el.tagName === "A") el.href = SITE.mapsUrl; }
     else if (key === "giving") { if (el.tagName === "A") el.href = SITE.givingUrl; }
+    else if (key === "youtube-live") { if (el.tagName === "A") el.href = SITE.youtubeLiveUrl; }
     else if (key === "app-store") { if (el.tagName === "A") el.href = SITE.appStoreUrl; }
     else if (key === "play-store") { if (el.tagName === "A") el.href = SITE.playStoreUrl; }
     else if (key === "socials") { el.innerHTML = socialLinks(el.dataset.class || "social-btn"); }
@@ -292,10 +295,11 @@ function initHeader() {
   menu.addEventListener("click", (e) => { if (e.target.closest("a")) setMenu(false); });
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Escape") return;
+    if (document.getElementById("site-search")?.classList.contains("is-open")) return; // Escape closes the search first
     if (menu.classList.contains("is-open")) setMenu(false);
     document.querySelectorAll(".primary-nav .nav-item.is-open").forEach((i) => { i.classList.remove("is-open"); i.querySelector("button.nav-link")?.setAttribute("aria-expanded", "false"); });
   });
-  menu.querySelectorAll(".m-group > button").forEach((b) => b.addEventListener("click", () => {
+  menu.querySelectorAll(".m-group > button:not(.m-search)").forEach((b) => b.addEventListener("click", () => {
     const g = b.parentElement;
     const open = !g.classList.contains("is-open");
     g.classList.toggle("is-open", open);
@@ -315,12 +319,13 @@ function initSearch() {
   const input = panel.querySelector("input");
   const status = panel.querySelector(".search-panel__status");
   const list = panel.querySelector(".search-panel__results");
-  const openers = document.querySelectorAll(".nav-search");
+  const openers = document.querySelectorAll(".nav-search, .m-search");
   let pages, opener, timer;
 
   const setOpen = (open, btn) => {
     panel.classList.toggle("is-open", open);
-    document.body.classList.toggle("menu-open", open);
+    // Keep the page scroll locked if search was opened from the (still open) mobile menu
+    document.body.classList.toggle("menu-open", open || !!document.querySelector(".mobile-menu.is-open"));
     openers.forEach((b) => b.setAttribute("aria-expanded", String(open)));
     if (open) { opener = btn; pages ||= loadPages(); setTimeout(() => input.focus(), 60); }
     else opener?.focus();
@@ -730,6 +735,15 @@ function ytUploadsMarkup() {
   const list = SITE.youtubeChannelId.replace(/^UC/, "UU");
   return `<iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=${list}&rel=0" title="Latest videos from ${SITE.name}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
 }
+// Thumbnail with a play button; the YouTube player only loads when clicked
+function setupYt(box) {
+  if (!box.innerHTML.trim()) box.innerHTML = ytMarkup(box.dataset.id, box.dataset.title || "video");
+  box.addEventListener("click", () => {
+    if (box.querySelector("iframe")) return;
+    const src = box.dataset.src || `https://www.youtube-nocookie.com/embed/${box.dataset.id}?autoplay=1&rel=0`;
+    box.innerHTML = `<iframe src="${src}" title="${escAttr(box.dataset.title || "YouTube video")}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+  });
+}
 function initVideos() {
   // A .yt[data-live] box plays SITE.liveVideoId, or the channel's current live stream if that's empty
   document.querySelectorAll(".yt[data-live]").forEach((box) => {
@@ -737,14 +751,8 @@ function initVideos() {
     else box.dataset.src = `https://www.youtube-nocookie.com/embed/live_stream?channel=${SITE.youtubeChannelId}&autoplay=1`;
   });
   document.querySelectorAll(".yt[data-uploads]").forEach((box) => { box.innerHTML = ytUploadsMarkup(); });
-  document.querySelectorAll(".yt[data-id], .yt[data-uploads]").forEach((box) => {
-    if (!box.innerHTML.trim()) box.innerHTML = ytMarkup(box.dataset.id, box.dataset.title || "video");
-    box.addEventListener("click", () => {
-      if (box.querySelector("iframe")) return;
-      const src = box.dataset.src || `https://www.youtube-nocookie.com/embed/${box.dataset.id}?autoplay=1&rel=0`;
-      box.innerHTML = `<iframe src="${src}" title="${escAttr(box.dataset.title || "YouTube video")}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-    });
-  });
+  document.querySelectorAll(".yt[data-id], .yt[data-uploads]").forEach(setupYt);
+  document.querySelectorAll("[data-youtube-grid]").forEach(loadFeedGrid);
 
   // Playlist: clicking a list item swaps the featured video
   document.querySelectorAll("[data-playlist]").forEach((pl) => {
@@ -781,45 +789,80 @@ function initVideos() {
    Add data-youtube-source="streams" to use only the channel's live streams
    (its YouTube "Live" tab). If the feed can't be reached, the hand-written
    list stays as a fallback. */
-async function loadChannelFeed(pl, select) {
-  const list = pl.querySelector(".video-list");
-  const count = parseInt(pl.dataset.youtubeFeed, 10) || 8;
-  const source = pl.dataset.youtubeSource === "streams" ? "&source=streams" : "";
+// Reads the channel's videos (newest first) through the /youtube-feed route;
+// source "streams" = only its live streams (the YouTube "Live" tab). Returns [] if unreachable.
+async function fetchChannelVideos(source) {
   try {
-    const res = await fetch(`/youtube-feed?channel=${SITE.youtubeChannelId}${source}`);
-    if (!res.ok) return;
+    const res = await fetch(`/youtube-feed?channel=${SITE.youtubeChannelId}${source === "streams" ? "&source=streams" : ""}`);
+    if (!res.ok) return [];
     const doc = new DOMParser().parseFromString(await res.text(), "application/xml");
-    const videos = [...doc.getElementsByTagName("entry")].map((e) => ({
+    return [...doc.getElementsByTagName("entry")].map((e) => ({
       id: e.getElementsByTagName("yt:videoId")[0]?.textContent,
       title: e.getElementsByTagName("title")[0]?.textContent || "",
       date: new Date(e.getElementsByTagName("published")[0]?.textContent)
-    })).filter((v) => v.id && !isNaN(v.date))
-      .sort((a, b) => b.date - a.date)
-      .slice(0, count);
-    if (!videos.length) return;
-    list.replaceChildren(...videos.map((v) => {
-      // Dates shown in the church's time zone, so a Sunday stream reads as Sunday
-      const day = v.date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "America/New_York" });
-      const item = document.createElement("button");
-      item.className = "video-list__item";
-      item.dataset.id = v.id;
-      item.dataset.title = v.title;
-      item.dataset.meta = `${SITE.name} · ${day}`;
-      const img = document.createElement("img");
-      img.src = `https://i.ytimg.com/vi/${v.id}/mqdefault.jpg`;
-      img.alt = "";
-      img.loading = "lazy";
-      const text = document.createElement("span");
-      const strong = document.createElement("strong");
-      strong.textContent = v.title;
-      const small = document.createElement("span");
-      small.textContent = day;
-      text.append(strong, small);
-      item.append(img, text);
-      return item;
-    }));
-    select(list.firstElementChild, false);
-  } catch (e) { /* keep the fallback list */ }
+    })).filter((v) => v.id && !isNaN(v.date)).sort((a, b) => b.date - a.date);
+  } catch (e) { return []; }
+}
+// Dates shown in the church's time zone, so a Sunday stream reads as Sunday
+const feedDate = (d) => d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "America/New_York" });
+
+/* Video card grid: [data-youtube-grid="N"] replaces its cards with the channel's
+   N newest videos; add data-youtube-source="streams" for live streams only.
+   The video playing in the Watch Live player (SITE.liveVideoId) is skipped so it
+   isn't shown twice. If the feed can't be reached, the hand-written cards stay. */
+async function loadFeedGrid(grid) {
+  const count = parseInt(grid.dataset.youtubeGrid, 10) || 4;
+  const videos = (await fetchChannelVideos(grid.dataset.youtubeSource))
+    .filter((v) => v.id !== SITE.liveVideoId).slice(0, count);
+  if (!videos.length) return;
+  grid.replaceChildren(...videos.map((v) => {
+    const card = document.createElement("article");
+    card.className = "card";
+    const box = document.createElement("div");
+    box.className = "yt";
+    box.dataset.id = v.id;
+    box.dataset.title = v.title;
+    const body = document.createElement("div");
+    body.className = "card__body";
+    const h3 = document.createElement("h3");
+    h3.style.fontSize = "18px";
+    h3.textContent = v.title;
+    const p = document.createElement("p");
+    p.textContent = feedDate(v.date);
+    body.append(h3, p);
+    card.append(box, body);
+    setupYt(box);
+    return card;
+  }));
+  window.lucide && lucide.createIcons();
+}
+
+async function loadChannelFeed(pl, select) {
+  const list = pl.querySelector(".video-list");
+  const count = parseInt(pl.dataset.youtubeFeed, 10) || 8;
+  const videos = (await fetchChannelVideos(pl.dataset.youtubeSource)).slice(0, count);
+  if (!videos.length) return; // keep the fallback list
+  list.replaceChildren(...videos.map((v) => {
+    const day = feedDate(v.date);
+    const item = document.createElement("button");
+    item.className = "video-list__item";
+    item.dataset.id = v.id;
+    item.dataset.title = v.title;
+    item.dataset.meta = `${SITE.name} · ${day}`;
+    const img = document.createElement("img");
+    img.src = `https://i.ytimg.com/vi/${v.id}/mqdefault.jpg`;
+    img.alt = "";
+    img.loading = "lazy";
+    const text = document.createElement("span");
+    const strong = document.createElement("strong");
+    strong.textContent = v.title;
+    const small = document.createElement("span");
+    small.textContent = day;
+    text.append(strong, small);
+    item.append(img, text);
+    return item;
+  }));
+  select(list.firstElementChild, false);
 }
 
 /* Scroll reveal */

@@ -262,17 +262,14 @@ small, .small { font-size: 14px; }
   .nav-toggle span { display: none; }
 }
 
-/* Header search button: in the centre menu on wide screens, beside the Menu button on smaller ones */
+/* Header search button: in the centre menu on wide screens; smaller screens use the Search item in the mobile menu */
 .nav-search {
   display: inline-grid; place-items: center; width: 40px; height: 40px; margin-left: 6px;
-  border-radius: 10px; border: 1px solid rgba(255, 255, 255, .25); background: transparent;
-  color: var(--c-white); cursor: pointer; transition: color .2s var(--ease), border-color .2s var(--ease);
+  border-radius: 10px; border: 0; background: transparent;
+  color: var(--c-white); cursor: pointer; transition: color .2s var(--ease);
 }
-.nav-search:hover, .nav-search:focus-visible { color: var(--c-secondary-light); border-color: var(--c-secondary-light); }
+.nav-search:hover, .nav-search:focus-visible { color: var(--c-secondary-light); }
 .nav-search svg { width: 18px; height: 18px; }
-.nav-search--compact { display: none; width: 44px; height: 44px; margin-left: 0; }
-@media (max-width: 1240px) { .nav-search--compact { display: inline-grid; } }
-@media (max-width: 479px) { .nav-search--compact { width: 40px; height: 40px; } }
 
 /* Search panel (opened by .nav-search; see initSearch in main.js) */
 .search-panel {

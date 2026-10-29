@@ -30,6 +30,8 @@
           <!-- data-live: plays the broadcast set in SITE.liveVideoId (assets/js/main.js). data-id is only the fallback thumbnail. -->
           <div class="yt yt--rounded" data-live data-id="DEQygtr16JM" data-title="MSC Livestream" style="box-shadow:var(--shadow-md)"></div>
         </div>
+        <!-- Opens the channel's current live stream on YouTube (link set in SITE.youtubeLiveUrl, assets/js/main.js) -->
+        <div class="btn-row reveal" style="margin-top:20px"><a class="btn btn--outline" data-site="youtube-live" data-brand="youtube" href="#" target="_blank" rel="noopener">Watch on YouTube</a></div>
         <div class="notice reveal" style="margin-top:20px"><i data-lucide="info"></i><p>Press play to join the current livestream. If we’re not live right now, catch the most recent services below or visit our <a data-site="youtube" href="#" target="_blank" rel="noopener">YouTube channel</a>.</p></div>
       </div>
     </section>
@@ -51,7 +53,8 @@
           <div><span class="eyebrow">Replay</span><h2>Recent livestreams</h2></div>
           <a class="btn btn--outline" href="sermons.html">Latest Messages <i data-lucide="arrow-right"></i></a>
         </div>
-        <div class="grid grid--4">
+        <!-- data-youtube-grid="4" + data-youtube-source="streams": these cards are replaced with the 4 newest live streams from the channel's YouTube "Live" tab (skipping the one in the player above). The cards below are only the fallback shown if the feed can't be reached. -->
+        <div class="grid grid--4" data-youtube-grid="4" data-youtube-source="streams">
           <article class="card reveal"><div class="yt" data-id="DEQygtr16JM" data-title="MSC Livestream – October 19, 2026"></div><div class="card__body"><h3 style="font-size:18px">MSC Livestream</h3><p>October 19, 2026</p></div></article>
           <article class="card reveal" style="--d:.08s"><div class="yt" data-id="leklo-Cz5k4" data-title="MSC Livestream – October 12, 2026"></div><div class="card__body"><h3 style="font-size:18px">MSC Livestream</h3><p>October 12, 2026</p></div></article>
           <article class="card reveal" style="--d:.16s"><div class="yt" data-id="0f45Foc8Ncw" data-title="MSC Livestream – September 28, 2026"></div><div class="card__body"><h3 style="font-size:18px">MSC Livestream</h3><p>September 28, 2026</p></div></article>
