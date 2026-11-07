@@ -27,6 +27,9 @@ export function cssPosition(h) {
   return `${word(h.x, "left", "right")} ${word(h.y, "top", "bottom")}`;
 }
 
+/** True when an image field has a picture (uploaded, or a local seed file). */
+export const hasImage = (i) => !!(i?.asset || i?._sanityAsset);
+
 function imgTag(c, image, { cls = "", alt, lazy = true, extraStyle = "" } = {}) {
   const { src, pos } = c.img(image);
   if (!src) return "";
@@ -269,7 +272,7 @@ export function placeTabs(c, ministries) {
   const tabs = ministries.map((m, i) =>
     `<button class="place__tab" role="tab" id="t-${id(m)}" aria-controls="p-${id(m)}" aria-selected="${i === 0}"${i ? ' tabindex="-1"' : ""}>${esc(tab(m))}</button>`).join("\n");
   const panels = ministries.map((m, i) => {
-    const image = m.homeImage?.asset || m.homeImage?.src ? m.homeImage : m.image;
+    const image = hasImage(m.homeImage) ? m.homeImage : m.image;
     const word = m.homeWord || m.name;
     return lines(
       `<div class="place__panel${i === 0 ? " reveal" : ""}" role="tabpanel" id="p-${id(m)}" aria-labelledby="t-${id(m)}"${i ? " hidden" : ""}>`,
@@ -293,7 +296,7 @@ export function placeTabs(c, ministries) {
 export const outreachHomeCard = (c, o, i) => lines(
   `<article class="card reveal" style="--d:${delay(i * 0.15)}">`,
   indent(lines(
-    `<div class="card__media">${imgTag(c, o.cardImage?.asset || o.cardImage?.src ? o.cardImage : o.image)}</div>`,
+    `<div class="card__media">${imgTag(c, hasImage(o.cardImage) ? o.cardImage : o.image)}</div>`,
     `<div class="card__body">${o.cardTag ? `<div class="card__tag">${esc(o.cardTag)}</div>` : ""}<h3>${esc(o.name)}</h3>${o.cardText ? `<p>${esc(o.cardText)}</p>` : ""}<a class="link-arrow" href="outreach.html#${attr(o.anchor?.current || o.anchor)}">Read More ${icon("arrow-right")}</a></div>`
   )),
   `</article>`);

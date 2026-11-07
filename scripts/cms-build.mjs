@@ -189,8 +189,12 @@ function siteSettings(s) {
     times: (s.serviceTimes || []).map(({ label, time }) => ({ label, time }))
   };
 }
-const siteJs = (v) => `// Managed in the dashboard (Site Settings). Changes made here by hand are replaced on the next update.
-const SITE_SETTINGS = ${JSON.stringify(v, null, 2).replace(/"([a-zA-Z]+)":/g, "$1:")};`;
+// Readable JS: one setting per line, small objects (social links, service times) kept on one line each
+function siteJs(v) {
+  const val = (x) => (Array.isArray(x) ? `[\n${x.map((o) => `    ${obj(o)}`).join(",\n")}\n  ]` : typeof x === "object" ? obj(x) : JSON.stringify(x));
+  const obj = (o) => `{ ${Object.entries(o).map(([k, x]) => `${k}: ${JSON.stringify(x)}`).join(", ")} }`;
+  return `const SITE_SETTINGS = {\n${Object.entries(v).map(([k, x]) => `  ${k}: ${val(x)}`).join(",\n")}\n};`;
+}
 
 /* ---------- Main ---------- */
 async function main() {
