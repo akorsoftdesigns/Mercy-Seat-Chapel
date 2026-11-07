@@ -39,10 +39,13 @@
     <section class="section section--white">
       <div class="container">
         <div class="section-head reveal"><span class="eyebrow">Live schedule</span><h2>When we stream</h2></div>
+        <!-- Managed in the dashboard (Homepage → Watch Live page: “When we stream” cards) -->
         <div class="grid grid--3">
+          <!-- cms:live-schedule -->
           <div class="time-card time-card--featured reveal"><div class="time-card__icon"><i data-lucide="church"></i></div><div class="time-card__day">Every Sunday</div><div class="time-card__time">10:00 AM</div><h3>Sunday Service</h3><p>Worship, the Word and prayer</p></div>
           <div class="time-card reveal" style="--d:.08s"><div class="time-card__icon"><i data-lucide="book-open"></i></div><div class="time-card__day">Every Tuesday</div><div class="time-card__time">7:30 PM</div><h3>Bible Study</h3><p>Midweek teaching</p></div>
           <div class="time-card reveal" style="--d:.16s"><div class="time-card__icon"><i data-lucide="wine"></i></div><div class="time-card__day">1st Tuesday · Monthly</div><div class="time-card__time">7:30 PM</div><h3>Holy Communion</h3><p>Holy Communion service</p></div>
+          <!-- /cms:live-schedule -->
         </div>
       </div>
     </section>
@@ -55,10 +58,12 @@
         </div>
         <!-- data-youtube-grid="4" + data-youtube-source="streams": these cards are replaced with the 4 newest live streams from the channel's YouTube "Live" tab (skipping the one in the player above). The cards below are only the fallback shown if the feed can't be reached. -->
         <div class="grid grid--4" data-youtube-grid="4" data-youtube-source="streams">
+          <!-- cms:recent-livestreams -->
           <article class="card reveal"><div class="yt" data-id="DEQygtr16JM" data-title="MSC Livestream – October 19, 2026"></div><div class="card__body"><h3 style="font-size:18px">MSC Livestream</h3><p>October 19, 2026</p></div></article>
           <article class="card reveal" style="--d:.08s"><div class="yt" data-id="leklo-Cz5k4" data-title="MSC Livestream – October 12, 2026"></div><div class="card__body"><h3 style="font-size:18px">MSC Livestream</h3><p>October 12, 2026</p></div></article>
           <article class="card reveal" style="--d:.16s"><div class="yt" data-id="0f45Foc8Ncw" data-title="MSC Livestream – September 28, 2026"></div><div class="card__body"><h3 style="font-size:18px">MSC Livestream</h3><p>September 28, 2026</p></div></article>
           <article class="card reveal" style="--d:.24s"><div class="yt" data-id="f5yAVyjReT0" data-title="MSC Livestream – September 14, 2026"></div><div class="card__body"><h3 style="font-size:18px">MSC Livestream</h3><p>September 14, 2026</p></div></article>
+          <!-- /cms:recent-livestreams -->
         </div>
       </div>
     </section>

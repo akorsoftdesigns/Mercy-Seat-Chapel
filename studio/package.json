@@ -1,0 +1,26 @@
+{
+  "name": "mercy-seat-chapel-studio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Mercy Seat Chapel content dashboard (Sanity Studio)",
+  "type": "module",
+  "scripts": {
+    "dev": "sanity dev",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "seed": "node tools/seed-from-site.mjs",
+    "seed:import": "sanity dataset import seed/seed.ndjson production --missing"
+  },
+  "engines": {
+    "node": ">=22.12"
+  },
+  "dependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "sanity": "^6.22.0",
+    "styled-components": "^6.6.0"
+  },
+  "devDependencies": {
+    "node-html-parser": "^7.1.0"
+  }
+}

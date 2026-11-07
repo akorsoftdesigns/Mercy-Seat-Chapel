@@ -6,21 +6,32 @@
      scroll-reveal animations, demo form handling
    ========================================================================== */
 
-const SITE = {
+// Fixed details (not managed in the dashboard)
+const SITE_FIXED = {
   name: "Mercy Seat Chapel",
   logo: "assets/images/logo-mercy-seat-white.png", // white logo for the blue header, mobile menu and footer
+  website: "https://www.mercyseatchapel.org",
+  dashboardUrl: "https://crm.mercyseatchapel.org/"
+};
+
+/* Contact details, service times, links and the Watch Live video are edited in the
+   content dashboard (Site Settings). The block between the cms: markers is rewritten
+   automatically when they are published; edit it by hand only if the dashboard isn't set up.
+   Field notes: liveVideoId = the YouTube ID of the live broadcast for the Watch Live player
+   ("" = whatever the channel is streaming at the time); youtubeLiveUrl always opens the
+   channel's current (or next) live stream; "#" = link not set up yet. */
+/* cms:site-settings */
+const SITE_SETTINGS = {
   phone:"(301) 740-8118",
   phoneHref: "tel:+13017408118",
   prayerLine: "1 857 216 6700, code 860476",
   prayerLineHref: "tel:+18572166700,,860476#",
   email: "info@mercyseatchapel.org",
-  website: "https://www.mercyseatchapel.org",
   address: "17604 Washington Grove Lane, Gaithersburg, MD 20877",
   // Postal address for giving by mail (shown on the Give page)
   mailingAddress: "P.O. Box 914, Washington Grove, MD 20880",
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=17604+Washington+Grove+Lane+Gaithersburg+MD+20877",
   givingUrl: "https://msc.edgdmedia.com/giving/",
-  dashboardUrl: "https://crm.mercyseatchapel.org/",
   // Mobile app store links — replace "#" with the real App Store / Google Play listing URLs
   appStoreUrl: "#",
   playStoreUrl: "#",
@@ -46,6 +57,9 @@ const SITE = {
     { label: "Holy Communion", time: "1st Tue · 7:30 PM" }
   ]
 };
+/* /cms:site-settings */
+
+const SITE = { ...SITE_FIXED, ...SITE_SETTINGS };
 
 const NAV = [
   { label: "Home", href: "index.html" },
@@ -789,18 +803,16 @@ function initVideos() {
    Add data-youtube-source="streams" to use only the channel's live streams
    (its YouTube "Live" tab). If the feed can't be reached, the hand-written
    list stays as a fallback. */
-// Reads the channel's videos (newest first) through the /youtube-feed route;
-// source "streams" = only its live streams (the YouTube "Live" tab). Returns [] if unreachable.
+// Reads the channel's videos (newest first) from assets/data/youtube-*.json, which the
+// website update (scripts/cms-build.mjs) refreshes from YouTube's public feed, so it works
+// on any static host. source "streams" = only its live streams (the YouTube "Live" tab).
+// Returns [] if unreachable, leaving the list already in the page.
 async function fetchChannelVideos(source) {
   try {
-    const res = await fetch(`/youtube-feed?channel=${SITE.youtubeChannelId}${source === "streams" ? "&source=streams" : ""}`);
+    const res = await fetch(`assets/data/youtube-${source === "streams" ? "streams" : "uploads"}.json`);
     if (!res.ok) return [];
-    const doc = new DOMParser().parseFromString(await res.text(), "application/xml");
-    return [...doc.getElementsByTagName("entry")].map((e) => ({
-      id: e.getElementsByTagName("yt:videoId")[0]?.textContent,
-      title: e.getElementsByTagName("title")[0]?.textContent || "",
-      date: new Date(e.getElementsByTagName("published")[0]?.textContent)
-    })).filter((v) => v.id && !isNaN(v.date)).sort((a, b) => b.date - a.date);
+    return (await res.json()).map((v) => ({ id: v.id, title: v.title || "", date: new Date(v.published) }))
+      .filter((v) => v.id && !isNaN(v.date)).sort((a, b) => b.date - a.date);
   } catch (e) { return []; }
 }
 // Dates shown in the church's time zone, so a Sunday stream reads as Sunday

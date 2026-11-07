@@ -20,17 +20,25 @@
     <section class="hero" aria-label="Welcome">
       <div class="hero__slides" aria-hidden="true">
         <!-- Video slides: background video (muted, looping). data-video-id = YouTube video ID; data-video-start = start point in seconds (9004 = 2:30:04). Each slide plays its video from its start time for 8 seconds (data-duration 8000), then moves on; the slides loop. The background-image photo shows until the video is actually playing. Slide 2 starts at 59:26 (3566); slide 3 starts at 36:26 (2186).
-             background-image = each slide's fallback photo, shown while the video loads, when it can't play, or with reduced motion. -->
+             background-image = each slide's fallback photo, shown while the video loads, when it can't play, or with reduced motion.
+             Hero slides are managed in the dashboard (Homepage → Hero slides); the cms: sections below are rewritten on each update. -->
+        <!-- cms:hero-slides -->
         <div class="hero__slide hero__slide--video" data-video-id="UICCHfqBZSA" data-video-start="9008" data-duration="8000" style="background-image:url('assets/images/hero-5.jpg')"></div>
         <div class="hero__slide hero__slide--video" data-video-id="7cy7owEra9E" data-video-start="3566" data-duration="8000" style="background-image:url('assets/images/hero-2.jpg'); background-position:center 30%"></div>
         <div class="hero__slide hero__slide--video" data-video-id="br71u1OJGAA" data-video-start="2186" data-duration="8000" style="background-image:url('assets/images/church-1716.jpg')"></div>
+        <!-- /cms:hero-slides -->
       </div>
       <div class="container hero__inner">
         <div class="hero__grid">
           <div>
-            <div class="hero__kicker anim" style="--d:.1s"><span class="dot"></span>Welcome to Mercy Seat Chapel</div>
+            <div class="hero__kicker anim" style="--d:.1s">
+              <!-- cms:hero-kicker -->
+              <span class="dot"></span>Welcome to Mercy Seat Chapel
+              <!-- /cms:hero-kicker -->
+            </div>
             <!-- One headline + lead per slide, in slide order -->
             <div class="hero__copy anim" style="--d:.25s">
+              <!-- cms:hero-texts -->
               <div class="hero__text is-active">
                 <h1>We come together to obtain <em>Mercy</em> and <em>Grace</em></h1>
                 <p class="hero__lead">A vibrant community, offering faith, love, hope and a wide range of resources, events, and uplifting messages</p>
@@ -43,17 +51,22 @@
                 <h1>Come as you are. There’s a <em>place</em> for <em>you</em> here.</h1>
                 <p class="hero__lead">Whoever you are and wherever you’re from, you’ll find a warm welcome and a church family ready to walk with you.</p>
               </div>
+              <!-- /cms:hero-texts -->
             </div>
             <div class="btn-row anim" style="--d:.55s">
+              <!-- cms:hero-buttons -->
               <a class="btn btn--primary" href="plan-a-visit.html">Plan a Visit <i data-lucide="arrow-right"></i></a>
               <a class="btn btn--live" href="live.html"><i data-lucide="play-circle"></i> Watch Live</a>
+              <!-- /cms:hero-buttons -->
             </div>
           </div>
           <div class="anim" style="--d:.7s">
             <div class="hero__thumbs" aria-label="Choose a slide">
+              <!-- cms:hero-thumbs -->
               <button class="hero__thumb hero__thumb--video" type="button" aria-label="Slide 1: Mercy and Grace"><img src="https://i.ytimg.com/vi/UICCHfqBZSA/mqdefault.jpg" alt=""><i data-lucide="play"></i></button>
               <button class="hero__thumb hero__thumb--video" type="button" aria-label="Slide 2: Presence and Purpose"><img src="https://i.ytimg.com/vi/7cy7owEra9E/mqdefault.jpg" alt=""><i data-lucide="play"></i></button>
               <button class="hero__thumb hero__thumb--video" type="button" aria-label="Slide 3: Come as you are"><img src="https://i.ytimg.com/vi/br71u1OJGAA/mqdefault.jpg" alt=""><i data-lucide="play"></i></button>
+              <!-- /cms:hero-thumbs -->
             </div>
             <div class="hero__progress"><span></span></div>
           </div>
@@ -70,7 +83,9 @@
           <p>We’re excited to welcome you to attend our in-person Worship Services, or you can join us online.</p>
         </div>
         <!-- Row 1: two large cards (Sunday, Tuesday). Row 2: four monthly/midweek cards. -->
+        <!-- Cards managed in the dashboard (Homepage → “Worship, Grow and Connect” cards) -->
         <div class="times-grid times-grid--feature">
+          <!-- cms:service-times -->
           <article class="time-card time-card--photo time-card--lg time-card--featured reveal" style="--d:0s">
             <img src="assets/images/church-1705.jpg" alt="">
             <div class="time-card__icon"><i data-lucide="church"></i></div>
@@ -119,6 +134,7 @@
             <h3>Thanksgiving Sunday</h3>
             <p>Giving Thanks together</p>
           </article>
+          <!-- /cms:service-times -->
         </div>
         <div class="times-foot reveal">
           <span><i data-lucide="map-pin"></i><a data-site="address" href="#">17604 Washington Grove Lane, Gaithersburg, MD 20877</a></span>
@@ -160,6 +176,8 @@
           </div>
           <a class="btn btn--outline-light" href="ministries.html">All ministries <i data-lucide="arrow-right"></i></a>
         </div>
+        <!-- Tabs managed in the dashboard (Homepage → “Find your place” tabs; text from each Ministry's Homepage tab) -->
+        <!-- cms:place-tabs -->
         <div class="place__tabs reveal" role="tablist" aria-label="Ministries">
           <button class="place__tab" role="tab" id="t-children" aria-controls="p-children" aria-selected="true">Children &amp; Teens</button>
           <button class="place__tab" role="tab" id="t-revive" aria-controls="p-revive" aria-selected="false" tabindex="-1">Revive</button>
@@ -217,6 +235,7 @@
           </div>
           <div class="place__media"><img src="assets/images/empowerment-2.jpg" alt="A team meeting around a table" loading="lazy"><div class="place__word" aria-hidden="true">Empower</div></div>
         </div>
+        <!-- /cms:place-tabs -->
       </div>
     </section>
 
@@ -250,6 +269,7 @@
         </div>
         <!-- data-youtube-feed="6" + data-youtube-source="streams": the list is replaced with the channel's 5 newest live streams (its YouTube "Live" tab, newest first) and the newest is featured. The markup below is only the fallback shown if the feed can't be reached. -->
         <div class="messages reveal" data-playlist data-youtube-feed="5" data-youtube-source="streams">
+          <!-- cms:latest-messages -->
           <div class="video-feature">
             <div class="yt" data-id="lgdozYubxw4" data-title="Thanksgiving Service, October 2026"></div>
             <div class="video-feature__body">
@@ -262,7 +282,9 @@
             <button class="video-list__item" data-id="4D3wv85v-bk" data-title="The Seed and The Future | POM | July 2026" data-meta="Pillars of Mercy · July 2026"><img src="https://i.ytimg.com/vi/4D3wv85v-bk/mqdefault.jpg" alt="" loading="lazy"><span><strong>The Seed and The Future | POM</strong><span>Pillars of Mercy · July 2026</span></span></button>
             <button class="video-list__item" data-id="0X1rbTR4cx8" data-title="Kingdom Stewardship | Dcn. ’Lekan ABIOYE" data-meta="Dcn. ’Lekan Abioye · September 2026"><img src="https://i.ytimg.com/vi/0X1rbTR4cx8/mqdefault.jpg" alt="" loading="lazy"><span><strong>Kingdom Stewardship</strong><span>Dcn. ’Lekan Abioye</span></span></button>
             <button class="video-list__item" data-id="NI96r23J10w" data-title="Holy Communion Service, September 2026" data-meta="Mercy Seat Chapel · September 2026"><img src="https://i.ytimg.com/vi/NI96r23J10w/mqdefault.jpg" alt="" loading="lazy"><span><strong>Holy Communion Service</strong><span>September 2026</span></span></button>
-            <button class="video-list__item" data-id="px9hMO3-Yw0" data-title="DAY 6 - Positioned To Win | Pst. Adeyinka ARE" data-meta="Pst. Adeyinka Are · August 2026"><img src="https://i.ytimg.com/vi/px9hMO3-Yw0/mqdefault.jpg" alt="" loading="lazy"><span><strong>Positioned To Win</strong><span>Pst. Adeyinka Are · Day 6</span></span></button>          </div>
+            <button class="video-list__item" data-id="px9hMO3-Yw0" data-title="DAY 6 - Positioned To Win | Pst. Adeyinka ARE" data-meta="Pst. Adeyinka Are · August 2026"><img src="https://i.ytimg.com/vi/px9hMO3-Yw0/mqdefault.jpg" alt="" loading="lazy"><span><strong>Positioned To Win</strong><span>Pst. Adeyinka Are · Day 6</span></span></button>
+          </div>
+          <!-- /cms:latest-messages -->
         </div>
       </div>
     </section>
@@ -275,7 +297,9 @@
           <h2>Mercy for Many</h2>
           <p>The outreach arm of the church that helps Mercy Seat Chapel spread God’s word and share His love with the community and the world at large.</p>
         </div>
+        <!-- Cards managed in the dashboard (Homepage → “Mercy for Many” cards; text from each Outreach program's Cards tab) -->
         <div class="grid grid--4">
+          <!-- cms:outreach-cards -->
           <article class="card reveal" style="--d:0s">
             <div class="card__media"><img src="assets/images/angel-treat.jpg" alt="Children receiving Christmas gifts at Angel Treat" loading="lazy"></div>
             <div class="card__body"><div class="card__tag">Christmas</div><h3>Angel Treat</h3><p>Planting smiles on the faces of so many children within the community at Christmas.</p><a class="link-arrow" href="outreach.html#angel-treat">Read More <i data-lucide="arrow-right"></i></a></div>
@@ -292,6 +316,7 @@
             <div class="card__media"><img src="assets/images/orphanage.jpg" alt="Hands sorting donated supplies" loading="lazy"></div>
             <div class="card__body"><div class="card__tag">Worldwide</div><h3>Orphanage</h3><p>Making a difference by sponsoring needs of orphanages around the world.</p><a class="link-arrow" href="outreach.html#orphanage">Read More <i data-lucide="arrow-right"></i></a></div>
           </article>
+          <!-- /cms:outreach-cards -->
         </div>
       </div>
     </section>

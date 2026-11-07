@@ -1,0 +1,20 @@
+// Icons used in the dashboard (Sanity's icon set loads each icon from its own file)
+export { CogIcon } from "@sanity/icons/Cog";
+export { HomeIcon } from "@sanity/icons/Home";
+export { CalendarIcon } from "@sanity/icons/Calendar";
+export { BellIcon } from "@sanity/icons/Bell";
+export { PlayIcon } from "@sanity/icons/Play";
+export { UsersIcon } from "@sanity/icons/Users";
+export { CaseIcon } from "@sanity/icons/Case";
+export { HeartIcon } from "@sanity/icons/Heart";
+export { UserIcon } from "@sanity/icons/User";
+export { DocumentTextIcon } from "@sanity/icons/DocumentText";
+export { ArchiveIcon } from "@sanity/icons/Archive";
+export { ImageIcon } from "@sanity/icons/Image";
+export { AddIcon } from "@sanity/icons/Add";
+export { EditIcon } from "@sanity/icons/Edit";
+export { ClockIcon } from "@sanity/icons/Clock";
+export { EarthGlobeIcon } from "@sanity/icons/EarthGlobe";
+export { DashboardIcon } from "@sanity/icons/Dashboard";
+export { PublishIcon } from "@sanity/icons/Publish";
+export { LaunchIcon } from "@sanity/icons/Launch";
