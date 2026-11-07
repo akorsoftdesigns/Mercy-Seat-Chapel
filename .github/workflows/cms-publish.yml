@@ -1,0 +1,88 @@
+# Updates the website from the content dashboard (Sanity) and uploads it to SiteGround.
+#
+# Runs when:
+#   - someone publishes in the dashboard (Sanity webhook → "sanity-publish"),
+#   - every 30 minutes (safety net: refreshes YouTube lists, removes ended events),
+#   - code is pushed to main, or someone presses "Run workflow" in GitHub → Actions.
+#
+# Settings (GitHub → Settings → Secrets and variables → Actions):
+#   Variables: SANITY_PROJECT_ID, SANITY_DATASET (optional, default "production")
+#   Secrets (only for SiteGround upload; leave unset to skip it):
+#     SITEGROUND_HOST, SITEGROUND_USER, SITEGROUND_PORT (usually 18765),
+#     SITEGROUND_SSH_KEY (private key, no passphrase), SITEGROUND_PATH (e.g. www/mercyseatchapel.org/public_html/)
+# Full instructions: docs/cms/deployment.md
+name: Update website from dashboard
+
+on:
+  repository_dispatch:
+    types: [sanity-publish]
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore: ["studio/**", "docs/**", "*.md"]
+
+# One update at a time, in order
+concurrency:
+  group: website-update
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+      SANITY_DATASET: ${{ vars.SANITY_DATASET || 'production' }}
+      HAS_SITEGROUND: ${{ secrets.SITEGROUND_HOST != '' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Write published content into the pages
+        if: env.SANITY_PROJECT_ID != ''
+        run: node scripts/cms-build.mjs
+
+      - name: Save the updated pages
+        id: save
+        run: |
+          git config user.name "Website update"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- '*.html' assets
+          if git diff --cached --quiet; then
+            echo "Website already up to date."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "Website update from the content dashboard"
+            git pull --rebase
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload to SiteGround
+        if: env.HAS_SITEGROUND == 'true' && (steps.save.outputs.changed == 'true' || github.event_name != 'schedule')
+        env:
+          SSH_KEY: ${{ secrets.SITEGROUND_SSH_KEY }}
+          HOST: ${{ secrets.SITEGROUND_HOST }}
+          USER: ${{ secrets.SITEGROUND_USER }}
+          PORT: ${{ secrets.SITEGROUND_PORT || '18765' }}
+          DEST: ${{ secrets.SITEGROUND_PATH }}
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/siteground
+          chmod 600 ~/.ssh/siteground
+          ssh-keyscan -p "$PORT" "$HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          # Website files only; nothing is deleted on the server
+          rsync -rlz --checksum --itemize-changes \
+            --exclude '.git*' --exclude '.github/' --exclude 'studio/' --exclude 'scripts/' --exclude 'docs/' \
+            --exclude '.claude/' --exclude '*.md' \
+            -e "ssh -i ~/.ssh/siteground -p $PORT" \
+            ./ "$USER@$HOST:$DEST"
+          rm -f ~/.ssh/siteground

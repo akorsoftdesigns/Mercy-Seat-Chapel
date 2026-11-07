@@ -127,8 +127,14 @@ async function download(pending) {
 const xmlText = (s) => s.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
 async function youtubeFeed(channel, streams) {
   const q = streams ? "playlist_id=UULV" + channel.slice(2) : "channel_id=" + channel;
-  const res = await fetch("https://www.youtube.com/feeds/videos.xml?" + q);
-  if (!res.ok) throw new Error(`YouTube feed ${res.status}`);
+  // YouTube's feed sometimes answers 404 for a while; try a few times, then give up until the next run
+  let res;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    res = await fetch("https://www.youtube.com/feeds/videos.xml?" + q).catch(() => null);
+    if (res?.ok) break;
+    if (attempt < 3) await new Promise((r) => setTimeout(r, 3000 * attempt));
+  }
+  if (!res?.ok) throw new Error(`YouTube feed ${res ? res.status : "unreachable"}`);
   const xml = await res.text();
   const ymd = new Intl.DateTimeFormat("en-CA", { timeZone: TIME_ZONE, year: "numeric", month: "2-digit", day: "2-digit" });
   return [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)].map(([, e]) => {
@@ -307,8 +313,11 @@ async function main() {
   }
 
   // ---- Public content file (backup of what's published + source for the future app) ----
+  // (skipped for offline test runs: seed files contain local file paths)
+  if (!source) {
   const publicDocs = docs.filter((d) => TYPES.includes(d._type)).map(({ _rev, ...d }) => d);
   await writeWhole("assets/data/content.json", JSON.stringify({ documents: publicDocs.sort((a, b) => a._id.localeCompare(b._id)) }, null, 1) + "\n");
+  }
 
   // ---- Save ----
   await download(pending);
