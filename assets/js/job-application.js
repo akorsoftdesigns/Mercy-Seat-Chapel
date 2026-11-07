@@ -19,7 +19,8 @@
   const CFG = typeof JOB !== "undefined" ? JOB : typeof FORM_SETTINGS !== "undefined" ? FORM_SETTINGS : null;
   if (!CFG) return;
   const TEXT = Object.assign({
-    draft: "Online applications are switched off while this page is in draft/testing. Nothing you enter is sent or saved.",
+    // Shown on the last step while submitUrl is empty (no form service connected yet)
+    draft: `To submit this form, please contact the church office at ${SITE.email} or ${SITE.phone}.`,
     incomplete: "Complete all required answers and tick both declarations to submit.",
     error: "Sorry, your application could not be submitted, and nothing has been saved. Please check your connection and try again. If the problem continues, contact the church office."
   }, CFG.text);
@@ -60,6 +61,8 @@
   const progressBar = form.querySelector(".app-progress__bar span");
   const success = document.querySelector("[data-success]");
   const configured = Boolean(CFG.submitUrl);
+  // Staff-only "preview the confirmation screen" link: shown only when the page address ends in ?preview
+  const testMode = new URLSearchParams(location.search).has("preview");
   const submitLabel = submitBtn.textContent;
   const last = steps.length - 1;
   let current = 0, reached = 0, busy = false;
@@ -159,7 +162,7 @@
     prevBtn.hidden = n === 0;
     nextBtn.hidden = n === last;
     submitBtn.hidden = n !== last;
-    form.querySelectorAll("[data-test-only]").forEach((el) => { el.hidden = n !== last || configured; });
+    form.querySelectorAll("[data-test-only]").forEach((el) => { el.hidden = n !== last || configured || !testMode; });
     errorBox.hidden = true;
     status.textContent = "";
     if (n === last) buildReview();

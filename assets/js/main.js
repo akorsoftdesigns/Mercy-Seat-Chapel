@@ -9,7 +9,8 @@
 // Fixed details (not managed in the dashboard)
 const SITE_FIXED = {
   name: "Mercy Seat Chapel",
-  logo: "assets/images/logo-mercy-seat-white.png", // white logo for the blue header, mobile menu and footer
+  logo: "assets/images/msc-logo-white.png",       // white logo: header, mobile menu, footer and any blue background
+  logoOnLight: "assets/images/msc-logo-blue.png", // blue logo: light backgrounds inside pages (<img data-site="logo-on-light">)
   website: "https://www.mercyseatchapel.org",
   dashboardUrl: "https://crm.mercyseatchapel.org/"
 };
@@ -134,7 +135,7 @@ function renderHeader() {
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header" id="site-header">
     <div class="nav-shell">
-      <a class="brand" href="index.html" aria-label="${SITE.name} home"><img src="${SITE.logo}" alt="${SITE.name}" width="178" height="40"></a>
+      <a class="brand" href="index.html" aria-label="${SITE.name} home"><img src="${SITE.logo}" alt="${SITE.name}" width="146" height="27"></a>
       <nav class="primary-nav" aria-label="Primary"><ul>${items}<li>${searchBtn("")}</li></ul></nav>
       <div class="nav-actions">
         <a class="btn btn--outline-light nav-cta nav-give" href="give.html">Give</a>
@@ -248,6 +249,7 @@ function fillSiteData() {
     else if (key === "address") { el.textContent = SITE.address; if (el.tagName === "A") el.href = SITE.mapsUrl; }
     else if (key === "website") { el.textContent = SITE.website.replace(/^https?:\/\//, ""); if (el.tagName === "A") el.href = SITE.website; }
     else if (key === "mailing-address") { el.textContent = SITE.mailingAddress; }
+    else if (key === "logo" || key === "logo-on-light") { el.src = key === "logo" ? SITE.logo : SITE.logoOnLight; el.alt ||= SITE.name; }
     else if (key === "maps") { if (el.tagName === "A") el.href = SITE.mapsUrl; }
     else if (key === "giving") { if (el.tagName === "A") el.href = SITE.givingUrl; }
     else if (key === "youtube-live") { if (el.tagName === "A") el.href = SITE.youtubeLiveUrl; }
@@ -915,14 +917,26 @@ function initCounters() {
   els.forEach((el) => { el.textContent = fmt(el)(0); io.observe(el); });
 }
 
-/* Links to a collapsed FAQ item (e.g. plan-a-visit.html#ride) open it */
+/* Links to a section (e.g. events.html#regular) land on its start even when content
+   above it loads late (shared snippets, images). A collapsed FAQ item
+   (e.g. plan-a-visit.html#ride) is also opened. */
 function openTargetDetails() {
   const el = location.hash && document.getElementById(location.hash.slice(1));
-  if (el && el.tagName === "DETAILS") {
-    el.open = true;
-    // wait for the page (header, fonts, images) to settle before scrolling to it
-    addEventListener("load", () => setTimeout(() => el.scrollIntoView({ behavior: "instant" }), 100));
-  }
+  if (!el) return;
+  if (el.tagName === "DETAILS") el.open = true;
+  // Scroll to it once the page has loaded, then keep it in place for a few seconds while
+  // late content above it (lazy images) changes the page height, unless the visitor scrolls first
+  const align = () => el.scrollIntoView({ behavior: "instant" });
+  const settle = () => {
+    align();
+    if (!("ResizeObserver" in window)) return;
+    const ro = new ResizeObserver(align);
+    const stop = () => { ro.disconnect(); ["wheel", "touchstart", "keydown"].forEach((t) => removeEventListener(t, stop)); };
+    ["wheel", "touchstart", "keydown"].forEach((t) => addEventListener(t, stop, { passive: true }));
+    ro.observe(document.body);
+    setTimeout(stop, 4000);
+  };
+  if (document.readyState === "complete") setTimeout(settle, 100); else addEventListener("load", () => setTimeout(settle, 100));
 }
 
 /* In-page sub-navigation highlight */

@@ -1,0 +1,8 @@
+# Mercy Seat Chapel
+User-agent: *
+Allow: /
+# Content dashboard and its source code
+Disallow: /admin/
+Disallow: /studio/
+
+Sitemap: https://www.mercyseatchapel.org/sitemap.xml

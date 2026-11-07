@@ -114,6 +114,8 @@ small, .small { font-size: 14px; }
 @media (max-width: 767px) { .eyebrow { font-size: 12px; } }
 
 .section-head { max-width: 720px; margin: 0 auto 48px; text-align: center; }
+/* Optional logo above a section head's eyebrow (Gallery page); follows the head's alignment */
+.section-head__logo { display: block; width: clamp(200px, 20vw, 260px); height: auto; margin: 0 auto 28px; }
 .section-head .eyebrow::after { content: ""; width: 28px; height: 2px; border-radius: 2px; background: var(--c-secondary); }
 .section-head p { color: var(--c-muted); font-size: 18px; margin: 0; }
 .section--navy .section-head p { color: rgba(255, 255, 255, .72); }
@@ -127,6 +129,7 @@ small, .small { font-size: 14px; }
 /* Phones: centred section heads (eyebrow, heading, intro) left-align like the rest of the content */
 @media (max-width: 767px) {
   .section-head { margin-left: 0; text-align: left; }
+  .section-head__logo { margin-left: 0; margin-bottom: 22px; }
   .section-head .eyebrow::after { display: none; }
 }
 
@@ -195,7 +198,7 @@ small, .small { font-size: 14px; }
 .site-header.is-scrolled { top: 10px; }
 .site-header.is-scrolled .nav-shell { background: rgba(27, 48, 104, .97); height: 70px; box-shadow: 0 12px 34px rgba(16, 28, 51, .28); }
 .brand { display: flex; align-items: center; flex-shrink: 0; }
-.brand img { height: 40px; width: auto; }
+.brand img { height: 27px; width: auto; }
 
 .primary-nav { display: flex; align-items: center; }
 .primary-nav > ul { display: flex; align-items: center; gap: 2px; list-style: none; margin: 0; padding: 0; }
@@ -254,7 +257,7 @@ small, .small { font-size: 14px; }
   .site-header { top: 10px; padding: 0 12px; }
   .nav-shell { height: 66px; padding: 0 8px 0 12px; gap: 8px; }
   .brand { flex-shrink: 1; min-width: 0; }
-  .brand img { height: auto; max-height: 34px; width: 100%; object-fit: contain; object-position: left center; }
+  .brand img { height: auto; max-height: 23px; width: 100%; object-fit: contain; object-position: left center; }
   .nav-actions { gap: 6px; }
   .nav-cta { padding: 10px 11px; min-height: 40px; font-size: 14px; }
   .nav-give { display: none; }
@@ -281,7 +284,7 @@ small, .small { font-size: 14px; }
 }
 .search-panel.is-open { opacity: 1; visibility: visible; }
 .search-panel__box {
-  width: 100%; max-width: 720px; max-height: 100%; display: flex; flex-direction: column; overflow: hidden;
+  width: 100%; max-width: 360px; max-height: 100%; display: flex; flex-direction: column; overflow: hidden;
   background: var(--c-white); border-radius: var(--r-card); box-shadow: var(--shadow-md);
 }
 .search-panel__form { display: flex; align-items: center; gap: 12px; padding: 12px 12px 12px 20px; border-bottom: 1px solid var(--c-border); }
@@ -312,7 +315,7 @@ small, .small { font-size: 14px; }
 }
 .mobile-menu.is-open { opacity: 1; visibility: visible; transform: none; }
 .mobile-menu__top { display: flex; justify-content: space-between; align-items: center; padding: 22px var(--pad-x); }
-.mobile-menu__top img { height: 38px; width: auto; }
+.mobile-menu__top img { height: 27px; width: auto; }
 .mobile-close {
   width: 48px; height: 48px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, .25);
   background: transparent; color: var(--c-white); display: grid; place-items: center; cursor: pointer;
@@ -444,6 +447,8 @@ body.menu-open { overflow: hidden; }
 .time-card--featured h3, .time-card--featured .time-card__time { color: var(--c-white); }
 .time-card--featured .time-card__day, .time-card--featured p { color: rgba(255, 255, 255, .72); }
 .time-card--featured .time-card__icon { background: rgba(255, 72, 94, .18); color: var(--c-secondary); }
+.times-cta { display: flex; justify-content: center; margin-top: 36px; } /* homepage "See all service times" button */
+@media (max-width: 767px) { .times-cta { justify-content: flex-start; } }
 .times-foot { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px 28px; margin-top: 36px; color: var(--c-muted); font-size: 15px; }
 .times-foot span { display: inline-flex; align-items: center; gap: 8px; }
 .times-foot svg { width: 18px; height: 18px; color: var(--c-accent); }
@@ -1153,6 +1158,53 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
 #apply, .app-form, .app-success { scroll-margin-top: 110px; }
 .app-wrap { max-width: calc(880px + var(--pad-x) * 2); }
 .app-wrap .section-head { margin-bottom: 32px; }
+/* ---------- 404 page: open Bible with pages turning in a loop ---------- */
+.lost { padding: 170px 0 96px; background: linear-gradient(180deg, var(--c-soft), var(--c-bg)); }
+.lost__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: center; }
+.lost__text h1 { margin-bottom: 16px; }
+.lost__text .scripture { margin: 24px 0 28px; }
+.lost__links { margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--c-border); }
+.lost__links h2 { font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--c-muted); margin-bottom: 14px; }
+.lost__links ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 24px; }
+.lost__links a { display: inline-flex; align-items: center; gap: 10px; min-height: 40px; font: 600 15px/1.3 var(--f-heading); color: var(--c-primary); text-decoration: none; }
+.lost__links a:hover { color: var(--c-accent); }
+.lost__links svg { width: 18px; height: 18px; color: var(--c-secondary); }
+
+.bible { --w: min(420px, 82vw); --h: calc(var(--w) * .66); position: relative; width: var(--w); margin: 0 auto; padding-bottom: 40px; }
+.bible__book { position: relative; width: var(--w); height: var(--h); perspective: 1600px; transform: rotateX(18deg); transform-style: preserve-3d; animation: bibleFloat 6s ease-in-out infinite; }
+@keyframes bibleFloat { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
+/* Leather cover under both pages, with a gold edge */
+.bible__cover { position: absolute; inset: -12px -14px; border-radius: 10px; background: linear-gradient(90deg, #13234D, var(--c-primary) 48%, #10204A 50%, var(--c-primary) 52%, #13234D); box-shadow: inset 0 0 0 3px rgba(255, 216, 160, .55), 0 26px 50px rgba(16, 28, 51, .35); }
+.bible__page, .bible__face {
+  position: absolute; top: 0; width: 50%; height: 100%;
+  background-color: #FFFDF7;
+  /* faint printed lines in two columns */
+  background-image: repeating-linear-gradient(180deg, transparent 0 11px, rgba(51, 65, 85, .16) 11px 12px);
+  background-size: 74% 70%; background-position: center 55%; background-repeat: no-repeat;
+}
+.bible__page--left { left: 0; border-radius: 6px 2px 2px 6px; box-shadow: inset -14px 0 18px -10px rgba(16, 28, 51, .25); }
+.bible__page--right { right: 0; border-radius: 2px 6px 6px 2px; box-shadow: inset 14px 0 18px -10px rgba(16, 28, 51, .25); }
+/* Turning page: hinged on the spine, turns from right to left */
+.bible__flip { position: absolute; top: 0; left: 50%; width: 50%; height: 100%; transform-origin: left center; transform-style: preserve-3d; animation: pageTurn 4.8s cubic-bezier(.45, .05, .35, 1) infinite; animation-delay: calc(var(--i) * 1.6s); }
+.bible__face { left: 0; width: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.bible__face--front { border-radius: 2px 6px 6px 2px; box-shadow: inset 14px 0 18px -10px rgba(16, 28, 51, .2); }
+.bible__face--back { transform: rotateY(180deg); border-radius: 6px 2px 2px 6px; box-shadow: inset -14px 0 18px -10px rgba(16, 28, 51, .2); }
+@keyframes pageTurn {
+  0%, 8% { transform: rotateY(0deg); }
+  55% { transform: rotateY(-180deg); }
+  100% { transform: rotateY(-180deg); }
+}
+.bible__ribbon { position: absolute; left: calc(50% - 5px); top: -6px; width: 10px; height: calc(100% + 34px); background: var(--c-secondary); clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 92%, 0 100%); transform: translateZ(2px); }
+.bible__shadow { position: absolute; left: 10%; right: 10%; bottom: 8px; height: 18px; border-radius: 50%; background: radial-gradient(closest-side, rgba(16, 28, 51, .28), transparent); }
+.bible__code { position: absolute; left: 50%; top: calc(var(--h) * -0.42); transform: translateX(-50%); font: 800 clamp(64px, 12vw, 110px)/1 var(--f-heading); letter-spacing: -3px; color: var(--c-primary); opacity: .08; pointer-events: none; }
+@media (max-width: 900px) {
+  .lost { padding: 130px 0 64px; }
+  .lost__grid { grid-template-columns: 1fr; gap: 40px; text-align: left; }
+  .bible { --w: min(340px, 80vw); margin-top: 40px; }
+}
+@media (max-width: 479px) { .lost__links ul { grid-template-columns: 1fr; } }
+@media (prefers-reduced-motion: reduce) { .bible__flip, .bible__book { animation: none; } }
+
 /* Numbered steps list (e.g. "How the process works" beside the Marriage Counselling form) */
 .process-steps__title { font-size: 20px; margin: 32px 0 6px; }
 .process-steps { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 22px; position: relative; }
@@ -1349,7 +1401,7 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
 .site-footer a { color: rgba(255, 255, 255, .78); text-decoration: none; transition: color .2s; }
 .site-footer a:hover { color: var(--c-secondary-light); }
 .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1.3fr 1.3fr; gap: 48px; padding-bottom: 56px; border-bottom: 1px solid rgba(255, 255, 255, .12); }
-.footer-brand img { height: 56px; width: auto; margin-bottom: 22px; }
+.footer-brand img { height: 32px; width: auto; margin-bottom: 22px; }
 .footer-brand p { max-width: 340px; }
 .site-footer h4 { color: var(--c-white); font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 20px; }
 .footer-links { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
