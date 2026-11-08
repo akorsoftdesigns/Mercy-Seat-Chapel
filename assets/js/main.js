@@ -315,11 +315,15 @@ function initHeader() {
     if (menu.classList.contains("is-open")) setMenu(false);
     document.querySelectorAll(".primary-nav .nav-item.is-open").forEach((i) => { i.classList.remove("is-open"); i.querySelector("button.nav-link")?.setAttribute("aria-expanded", "false"); });
   });
-  menu.querySelectorAll(".m-group > button:not(.m-search)").forEach((b) => b.addEventListener("click", () => {
-    const g = b.parentElement;
-    const open = !g.classList.contains("is-open");
-    g.classList.toggle("is-open", open);
-    b.setAttribute("aria-expanded", String(open));
+  // Mobile accordion: one submenu open at a time; clicking an open one closes it.
+  const groupButtons = menu.querySelectorAll(".m-group > button:not(.m-search)");
+  groupButtons.forEach((b) => b.addEventListener("click", () => {
+    const open = !b.parentElement.classList.contains("is-open");
+    groupButtons.forEach((other) => {
+      const isThis = other === b;
+      other.parentElement.classList.toggle("is-open", isThis && open);
+      other.setAttribute("aria-expanded", String(isThis && open));
+    });
   }));
 }
 

@@ -406,22 +406,11 @@ body.menu-open { overflow: hidden; }
   .hero__lead { font-size: 18px; }
   .hero__inner { padding-bottom: 56px; }
 }
-/* Phones: hero 80px taller than the screen; the extra goes under the text, so the
-   heading and buttons stay where they were and the photo/video runs on below the fold */
+/* Phones: hero fills the screen exactly, with the heading, text and buttons sitting
+   near the bottom over the full-screen photo/video */
 @media (max-width: 767px) {
-  .hero { min-height: calc(100svh + 80px); }
-  .hero__inner { padding-bottom: calc(56px + 80px); }
-  /* Phones: the photo/video sits in a short 16:9 band under the header (instead of filling
-     the whole screen and cutting off the sides), fading into the blue at its bottom edge.
-     The heading starts just under the band, and the hero ends just under the buttons.
-     Delete these 3 rules to go back to the full-screen photo/video. */
-  .hero { --hero-media-top: 86px; --hero-media-h: 56.25vw; min-height: 0; }
-  .hero__slides {
-    top: var(--hero-media-top); bottom: auto; height: var(--hero-media-h);
-    -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
-    mask-image: linear-gradient(180deg, #000 70%, transparent 100%);
-  }
-  .hero__inner { padding-top: calc(var(--hero-media-top) + var(--hero-media-h) - 16px); padding-bottom: 56px; }
+  .hero { min-height: 100svh; }
+  .hero__inner { padding-bottom: 28px; }
 }
 
 /* ---------- Page hero (inner pages) ---------- */
