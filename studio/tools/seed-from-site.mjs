@@ -145,7 +145,11 @@ async function main() {
   const live = await page("live.html");
 
   // ---- Regular gatherings (one record each; texts copied from the Events page) ----
-  const cardsByTitle = Object.fromEntries(index.querySelectorAll("#service-times .time-card").map((c) => [txt(c.querySelector("h3")), c]));
+  // Homepage cards, including the ones kept in a "KEPT FOR LATER" comment, so every gathering keeps its photo and line
+  const indexAll = parse((await readFile(path.join(SITE_DIR, "index.html"), "utf8")).replace(/<!--|-->/g, ""));
+  const cardsByTitle = Object.fromEntries(indexAll.querySelectorAll("#service-times .time-card").map((c) => [txt(c.querySelector("h3")), c]));
+  const shownCards = index.querySelectorAll("#service-times .time-card").map((c) => txt(c.querySelector("h3")));
+  const shownLive = live.querySelectorAll(".time-card").map((c) => txt(c.querySelector("h3")));
   const liveByTitle = Object.fromEntries(live.querySelectorAll(".time-card").map((c) => [txt(c.querySelector("h3")), c]));
   const rowsByTitle = Object.fromEntries(eventsPage.querySelectorAll(".event-row").map((r) => [txt(r.querySelector("h3")), r]));
   const R = (frequency, weekday, weekOfMonth) => ({ frequency, ...(weekday && { weekday }), ...(weekOfMonth && { weekOfMonth }) });
@@ -154,17 +158,22 @@ async function main() {
     { id: "event-sunday-service", title: "Sunday Service", category: "Service", recurrence: R("weekly", "sunday"), startTime: "10:00 AM", location: "Main auditorium & online", attendance: "both" },
     { id: "event-sunday-school", title: "Sunday School", category: "Bible Study", recurrence: R("weekly", "sunday"), startTime: "9:00 AM", details: [detail("users", "Open to everyone")] },
     { id: "event-bible-study", title: "Bible Study", category: "Bible Study", recurrence: R("weekly", "tuesday"), startTime: "7:30 PM", attendance: "both", details: [detail("radio", "In person & online")] },
-    { id: "event-strength-in-prayer", title: "Strength in Prayer", category: "Prayer", recurrence: R("weekly", "wednesday"), startTime: "9:00 PM", attendance: "online", showPrayerLine: true },
+    { id: "event-strength-in-prayer", title: "Midweek Prayer", shortTitle: "Strength in Prayer", category: "Prayer", recurrence: R("weekly", "wednesday"), startTime: "9:00 PM", attendance: "online", showPrayerLine: true },
     { id: "event-thanksgiving-sunday", title: "Thanksgiving Sunday", category: "Service", recurrence: R("monthly", "sunday", 1), startTime: "10:00 AM", details: [detail("calendar", "Monthly")], badge: { top: "1st", bottom: "Sunday" } },
     { id: "event-holy-communion", title: "Holy Communion Service", shortTitle: "Holy Communion", category: "Service", recurrence: R("monthly", "tuesday", 1), startTime: "7:30 PM", details: [detail("calendar", "Monthly")] },
     { id: "event-seed-and-future", title: "The Seed & the Future", category: "Prayer", recurrence: R("monthly", "saturday", 2), startTime: "12:00 PM", endTime: "1:00 PM", attendance: "online", details: [detail("calendar", "Monthly"), detail("video", "Virtual")] },
     { id: "event-evangelism", title: "Evangelism", category: "Outreach", recurrence: R("monthly", "sunday", 2), timeNote: "Immediately after Sunday Service", details: [detail("calendar", "Monthly"), detail("megaphone", "Evangelism Department")], badge: { top: "2nd", bottom: "Sunday" } },
     { id: "event-nursing-home-visits", title: "Nursing Home & Shelter Visits", category: "Outreach", recurrence: R("irregular"), details: [detail("heart-handshake", "Mercy For Many")] }
   ];
+  const homeCardIds = [], liveCardIds = []; // the cards each page shows today, in page order below
+  const titleOf = Object.fromEntries(regular.map((e) => [e.id, e.shortTitle || e.title]));
   regular.forEach((e, i) => {
     const row = rowsByTitle[e.title];
+    if (!row) throw new Error(`Events page has no row titled "${e.title}"`);
     const card = cardsByTitle[e.shortTitle || e.title], lc = liveByTitle[e.shortTitle || e.title];
     const { id, ...rest } = e;
+    if (shownCards.includes(e.shortTitle || e.title)) homeCardIds.push(id);
+    if (shownLive.includes(e.shortTitle || e.title)) liveCardIds.push(id);
     add({
       _id: id, _type: "event", kind: "recurring", ...rest,
       summary: txt(row.querySelector("p")),
@@ -297,8 +306,9 @@ async function main() {
       };
     }),
     heroButtons: buttonsIn(index.querySelector(".hero .btn-row")),
-    serviceTimes: ["event-sunday-service", "event-bible-study", "event-holy-communion", "event-strength-in-prayer", "event-seed-and-future", "event-thanksgiving-sunday"].map(ref),
-    liveSchedule: ["event-sunday-service", "event-bible-study", "event-holy-communion"].map(ref),
+    // Same cards, in the same order, as the pages show today
+    serviceTimes: homeCardIds.sort((a, b) => shownCards.indexOf(titleOf[a]) - shownCards.indexOf(titleOf[b])).map(ref),
+    liveSchedule: liveCardIds.sort((a, b) => shownLive.indexOf(titleOf[a]) - shownLive.indexOf(titleOf[b])).map(ref),
     featuredMinistries: ministryIds.map(ref),
     featuredOutreach: outreachIds.map(ref)
   });
