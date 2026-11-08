@@ -37,7 +37,7 @@ const SITE_SETTINGS = {
   youtubeChannelId: "UCVoCauuDqWoSh4fDPtVdt5g",
   liveVideoId: "Zg8AQ9CMOZ4",
   youtubeLiveUrl: "https://www.youtube.com/@MercySeatChapel/live",
-  social: { youtube: "https://www.youtube.com/c/Mercyseatchapel", instagram: "https://www.instagram.com/mercyseatchapel/", facebook: "https://www.facebook.com/Mercyseatchapel/", twitter: "https://twitter.com/mercyseatchapel", tiktok: "#" },
+  social: { youtube: "https://www.youtube.com/c/Mercyseatchapel", instagram: "https://www.instagram.com/mercyseatchapel/", facebook: "https://www.facebook.com/Mercyseatchapel/", twitter: "https://twitter.com/mercyseatchapel", tiktok: "https://www.tiktok.com/@mercyseatchapel" },
   times: [
     { label: "Sunday Service", time: "10:00 AM" },
     { label: "Bible Study (Tue)", time: "7:30 PM" },

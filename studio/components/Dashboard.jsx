@@ -32,7 +32,7 @@ function Action({ icon, text, intent, params }) {
 function DocList({ items, empty }) {
   if (!items?.length) return <Text size={1} muted>{empty}</Text>;
   return (
-    <Stack space={2}>
+    <Stack gap={2}>
       {items.map((d) => (
         <Card key={d._id} as={IntentLink} intent="edit" params={{ id: docId(d._id), type: d._type }} padding={3} radius={2} tone="default" border style={{ textDecoration: "none" }}>
           <Flex align="center" gap={3}>
@@ -49,7 +49,7 @@ function DocList({ items, empty }) {
 function Panel({ title, children }) {
   return (
     <Card padding={4} radius={3} shadow={1}>
-      <Stack space={4}><Heading size={1} as="h2">{title}</Heading>{children}</Stack>
+      <Stack gap={4}><Heading size={1} as="h2">{title}</Heading>{children}</Stack>
     </Card>
   );
 }
@@ -74,9 +74,9 @@ function DashboardHome() {
   return (
     <Box padding={[3, 4, 5]} style={{ overflow: "auto", height: "100%" }}>
       <Container width={3}>
-        <Stack space={5}>
+        <Stack gap={5}>
           <Card padding={[4, 5]} radius={3} tone="primary" style={{ background: "#1B3068", color: "#fff" }}>
-            <Stack space={4}>
+            <Stack gap={4}>
               <Text size={1} style={{ color: "#FF9EAC", letterSpacing: ".08em", textTransform: "uppercase", fontWeight: 600 }}>Mercy Seat Chapel dashboard</Text>
               <Heading size={[3, 4]} as="h1" style={{ color: "#fff" }}>Welcome{first ? `, ${first}` : ""}</Heading>
               <Text size={2} style={{ color: "rgba(255,255,255,.85)" }}>
@@ -92,7 +92,7 @@ function DashboardHome() {
           </Card>
 
           <Panel title="Quick actions">
-            <Grid columns={[1, 2, 3]} gap={3}>
+            <Grid gridTemplateColumns={[1, 2, 3]} gap={3}>
               <Action icon={PlayIcon} text="Add a sermon" intent="create" params={{ type: "sermon" }} />
               <Action icon={CalendarIcon} text="Create an event" intent="create" params={{ type: "event" }} />
               <Action icon={BellIcon} text="Post an announcement" intent="create" params={{ type: "announcement" }} />
@@ -106,7 +106,7 @@ function DashboardHome() {
           {error && <Card padding={4} radius={3} tone="critical"><Text>{error}</Text></Card>}
           {!data && !error && <Flex justify="center" padding={5}><Spinner muted /></Flex>}
           {data && (
-            <Grid columns={[1, 1, 2]} gap={4}>
+            <Grid gridTemplateColumns={[1, 1, 2]} gap={4}>
               <Panel title={`Drafts waiting to be published (${data.drafts.length})`}>
                 <DocList items={data.drafts} empty="Nothing waiting. All changes are published." />
               </Panel>
@@ -119,7 +119,7 @@ function DashboardHome() {
                 <DocList items={data.recent} empty="Nothing published yet." />
               </Panel>
               <Panel title="Need help?">
-                <Stack space={3}>
+                <Stack gap={3}>
                   <Text size={1}><EditIcon /> Fields with a red message must be fixed before publishing.</Text>
                   <Text size={1}>The <b>Preview</b> tab shows how an item will look with the website's styles before you publish.</Text>
                   <Text size={1}>Unpublishing removes an item from the website but keeps it here. Every change is kept in the item's history (⋯ menu → History).</Text>
