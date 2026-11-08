@@ -23,35 +23,21 @@ const SITE_FIXED = {
    channel's current (or next) live stream; "#" = link not set up yet. */
 /* cms:site-settings */
 const SITE_SETTINGS = {
-  phone:"(301) 740-8118",
+  phone: "(301) 740-8118",
   phoneHref: "tel:+13017408118",
   prayerLine: "1 857 216 6700, code 860476",
   prayerLineHref: "tel:+18572166700,,860476#",
   email: "info@mercyseatchapel.org",
   address: "17604 Washington Grove Lane, Gaithersburg, MD 20877",
-  // Postal address for giving by mail (shown on the Give page)
   mailingAddress: "P.O. Box 914, Washington Grove, MD 20880",
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=17604+Washington+Grove+Lane+Gaithersburg+MD+20877",
   givingUrl: "https://msc.edgdmedia.com/giving/",
-  // Mobile app store links — replace "#" with the real App Store / Google Play listing URLs
   appStoreUrl: "#",
   playStoreUrl: "#",
   youtubeChannelId: "UCVoCauuDqWoSh4fDPtVdt5g",
-  // Watch Live page player: the YouTube video ID of the live broadcast to show
-  // (the part after youtube.com/watch?v= or studio.youtube.com/video/). YouTube gives
-  // each broadcast its own ID, so update this for each new stream; set it to ""
-  // to show whatever the channel is streaming live at the time instead.
   liveVideoId: "Zg8AQ9CMOZ4",
-  // "Watch on YouTube" link under the Watch Live player: always opens the channel's current
-  // (or next scheduled) live stream on YouTube, so it never needs updating
   youtubeLiveUrl: "https://www.youtube.com/@MercySeatChapel/live",
-  social: {
-    youtube: "https://www.youtube.com/c/Mercyseatchapel",
-    instagram: "https://www.instagram.com/mercyseatchapel/",
-    facebook: "https://www.facebook.com/Mercyseatchapel/",
-    twitter: "https://twitter.com/mercyseatchapel",
-    tiktok: "#" // placeholder: replace with the TikTok profile URL
-  },
+  social: { youtube: "https://www.youtube.com/c/Mercyseatchapel", instagram: "https://www.instagram.com/mercyseatchapel/", facebook: "https://www.facebook.com/Mercyseatchapel/", twitter: "https://twitter.com/mercyseatchapel", tiktok: "#" },
   times: [
     { label: "Sunday Service", time: "10:00 AM" },
     { label: "Bible Study (Tue)", time: "7:30 PM" },
