@@ -1,0 +1,2548 @@
+{
+ "documents": [
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "department-choir",
+   "_type": "department",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "anchor": {
+    "_type": "slug",
+    "current": "choir"
+   },
+   "archived": false,
+   "body": [
+    {
+     "_key": "k0001x",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0001w",
+       "_type": "span",
+       "marks": [],
+       "text": "The Mercy Seat Chapel Music Department, as one body unified in spirit and with a heart of purity, purpose to glorify God, to humbly serve Him in a spirit of excellence as ministers of music, hope, and agape love… To lead others into His divine presence through Thanksgiving, Praise Worship, and Singing Hymns."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0001z",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0001y",
+       "_type": "span",
+       "marks": [],
+       "text": "Our mission"
+      }
+     ],
+     "markDefs": [],
+     "style": "h3"
+    },
+    {
+     "_key": "k00021",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k00020",
+       "_type": "span",
+       "marks": [],
+       "text": "To inspire, encourage, train, and direct those whom God has called into the music ministry with a spirit of service, excellence, sensitivity, purity, humility, and strength."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k00023",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k00022",
+       "_type": "span",
+       "marks": [],
+       "text": "The accomplishment of this purpose does not happen as a result of well-trained ears, balanced voicing, or even an energetic stage presence. Instead, true worship leading must be a supernatural extension of our love relationship with Christ (Matthew 22:37-38)."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k00024",
+     "_type": "scripture",
+     "cite": "Psalm 98:1, 4-6",
+     "text": "Sing to the Lord a new song, for He has done marvelous things… Shout for joy to the Lord, all the earth, burst into jubilant song with music… shout for joy before the Lord, the King."
+    }
+   ],
+   "buttons": [],
+   "image": {
+    "_type": "image",
+    "alt": "The Mercy Seat Chapel choir ministering",
+    "asset": {
+     "_ref": "image-e37d778d7a8ea2549c30239aea606ff261f37cd3-1920x1440-jpg",
+     "_type": "reference"
+    }
+   },
+   "name": "Choir",
+   "order": 1,
+   "subtitle": "To inspire, encourage, train, and direct",
+   "tag": "Music Department"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "department-drama",
+   "_type": "department",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "anchor": {
+    "_type": "slug",
+    "current": "drama"
+   },
+   "archived": false,
+   "body": [
+    {
+     "_key": "k0002u",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0002t",
+       "_type": "span",
+       "marks": [],
+       "text": "The Drama team of Mercy Seat Chapel is a department that seeks to minister the word of God through acting. The use of skits which tend to resonate more is a powerful tool for reminding and teaching ourselves the timeless word of God. This department is a strong back up to the Pastor and leadership of the church in helping to de-fragment the “word for now” into easy understandable and interesting graphic images that will sit well with the congregation. This helps the message to sink in deeper thereby ministering more effectively the word of God to people."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0002w",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0002v",
+       "_type": "span",
+       "marks": [],
+       "text": "The trend of music and movies in the global world has become very appealing to many and in changing with the times to be as flexible as possible, we are a department that is also looking into ways to make our skits of various types; live, recorded etc to diversify the background and generate more interest among the congregation doing all these without losing the potency of the message being passed across which is always based on the word of God."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0002y",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0002x",
+       "_type": "span",
+       "marks": [],
+       "text": "The ministry gives expression to the creative abilities of workers who are talented in drama through acting, script writing etc. It is a relatively new and small-sized department in terms of constitution within the church but we are truly grateful for the immense impact that the Lord has used us for and greater works that He will do through us in Jesus name."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    }
+   ],
+   "buttons": [],
+   "image": {
+    "_type": "image",
+    "alt": "Drama team rehearsing",
+    "asset": {
+     "_ref": "image-5fd6e191bc6d771194c399c2ac3b4cb34bfa8c32-1920x1280-jpg",
+     "_type": "reference"
+    }
+   },
+   "name": "Drama",
+   "order": 3,
+   "subtitle": "A powerful tool for reminding and teaching ourselves the timeless word of God.",
+   "tag": "Drama"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "department-evangelism",
+   "_type": "department",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "anchor": {
+    "_type": "slug",
+    "current": "evangelism"
+   },
+   "archived": false,
+   "body": [
+    {
+     "_key": "k00026",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k00025",
+       "_type": "span",
+       "marks": [],
+       "text": "The adopted name for the Evangelism Department at Mercy Seat Chapel, Gaithersburg, Maryland is “The Pillars of Hope”. The bible says “But those who hope in the Lord will renew their strength; they will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint” (Isaiah 40:31). The Bible also makes us understand that evangelism is the bedrock of Christianity, and soul winning is the heartbeat of God. As we learn from the scriptures, Our God does not want anyone to perish but everyone to come to repentance (2 Pet 3:9). He sent his son into the world to live a sinless life and die on the cross for us; (John 3:16) “For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life”."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k00028",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k00027",
+       "_type": "span",
+       "marks": [],
+       "text": "The Evangelism Department is made up of a Spiritual Leader, The Head and the Assistant Head of Department, the Secretary and a team of very loving and dedicated members and volunteers."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0002a",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k00029",
+       "_type": "span",
+       "marks": [],
+       "text": "Purpose"
+      }
+     ],
+     "markDefs": [],
+     "style": "h3"
+    },
+    {
+     "_key": "k0002c",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0002b",
+       "_type": "span",
+       "marks": [],
+       "text": "To expand our reach in touching and affecting the lives of many in our community, i.e. Gaithersburg, Rockville, Montgomery Village, Germantown, Frederick and beyond."
+      }
+     ],
+     "level": 1,
+     "listItem": "bullet",
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0002e",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0002d",
+       "_type": "span",
+       "marks": [],
+       "text": "To effect numerical, spiritual growth and the overall strength of our church"
+      }
+     ],
+     "level": 1,
+     "listItem": "bullet",
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0002g",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0002f",
+       "_type": "span",
+       "marks": [],
+       "text": "One on One Evangelism (at malls and public places, as well as door to door campaigns)"
+      }
+     ],
+     "level": 1,
+     "listItem": "bullet",
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0002i",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0002h",
+       "_type": "span",
+       "marks": [],
+       "text": "Outdoor events and activities"
+      }
+     ],
+     "level": 1,
+     "listItem": "bullet",
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0002k",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0002j",
+       "_type": "span",
+       "marks": [],
+       "text": "Tracts, Flyers, Newsletters and Circulars"
+      }
+     ],
+     "level": 1,
+     "listItem": "bullet",
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0002m",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0002l",
+       "_type": "span",
+       "marks": [],
+       "text": "Dinner, Lunch and Breakfast events"
+      }
+     ],
+     "level": 1,
+     "listItem": "bullet",
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0002o",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0002n",
+       "_type": "span",
+       "marks": [],
+       "text": "Visitation to homeless shelters, group homes, nursing homes, correctional facilities etc."
+      }
+     ],
+     "level": 1,
+     "listItem": "bullet",
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0002q",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0002p",
+       "_type": "span",
+       "marks": [],
+       "text": "To liaise with other groups (i.e. Mercy For Many, the follow up dept etc) to promote soul winning."
+      }
+     ],
+     "level": 1,
+     "listItem": "bullet",
+     "markDefs": [],
+     "style": "normal"
+    }
+   ],
+   "buttons": [],
+   "cards": [
+    {
+     "_key": "k0002r",
+     "text": "To spread the good news of Hope and Salvation, with the view of winning many souls into the Kingdom of God.",
+     "title": "Our Vision"
+    },
+    {
+     "_key": "k0002s",
+     "text": "To emphasize the importance of soul winning in our church, and to encourage the participation of all church members in carrying out group and individual soul winning activities. “The fruit of the righteous is a tree of life; and he that winneth souls is wise.” (Prov. 11:30)",
+     "title": "Goal"
+    }
+   ],
+   "image": {
+    "_type": "image",
+    "alt": "Volunteers sharing with the community",
+    "asset": {
+     "_ref": "image-44444b6ea52b4b5d5de555f123af593d0a78f774-1920x1280-jpg",
+     "_type": "reference"
+    }
+   },
+   "name": "The Pillars of Hope",
+   "order": 2,
+   "tag": "Evangelism"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "department-information-technology",
+   "_type": "department",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "anchor": {
+    "_type": "slug",
+    "current": "information-technology"
+   },
+   "archived": false,
+   "body": [
+    {
+     "_key": "k0003b",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0003a",
+       "_type": "span",
+       "marks": [],
+       "text": "The diversity of the temporal activities of the Church requires IT professionals to have flexible service offerings. We try to use industry-based applications and services to minimize our IT resource requirements, avoiding additional human resources costs and eliminating waste so as not to overburden the church wallet. We rely on members’ innovative and online sources. Managing IT at the Church is challenging due to diversity, scope, language requirements, and uses multiple vendors."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0003d",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0003c",
+       "_type": "span",
+       "marks": [],
+       "text": "We use industry best practices to ensure that we use resources effectively and efficiently. We use diverse software development methodologies, such as Ustream and Easy-worship, to meet the needs of our Video Streaming. We install, monitor, troubleshoot, implement and run all IT related including Networking, systems and video. IT Department is a core backbone of the church because we inter-relate with all other departments."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0003f",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0003e",
+       "_type": "span",
+       "marks": [],
+       "text": "The blessings of the gospel are now more accessible to an ever-broadening audience over a growing number of media. Information technology relieves some of the administrative burdens of our Pastorate and leaders, who can then focus more time on ministering to member needs. To meet the needs of a diverse global Church, we are constantly striving to effectively manage our unique technology mix."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    }
+   ],
+   "buttons": [],
+   "image": {
+    "_type": "image",
+    "alt": "Laptop and technology equipment",
+    "asset": {
+     "_ref": "image-84855504197fce91e73f3a7c05c1c98ce721a208-1920x1282-jpg",
+     "_type": "reference"
+    }
+   },
+   "name": "Information Technology",
+   "order": 5,
+   "subtitle": "For increasing efficiency and accuracy to enhance the quality of life of a common man.",
+   "tag": "Information Technology"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "department-marriage-counselling",
+   "_type": "department",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "anchor": {
+    "_type": "slug",
+    "current": "marriage-counselling"
+   },
+   "archived": false,
+   "body": [
+    {
+     "_key": "k0003h",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0003g",
+       "_type": "span",
+       "marks": [],
+       "text": "Building stronger marriages through biblical guidance, meaningful communication, and compassionate support for couples and families."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    }
+   ],
+   "buttons": [
+    {
+     "_key": "k0003i",
+     "_type": "button",
+     "icon": "arrow-right",
+     "label": "Learn More",
+     "link": {
+      "newTab": false,
+      "page": "marriage-counselling.html"
+     },
+     "style": "secondary"
+    }
+   ],
+   "image": {
+    "_type": "image",
+    "alt": "A couple holding hands",
+    "asset": {
+     "_ref": "image-0b96d5076e8a0bed7ffa227938f6b73aa7e18cbf-1920x1272-jpg",
+     "_type": "reference"
+    }
+   },
+   "name": "Marriage Counselling",
+   "order": 6,
+   "tag": "Marriage Counselling"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "department-multimedia",
+   "_type": "department",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "anchor": {
+    "_type": "slug",
+    "current": "multimedia"
+   },
+   "archived": false,
+   "body": [
+    {
+     "_key": "k00030",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0002z",
+       "_type": "span",
+       "marks": [],
+       "text": "The Multimedia Department of Mercy Seat Chapel serves the ministry by capturing, producing and sharing the message of the Gospel through sound, video, photography and graphics. Every Sunday Service, Bible Study and special program is streamed live, so that members and friends who cannot be with us in person can still worship with us online."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k00035",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k00031",
+       "_type": "span",
+       "marks": [],
+       "text": "The team operates cameras, sound and projection during services, records and edits sermons for our "
+      },
+      {
+       "_key": "k00033",
+       "_type": "span",
+       "marks": [
+        "k00032"
+       ],
+       "text": "YouTube channel"
+      },
+      {
+       "_key": "k00034",
+       "_type": "span",
+       "marks": [],
+       "text": ", captures moments from church life and outreaches, and designs the flyers and visuals that announce our events."
+      }
+     ],
+     "markDefs": [
+      {
+       "_key": "k00032",
+       "_type": "link",
+       "newTab": true,
+       "site": "youtube"
+      }
+     ],
+     "style": "normal"
+    },
+    {
+     "_key": "k00037",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k00036",
+       "_type": "span",
+       "marks": [],
+       "text": "If you have a gift or interest in photography, video, sound, graphic design or social media, there is a place for you on the Multimedia team. No experience is required. We will train you."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    }
+   ],
+   "buttons": [
+    {
+     "_key": "k00038",
+     "_type": "button",
+     "icon": "",
+     "label": "Watch Live",
+     "link": {
+      "newTab": false,
+      "page": "live.html"
+     },
+     "style": "secondary"
+    },
+    {
+     "_key": "k00039",
+     "_type": "button",
+     "icon": "",
+     "label": "Join the team",
+     "link": {
+      "newTab": false,
+      "page": "contact.html"
+     },
+     "style": "outline"
+    }
+   ],
+   "image": {
+    "_type": "image",
+    "alt": "Camera and production equipment",
+    "asset": {
+     "_ref": "image-9537909895c67d8847ede96ac9b48626675f3710-1920x1440-jpg",
+     "_type": "reference"
+    }
+   },
+   "name": "Multimedia",
+   "order": 4,
+   "subtitle": "Carrying the message beyond the four walls of the church.",
+   "tag": "Multimedia"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "event-angel-treat",
+   "_type": "event",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "archived": false,
+   "buttons": [
+    {
+     "_key": "k0000o",
+     "_type": "button",
+     "icon": "",
+     "label": "Learn more",
+     "link": {
+      "newTab": false,
+      "url": "outreach.html#angel-treat"
+     },
+     "style": "outline"
+    }
+   ],
+   "category": "Outreach",
+   "image": {
+    "_type": "image",
+    "alt": "",
+    "asset": {
+     "_ref": "image-cab301f7f49ecc0060f5bcbfcd45417498964325-1080x739-jpg",
+     "_type": "reference"
+    }
+   },
+   "kind": "recurring",
+   "listed": true,
+   "order": 22,
+   "recurrence": {
+    "frequency": "yearly",
+    "month": 12
+   },
+   "summary": "A memorable Christmas event with gifts for children aged 0–12.",
+   "title": "Angel Treat"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "event-annual-turkey-drive",
+   "_type": "event",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "archived": false,
+   "buttons": [
+    {
+     "_key": "k0000n",
+     "_type": "button",
+     "icon": "",
+     "label": "Learn more",
+     "link": {
+      "newTab": false,
+      "url": "outreach.html#turkey-drive"
+     },
+     "style": "outline"
+    }
+   ],
+   "category": "Outreach",
+   "image": {
+    "_type": "image",
+    "alt": "",
+    "asset": {
+     "_ref": "image-667f3afcca035047f0efb81237357b6ad4d753ba-1440x1800-jpg",
+     "_type": "reference"
+    }
+   },
+   "kind": "recurring",
+   "listed": true,
+   "order": 21,
+   "recurrence": {
+    "frequency": "yearly",
+    "month": 11
+   },
+   "summary": "Sharing Thanksgiving meals with families in our community.",
+   "title": "Annual Turkey Drive"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "event-bible-study",
+   "_type": "event",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "archived": false,
+   "attendance": "both",
+   "buttons": [
+    {
+     "_key": "k0000f",
+     "_type": "button",
+     "icon": "",
+     "label": "Watch live",
+     "link": {
+      "newTab": false,
+      "page": "live.html"
+     },
+     "style": "outline"
+    }
+   ],
+   "category": "Bible Study",
+   "details": [
+    {
+     "_key": "k00005",
+     "_type": "detail",
+     "icon": "radio",
+     "text": "In person & online"
+    }
+   ],
+   "homeNote": "A Lifestyle of Word · on Zoom",
+   "icon": "book-open",
+   "image": {
+    "_type": "image",
+    "alt": "",
+    "asset": {
+     "_ref": "image-1f152d987644a0bb7e08ce949333a5afcee284c8-1100x825-jpg",
+     "_type": "reference"
+    },
+    "hotspot": {
+     "_type": "sanity.imageHotspot",
+     "height": 0.4,
+     "width": 0.4,
+     "x": 0.5,
+     "y": 0.4
+    }
+   },
+   "kind": "recurring",
+   "listed": true,
+   "liveNote": "Midweek teaching",
+   "order": 3,
+   "recurrence": {
+    "frequency": "weekly",
+    "weekday": "tuesday"
+   },
+   "startTime": "7:30 PM",
+   "summary": "Midweek teaching to grow in the knowledge of God’s Word.",
+   "title": "Bible Study"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "event-daniel-fast-2026",
+   "_type": "event",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "archived": false,
+   "attendance": "both",
+   "buttons": [
+    {
+     "_key": "k0000p",
+     "_type": "button",
+     "icon": "arrow-up-right",
+     "label": "Fasting food guide",
+     "link": {
+      "file": {
+       "_type": "file",
+       "asset": {
+        "_ref": "file-1dfeee7f7d938398eb787a616bc16d46283302f1-jpg",
+        "_type": "reference"
+       }
+      },
+      "newTab": true
+     },
+     "style": "primary"
+    }
+   ],
+   "category": "Fast",
+   "endDate": "2026-11-08",
+   "eyebrow": "Church-wide fast · 14 days",
+   "featured": true,
+   "image": {
+    "_type": "image",
+    "alt": "Daniel Fast flyer: Monday October 26 to Sunday November 8, theme Possession, prayer daily at 6 AM and 9 PM, Tuesdays at 6 AM and 7:30 PM",
+    "asset": {
+     "_ref": "image-a7a0860d5c97dc02af52dc68ced68d96762183b2-1254x1254-jpg",
+     "_type": "reference"
+    }
+   },
+   "kind": "oneoff",
+   "showPrayerLine": true,
+   "startDate": "2026-10-26",
+   "summary": "A plant-based fast of whole foods (fruits, vegetables, legumes, whole grains, nuts and water) with a focus on prayer and Scripture throughout.",
+   "theme": "Possession",
+   "timeLines": [
+    "Daily prayer: 6 AM & 9 PM",
+    "Tuesdays: 6 AM & 7:30 PM"
+   ],
+   "title": "Daniel Fast"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "event-evangelism",
+   "_type": "event",
+   "_updatedAt": "2026-11-07T23:59:35Z",
+   "archived": false,
+   "badge": {
+    "bottom": "Sunday",
+    "top": "2nd"
+   },
+   "buttons": [
+    {
+     "_key": "k0000k",
+     "_type": "button",
+     "icon": "",
+     "label": "Details",
+     "link": {
+      "newTab": false,
+      "url": "departments.html#evangelism"
+     },
+     "style": "outline"
+    }
+   ],
+   "category": "Outreach",
+   "details": [
+    {
+     "_key": "k0000a",
+     "_type": "detail",
+     "icon": "calendar",
+     "text": "Monthly"
+    },
+    {
+     "_key": "k0000b",
+     "_type": "detail",
+     "icon": "megaphone",
+     "text": "Evangelism Department"
+    }
+   ],
+   "kind": "recurring",
+   "listed": true,
+   "order": 8,
+   "recurrence": {
+    "frequency": "monthly",
+    "weekOfMonth": 2,
+    "weekday": "sunday"
+   },
+   "summary": "On the second Sunday of each month we go out to share the Gospel in our community.",
+   "timeNote": "Immediately after Sunday Service",
+   "title": "Evangelism"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "event-grace-to-finish-well-2026",
+   "_type": "event",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "archived": false,
+   "attendance": "both",
+   "buttons": [
+    {
+     "_key": "k0000q",
+     "_type": "button",
+     "icon": "",
+     "label": "Live on YouTube",
+     "link": {
+      "newTab": false,
+      "page": "live.html"
+     },
+     "style": "live"
+    }
+   ],
+   "category": "Ministry program",
+   "eyebrow": "Special program · Pillars of Mercy",
+   "featured": true,
+   "image": {
+    "_type": "image",
+    "alt": "Grace to Finish Well flyer: Pillars of Mercy Women Ministry, Friday October 30th, 10 PM to 1 AM, at Mercy Seat Chapel and live on YouTube",
+    "asset": {
+     "_ref": "image-41c43cd719baf2187350f241e27b8d6ddc259067-1280x1280-jpg",
+     "_type": "reference"
+    }
+   },
+   "kind": "oneoff",
+   "location": "Mercy Seat Chapel & live on YouTube",
+   "startDate": "2026-10-30",
+   "summary": "With Pastor Ola Olarinde, Pastor Olu Olarinde, Sis. Princess Pyne-Caulker, Sis. Jamelia Georgestone and Minister Elizabeth Osuhon.",
+   "timeLines": [
+    "10:00 PM – 1:00 AM"
+   ],
+   "title": "Grace to Finish Well",
+   "verse": {
+    "cite": "II Cor. 12:9",
+    "text": "My grace is sufficient for you, for my power is made perfect in weakness."
+   }
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "event-holy-communion",
+   "_type": "event",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "archived": false,
+   "buttons": [
+    {
+     "_key": "k0000i",
+     "_type": "button",
+     "icon": "",
+     "label": "Plan a visit",
+     "link": {
+      "newTab": false,
+      "page": "plan-a-visit.html"
+     },
+     "style": "outline"
+    }
+   ],
+   "category": "Service",
+   "details": [
+    {
+     "_key": "k00007",
+     "_type": "detail",
+     "icon": "calendar",
+     "text": "Monthly"
+    }
+   ],
+   "homeNote": "“…and when I see the blood”",
+   "icon": "wine",
+   "image": {
+    "_type": "image",
+    "alt": "",
+    "asset": {
+     "_ref": "image-4b33eb8f3f54a1b4ac3f8749b9f1bfb3db0f2664-1100x826-jpg",
+     "_type": "reference"
+    },
+    "hotspot": {
+     "_type": "sanity.imageHotspot",
+     "height": 0.4,
+     "width": 0.4,
+     "x": 0.53,
+     "y": 0.5
+    }
+   },
+   "kind": "recurring",
+   "listed": true,
+   "liveNote": "Holy Communion service",
+   "order": 6,
+   "recurrence": {
+    "frequency": "monthly",
+    "weekOfMonth": 1,
+    "weekday": "tuesday"
+   },
+   "shortTitle": "Holy Communion",
+   "startTime": "7:30 PM",
+   "summary": "Held on the first Tuesday of each month.",
+   "title": "Holy Communion Service"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "event-nursing-home-visits",
+   "_type": "event",
+   "_updatedAt": "2026-11-07T23:59:35Z",
+   "archived": false,
+   "buttons": [
+    {
+     "_key": "k0000l",
+     "_type": "button",
+     "icon": "",
+     "label": "Details",
+     "link": {
+      "newTab": false,
+      "url": "outreach.html#nursing-home"
+     },
+     "style": "outline"
+    }
+   ],
+   "category": "Outreach",
+   "details": [
+    {
+     "_key": "k0000c",
+     "_type": "detail",
+     "icon": "heart-handshake",
+     "text": "Mercy For Many"
+    }
+   ],
+   "kind": "recurring",
+   "listed": true,
+   "order": 9,
+   "recurrence": {
+    "frequency": "irregular"
+   },
+   "summary": "Monthly fellowship, the Word, praises and prayer with seniors and residents in our community.",
+   "title": "Nursing Home & Shelter Visits"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "event-seed-and-future",
+   "_type": "event",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "archived": false,
+   "attendance": "online",
+   "buttons": [
+    {
+     "_key": "k0000j",
+     "_type": "button",
+     "icon": "",
+     "label": "Prayer request",
+     "link": {
+      "newTab": false,
+      "page": "contact.html#prayer"
+     },
+     "style": "outline"
+    }
+   ],
+   "category": "Prayer",
+   "details": [
+    {
+     "_key": "k00008",
+     "_type": "detail",
+     "icon": "calendar",
+     "text": "Monthly"
+    },
+    {
+     "_key": "k00009",
+     "_type": "detail",
+     "icon": "video",
+     "text": "Virtual"
+    }
+   ],
+   "endTime": "1:00 PM",
+   "homeNote": "Praying for our children · virtual",
+   "icon": "sprout",
+   "image": {
+    "_type": "image",
+    "alt": "",
+    "asset": {
+     "_ref": "image-981acb3d11cc34999066044088d8964bcc981dca-800x460-jpg",
+     "_type": "reference"
+    },
+    "hotspot": {
+     "_type": "sanity.imageHotspot",
+     "height": 0.4,
+     "width": 0.4,
+     "x": 0.7,
+     "y": 0.5
+    }
+   },
+   "kind": "recurring",
+   "listed": true,
+   "order": 7,
+   "recurrence": {
+    "frequency": "monthly",
+    "weekOfMonth": 2,
+    "weekday": "saturday"
+   },
+   "startTime": "12:00 PM",
+   "summary": "Monthly prayer for our children, held virtually.",
+   "title": "The Seed & the Future"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "event-seeking-his-presence",
+   "_type": "event",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "archived": false,
+   "buttons": [
+    {
+     "_key": "k0000m",
+     "_type": "button",
+     "icon": "",
+     "label": "Learn more",
+     "link": {
+      "newTab": false,
+      "page": "seeking-his-presence.html"
+     },
+     "style": "outline"
+    }
+   ],
+   "category": "Outreach",
+   "image": {
+    "_type": "image",
+    "alt": "",
+    "asset": {
+     "_ref": "image-1238e28341a4ecf47a4fb0a1a1f6876eeb1a318d-2048x2048-jpg",
+     "_type": "reference"
+    }
+   },
+   "kind": "recurring",
+   "listed": true,
+   "order": 20,
+   "recurrence": {
+    "frequency": "yearly",
+    "month": 8
+   },
+   "summary": "Our annual week of worship, prayer, concerts and teaching.",
+   "title": "Seeking His Presence"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "event-strength-in-prayer",
+   "_type": "event",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "archived": false,
+   "attendance": "online",
+   "buttons": [
+    {
+     "_key": "k0000g",
+     "_type": "button",
+     "icon": "",
+     "label": "Prayer request",
+     "link": {
+      "newTab": false,
+      "page": "contact.html#prayer"
+     },
+     "style": "outline"
+    }
+   ],
+   "category": "Prayer",
+   "homeNote": "Midweek prayer on the prayer line",
+   "icon": "hand-heart",
+   "image": {
+    "_type": "image",
+    "alt": "",
+    "asset": {
+     "_ref": "image-4e2e220dd3e1a0ff8018db32c53c542301e6f478-1100x734-jpg",
+     "_type": "reference"
+    },
+    "hotspot": {
+     "_type": "sanity.imageHotspot",
+     "height": 0.4,
+     "width": 0.4,
+     "x": 0.5,
+     "y": 0.3
+    }
+   },
+   "kind": "recurring",
+   "listed": true,
+   "order": 4,
+   "recurrence": {
+    "frequency": "weekly",
+    "weekday": "wednesday"
+   },
+   "shortTitle": "Strength in Prayer",
+   "showPrayerLine": true,
+   "startTime": "9:00 PM",
+   "summary": "Midweek prayer on the prayer line.",
+   "title": "Midweek Prayer"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "event-sunday-school",
+   "_type": "event",
+   "_updatedAt": "2026-11-07T23:59:35Z",
+   "archived": false,
+   "buttons": [
+    {
+     "_key": "k0000e",
+     "_type": "button",
+     "icon": "",
+     "label": "Plan a visit",
+     "link": {
+      "newTab": false,
+      "page": "plan-a-visit.html"
+     },
+     "style": "outline"
+    }
+   ],
+   "category": "Bible Study",
+   "details": [
+    {
+     "_key": "k00004",
+     "_type": "detail",
+     "icon": "users",
+     "text": "Open to everyone"
+    }
+   ],
+   "kind": "recurring",
+   "listed": true,
+   "order": 2,
+   "recurrence": {
+    "frequency": "weekly",
+    "weekday": "sunday"
+   },
+   "startTime": "9:00 AM",
+   "summary": "Digging deep into the scripture and memorizing verses that will impact and feed our spirit.",
+   "title": "Sunday School"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "event-sunday-service",
+   "_type": "event",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "archived": false,
+   "attendance": "both",
+   "buttons": [
+    {
+     "_key": "k0000d",
+     "_type": "button",
+     "icon": "",
+     "label": "Plan a visit",
+     "link": {
+      "newTab": false,
+      "page": "plan-a-visit.html"
+     },
+     "style": "outline"
+    }
+   ],
+   "category": "Service",
+   "homeNote": "Main auditorium & streamed live",
+   "icon": "church",
+   "image": {
+    "_type": "image",
+    "alt": "",
+    "asset": {
+     "_ref": "image-888373e23a47c23bdc3cfe303c50808a54eea02b-1920x1440-jpg",
+     "_type": "reference"
+    }
+   },
+   "kind": "recurring",
+   "listed": true,
+   "liveNote": "Worship, the Word and prayer",
+   "location": "Main auditorium & online",
+   "order": 1,
+   "recurrence": {
+    "frequency": "weekly",
+    "weekday": "sunday"
+   },
+   "startTime": "10:00 AM",
+   "summary": "Our weekly worship service in the main auditorium, also streamed live.",
+   "title": "Sunday Service"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "event-thanksgiving-sunday",
+   "_type": "event",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "archived": false,
+   "badge": {
+    "bottom": "Sunday",
+    "top": "1st"
+   },
+   "buttons": [
+    {
+     "_key": "k0000h",
+     "_type": "button",
+     "icon": "",
+     "label": "Plan a visit",
+     "link": {
+      "newTab": false,
+      "page": "plan-a-visit.html"
+     },
+     "style": "outline"
+    }
+   ],
+   "category": "Service",
+   "details": [
+    {
+     "_key": "k00006",
+     "_type": "detail",
+     "icon": "calendar",
+     "text": "Monthly"
+    }
+   ],
+   "homeNote": "Giving Thanks together",
+   "icon": "party-popper",
+   "image": {
+    "_type": "image",
+    "alt": "",
+    "asset": {
+     "_ref": "image-29cab86149bf1172151be66eee66157ec758a78a-1920x1440-jpg",
+     "_type": "reference"
+    }
+   },
+   "kind": "recurring",
+   "listed": true,
+   "order": 5,
+   "recurrence": {
+    "frequency": "monthly",
+    "weekOfMonth": 1,
+    "weekday": "sunday"
+   },
+   "startTime": "10:00 AM",
+   "summary": "On the first Sunday of each month we come together to give thanks.",
+   "title": "Thanksgiving Sunday"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "homepage",
+   "_type": "homepage",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "featuredMinistries": [
+    {
+     "_key": "k0004l",
+     "_ref": "ministry-children",
+     "_type": "reference"
+    },
+    {
+     "_key": "k0004m",
+     "_ref": "ministry-revive",
+     "_type": "reference"
+    },
+    {
+     "_key": "k0004n",
+     "_ref": "ministry-pillars-of-mercy",
+     "_type": "reference"
+    },
+    {
+     "_key": "k0004o",
+     "_ref": "ministry-fundamentals",
+     "_type": "reference"
+    },
+    {
+     "_key": "k0004p",
+     "_ref": "ministry-empowerment",
+     "_type": "reference"
+    }
+   ],
+   "featuredOutreach": [
+    {
+     "_key": "k0004q",
+     "_ref": "outreach-angel-treat",
+     "_type": "reference"
+    },
+    {
+     "_key": "k0004r",
+     "_ref": "outreach-turkey-drive",
+     "_type": "reference"
+    },
+    {
+     "_key": "k0004s",
+     "_ref": "outreach-nursing-home",
+     "_type": "reference"
+    },
+    {
+     "_key": "k0004t",
+     "_ref": "outreach-orphanage",
+     "_type": "reference"
+    }
+   ],
+   "heroButtons": [
+    {
+     "_key": "k0004e",
+     "_type": "button",
+     "icon": "arrow-right",
+     "label": "Plan a Visit",
+     "link": {
+      "newTab": false,
+      "page": "plan-a-visit.html"
+     },
+     "style": "primary"
+    },
+    {
+     "_key": "k0004f",
+     "_type": "button",
+     "icon": "",
+     "label": "Watch Live",
+     "link": {
+      "newTab": false,
+      "page": "live.html"
+     },
+     "style": "live"
+    }
+   ],
+   "heroSlides": [
+    {
+     "_key": "k0004b",
+     "_type": "heroSlide",
+     "enabled": true,
+     "heading": "We come together to obtain *Mercy* and *Grace*",
+     "image": {
+      "_type": "image",
+      "alt": "",
+      "asset": {
+       "_ref": "image-c0e7d2a8c5eeed3398d8873cad64b7afd7632bc5-1920x1440-jpg",
+       "_type": "reference"
+      }
+     },
+     "lead": "A vibrant community, offering faith, love, hope and a wide range of resources, events, and uplifting messages",
+     "seconds": 8,
+     "thumbLabel": "Mercy and Grace",
+     "videoStart": "2:18:34",
+     "youtube": "https://www.youtube.com/watch?v=Qk-mXA77zY8"
+    },
+    {
+     "_key": "k0004c",
+     "_type": "heroSlide",
+     "enabled": true,
+     "heading": "Encounter His *Presence*. Discover your *Purpose*.",
+     "image": {
+      "_type": "image",
+      "alt": "",
+      "asset": {
+       "_ref": "image-1aeedc367ee9717075e448d47c1df98f82c19ce4-1440x1920-jpg",
+       "_type": "reference"
+      },
+      "hotspot": {
+       "_type": "sanity.imageHotspot",
+       "height": 0.4,
+       "width": 0.4,
+       "x": 0.5,
+       "y": 0.3
+      }
+     },
+     "lead": "Through worship, the Word and prayer, experience God in a way that transforms every area of your life.",
+     "seconds": 8,
+     "thumbLabel": "Presence and Purpose",
+     "videoStart": "59:26",
+     "youtube": "https://www.youtube.com/watch?v=7cy7owEra9E"
+    },
+    {
+     "_key": "k0004d",
+     "_type": "heroSlide",
+     "enabled": true,
+     "heading": "Come as you are. There’s a *place* for *you* here.",
+     "image": {
+      "_type": "image",
+      "alt": "",
+      "asset": {
+       "_ref": "image-29cab86149bf1172151be66eee66157ec758a78a-1920x1440-jpg",
+       "_type": "reference"
+      }
+     },
+     "lead": "Whoever you are and wherever you’re from, you’ll find a warm welcome and a church family ready to walk with you.",
+     "seconds": 8,
+     "thumbLabel": "Come as you are",
+     "videoStart": "2:16:05",
+     "youtube": "https://www.youtube.com/watch?v=WPIwhbdyghg"
+    }
+   ],
+   "kicker": "Welcome to Mercy Seat Chapel",
+   "liveSchedule": [
+    {
+     "_key": "k0004i",
+     "_ref": "event-sunday-service",
+     "_type": "reference"
+    },
+    {
+     "_key": "k0004j",
+     "_ref": "event-bible-study",
+     "_type": "reference"
+    },
+    {
+     "_key": "k0004k",
+     "_ref": "event-holy-communion",
+     "_type": "reference"
+    }
+   ],
+   "serviceTimes": [
+    {
+     "_key": "k0004g",
+     "_ref": "event-sunday-service",
+     "_type": "reference"
+    },
+    {
+     "_key": "k0004h",
+     "_ref": "event-bible-study",
+     "_type": "reference"
+    }
+   ]
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "job-childrens-ministry-coordinator",
+   "_type": "job",
+   "_updatedAt": "2026-11-07T23:59:35Z",
+   "department": "Children",
+   "employmentType": "Full-time",
+   "location": "Gaithersburg, MD",
+   "order": 2,
+   "page": "job-childrens-ministry-coordinator.html",
+   "pay": "Pay range & benefits on the job page",
+   "status": "open",
+   "title": "Children’s Ministry Coordinator"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "job-executive-assistant",
+   "_type": "job",
+   "_updatedAt": "2026-11-07T23:59:35Z",
+   "department": "Administration",
+   "employmentType": "Full-time",
+   "location": "Gaithersburg, MD",
+   "order": 3,
+   "page": "job-executive-assistant.html",
+   "pay": "Pay range & benefits on the job page",
+   "status": "open",
+   "title": "Executive Assistant"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "job-strategy-operations-coordinator",
+   "_type": "job",
+   "_updatedAt": "2026-11-07T23:59:35Z",
+   "department": "Ministry Operations",
+   "employmentType": "Full-time",
+   "location": "Silver Spring, MD",
+   "order": 1,
+   "page": "job-strategy-operations-coordinator.html",
+   "pay": "Pay range & benefits on the job page",
+   "status": "open",
+   "title": "Strategy & Ministry Operations Coordinator"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "leader-1",
+   "_type": "leader",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "archived": false,
+   "message": "God has also promised that there will be a constant flow of oil in order to remain above and not beneath. The oil signifies the Spirit of God, His gifts and graces. Even when a wild ox has its head bowed down to drink water the head always remains elevated. This is the grace of God. In all your endeavors this year, even when the enemy tries or threatens with failure, struggle, sickness, divorce or grief like the head of a unicorn and by the grace of God you will come out victorious.",
+   "name": "Pastor Ola Olarinde",
+   "order": 1,
+   "photo": {
+    "_type": "image",
+    "alt": "Pastor Ola Olarinde",
+    "asset": {
+     "_ref": "image-4d7ce38aee6d19888997442b7fdc5b5a2e2685e3-1066x949-jpg",
+     "_type": "reference"
+    }
+   },
+   "role": "Senior Pastor"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "leader-2",
+   "_type": "leader",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "archived": false,
+   "message": "Spiritually, standing tall means standing above sin and unrighteousness. The grace to live holy and pure. It also means rising above the forces of the enemy. Anything that struggles to overcome one’s victory in life is an enemy.",
+   "name": "Pastor Olu Olarinde",
+   "order": 2,
+   "photo": {
+    "_type": "image",
+    "alt": "Pastor Olu Olarinde",
+    "asset": {
+     "_ref": "image-45c573f32d22f75bdbfd500b7afbda7c930363af-1068x1600-jpg",
+     "_type": "reference"
+    }
+   },
+   "role": "Senior Pastor"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "ministry-children",
+   "_type": "ministry",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "anchor": {
+    "_type": "slug",
+    "current": "children"
+   },
+   "archived": false,
+   "audience": "Children and Teens",
+   "audienceIcon": "users",
+   "body": [
+    {
+     "_key": "k0000s",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0000r",
+       "_type": "span",
+       "marks": [],
+       "text": "Mercy Seat Chapel Teen Ministry main purpose is to ground our young teenagers in the way of the Lord, mold new leaders and help bring out the talents that God has placed in them."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0000u",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0000t",
+       "_type": "span",
+       "marks": [],
+       "text": "Teenagers nowadays are faced with many challenges and temptations that can easily sway them into the sinful ways of the world. The Teen Ministry focuses on practical day to day issues that teenagers encounter such as, peer pressure, obeying their parents, drugs, relationships, self-control, making the right decisions, self esteem in conjunction with providing Biblical principles on how to deal with these issues."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0000w",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0000v",
+       "_type": "span",
+       "marks": [],
+       "text": "It is the leadership desire to provide dynamic ways in teaching the Word of God. They can range from open discussions, group work, skits, Bible teachings, role play and more. The Teen Ministry has different activities throughout the year to encourage unity and fellowship. Activities consist of, fundraising, trips (Six Flags, bowling, laser tag), outreach programs, food drives, movie nights and many more!"
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0000y",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0000x",
+       "_type": "span",
+       "marks": [],
+       "text": "The ministry is growing and is looking for more young vibrant teens to join us as we take a stand for our Lord Jesus Christ."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    }
+   ],
+   "buttons": [],
+   "homeImage": {
+    "_type": "image",
+    "alt": "Children and teens of Mercy Seat Chapel",
+    "asset": {
+     "_ref": "image-db4378f5346d1171d808581897388369e4eb07ef-972x1600-jpg",
+     "_type": "reference"
+    },
+    "hotspot": {
+     "_type": "sanity.imageHotspot",
+     "height": 0.4,
+     "width": 0.4,
+     "x": 0.5,
+     "y": 0.3
+    }
+   },
+   "homeSummary": "Mercy Seat Chapel Teen Ministry main purpose is to ground our young teenagers in the way of the Lord, mold new leaders and help bring out the talents that God has placed in them.",
+   "homeTab": "Children & Teens",
+   "homeWord": "Children",
+   "image": {
+    "_type": "image",
+    "alt": "Children and teenagers of Mercy Seat Chapel",
+    "asset": {
+     "_ref": "image-db4378f5346d1171d808581897388369e4eb07ef-972x1600-jpg",
+     "_type": "reference"
+    },
+    "hotspot": {
+     "_type": "sanity.imageHotspot",
+     "height": 0.4,
+     "width": 0.4,
+     "x": 0.5,
+     "y": 0.3
+    }
+   },
+   "name": "Ambassadors of Christ",
+   "order": 1,
+   "tag": "Children & Teenagers"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "ministry-empowerment",
+   "_type": "ministry",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "anchor": {
+    "_type": "slug",
+    "current": "empowerment"
+   },
+   "archived": false,
+   "audience": "Careers · Business · Networking",
+   "audienceIcon": "briefcase",
+   "body": [
+    {
+     "_key": "k0001i",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0001h",
+       "_type": "span",
+       "marks": [],
+       "text": "The mission of the Empowerment Ministry is to seek and connect Mercy Seat family members to educational, job, professional, business and networking opportunities. The ministry will be a conduit for disseminating information to church members who have needs in any of the areas mentioned."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0001k",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0001j",
+       "_type": "span",
+       "marks": [],
+       "text": "Career and Job Opportunities"
+      }
+     ],
+     "markDefs": [],
+     "style": "h3"
+    },
+    {
+     "_key": "k0001m",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0001l",
+       "_type": "span",
+       "marks": [],
+       "text": "The team will search and match church members with available job openings in the metro area. We will also be responsible for ensuring that every member is prepared for job interviews by reviewing résumés and interview role playing. There will be a one-on-one relationship between each team member and the job candidate."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0001o",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0001n",
+       "_type": "span",
+       "marks": [],
+       "text": "Business Opportunities"
+      }
+     ],
+     "markDefs": [],
+     "style": "h3"
+    },
+    {
+     "_key": "k0001q",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0001p",
+       "_type": "span",
+       "marks": [],
+       "text": "The team will play an advisory and supportive role in helping our members looking to start their own business. The team will organize workshops and provide guidance and assistance to members. The team will inform business owners any opportunities that they know will benefit members."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0001s",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0001r",
+       "_type": "span",
+       "marks": [],
+       "text": "Networking Opportunities"
+      }
+     ],
+     "markDefs": [],
+     "style": "h3"
+    },
+    {
+     "_key": "k0001u",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0001t",
+       "_type": "span",
+       "marks": [],
+       "text": "Team members through our personal associations outside the church, will connect our family members with old contacts, friends and associates who are able to help our members with whatever need they may have. This need may include but not limited to access to financial assistance for real estate purchase, access to venture capital, transferring our children to a private school where they have waiting list, referral to private physicians or doctors where they have no new patient intake."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    }
+   ],
+   "buttons": [
+    {
+     "_key": "k0001v",
+     "_type": "button",
+     "icon": "arrow-right",
+     "label": "Visit the MSC Job Center",
+     "link": {
+      "newTab": false,
+      "page": "job-center.html"
+     },
+     "style": "outline"
+    }
+   ],
+   "homeSummary": "Empowering God’s children for growth, development and excellence. The mission of the Empowerment Ministry is to seek and connect Mercy Seat family members to educational, job, professional, business and networking opportunities.",
+   "homeTab": "Empowerment",
+   "homeWord": "Empower",
+   "image": {
+    "_type": "image",
+    "alt": "A team meeting around a table",
+    "asset": {
+     "_ref": "image-a2e3ea629d0c6f4e353dda317dc1725fa3cb9bf6-1920x1080-jpg",
+     "_type": "reference"
+    }
+   },
+   "name": "Empowerment",
+   "order": 5,
+   "subtitle": "Empowering God’s children for growth, development and excellence.",
+   "tag": "Empowerment"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "ministry-fundamentals",
+   "_type": "ministry",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "anchor": {
+    "_type": "slug",
+    "current": "fundamentals"
+   },
+   "archived": false,
+   "audience": "Men’s ministry",
+   "audienceIcon": "shield",
+   "body": [
+    {
+     "_key": "k0001e",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0001d",
+       "_type": "span",
+       "marks": [],
+       "text": "The FundaMENtals, the men’s ministry branch of Mercy Seat Chapel, was driven by a vision to bring men together for a noble purpose encompassing service, spiritual growth, empowerment, and positive community influence. The name of this group draws inspiration from the concept of foundational principles."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0001g",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0001f",
+       "_type": "span",
+       "marks": [],
+       "text": "Combining the attributes of capability, intelligence, strength, and steadfastness embodies the essence of being a “FundaMENtal.” This term encapsulates the notion that men assuming this role should possess qualities that are capable, intelligent, strong, and resolute. Essentially, men embracing the role of FundaMENtals, whether within their families, the church, or the broader community, are called to boldly position themselves for personal growth and community impact. The central message advocated by this group is that the men of Mercy Seat Chapel embody the essence of “The FundaMENtals.”"
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    }
+   ],
+   "buttons": [],
+   "homeImage": {
+    "_type": "image",
+    "alt": "Three men laughing together and shaking hands",
+    "asset": {
+     "_ref": "image-7cef9bd64c85318efc7daad10b117554bbf02c52-1280x853-jpg",
+     "_type": "reference"
+    },
+    "hotspot": {
+     "_type": "sanity.imageHotspot",
+     "height": 0.4,
+     "width": 0.4,
+     "x": 0.5,
+     "y": 0.3
+    }
+   },
+   "homeSummary": "The FundaMENtals, the men’s ministry branch of Mercy Seat Chapel, was driven by a vision to bring men together for a noble purpose encompassing service, spiritual growth, empowerment, and positive community influence.",
+   "homeTab": "FundaMENtals",
+   "homeWord": "FundaMENtals",
+   "image": {
+    "_type": "image",
+    "alt": "Three men of the FundaMENtals ministry shaking hands and laughing",
+    "asset": {
+     "_ref": "image-7cef9bd64c85318efc7daad10b117554bbf02c52-1280x853-jpg",
+     "_type": "reference"
+    }
+   },
+   "logo": {
+    "_type": "image",
+    "alt": "FundaMENtals logo",
+    "asset": {
+     "_ref": "image-926766860e37f45f584576878622867c56401233-176x176-jpg",
+     "_type": "reference"
+    }
+   },
+   "name": "FundaMENtals",
+   "order": 4,
+   "tag": "Men’s Ministry"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "ministry-pillars-of-mercy",
+   "_type": "ministry",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "anchor": {
+    "_type": "slug",
+    "current": "pillars-of-mercy"
+   },
+   "archived": false,
+   "audience": "Women’s ministry",
+   "audienceIcon": "heart",
+   "body": [
+    {
+     "_key": "k00018",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k00017",
+       "_type": "span",
+       "marks": [],
+       "text": "The Pillars of Mercy, the women’s ministry-arm of Mercy Seat Chapel, was established with a vision of bringing women together for a godly purpose that includes service, edification for spiritual growth, empowerment, and positive influence in the community."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0001a",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k00019",
+       "_type": "span",
+       "marks": [],
+       "text": "The group’s name stems from key words from Prov 31:10 and 16, and Heb 4:16. Parts of Prov 31:10 and 16 say “A capable, intelligent, and virtuous woman…, girds herself with strength [spiritual, mental, and physical fitness for her God-given task] and makes her arms strong and firm…” Hebrews 4:16, another very descriptive verse, states “Let us then fearlessly and confidently and boldly draw near to the throne of grace (the throne of God’s unmerited favor to us sinners), that we may receive mercy [for our failures] and find grace to help in good time for every need [appropriate help and well-timed help, coming just when we need it]”."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0001c",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0001b",
+       "_type": "span",
+       "marks": [],
+       "text": "Put together the words capable, intelligent, strong, and firm, incites another word: “Pillar”. In other words, a woman, who plays the role of a pillar, needs to be capable, intelligent, strong, and firm. As Pillars in the home, church, and community at large, women need to approach God’s presence boldly to receive mercy, and find grace to accomplish their God-given purposes. This group propagates that Mercy Seat Chapel’s women are “Pillars of Mercy”!"
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    }
+   ],
+   "buttons": [],
+   "homeSummary": "The Pillars of Mercy, the women’s ministry-arm of Mercy Seat Chapel, was established with a vision of bringing women together for a godly purpose that includes service, edification for spiritual growth, empowerment, and positive influence in the community.",
+   "homeTab": "Pillars of Mercy",
+   "homeWord": "Pillars",
+   "image": {
+    "_type": "image",
+    "alt": "Members of the Pillars of Mercy women’s ministry",
+    "asset": {
+     "_ref": "image-60e298479cfe2b1689b1f586f02d13efa3e8cd1a-512x278-jpg",
+     "_type": "reference"
+    }
+   },
+   "logo": {
+    "_type": "image",
+    "alt": "Pillars of Mercy logo",
+    "asset": {
+     "_ref": "image-86e631b828ede28fe6623d943bef573eea1b63b4-959x959-jpg",
+     "_type": "reference"
+    }
+   },
+   "name": "Pillars of Mercy",
+   "order": 3,
+   "tag": "Women’s Ministry"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "ministry-revive",
+   "_system": {
+    "base": {
+     "id": "ministry-revive",
+     "rev": "rx4BlvTmIOnv1AjbQs8zrd"
+    }
+   },
+   "_type": "ministry",
+   "_updatedAt": "2026-11-08T00:11:40Z",
+   "anchor": {
+    "_type": "slug",
+    "current": "revive"
+   },
+   "archived": false,
+   "audience": "Single youths, ages 18–29",
+   "audienceIcon": "users",
+   "body": [
+    {
+     "_key": "k00010",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0000z",
+       "_type": "span",
+       "marks": [],
+       "text": "REVIVE is an integral part of the body of Mercy Seat Chapel that focuses on young adults singles."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k00012",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k00011",
+       "_type": "span",
+       "marks": [],
+       "text": "We provide a safe place where young adults can serve freely, train leaders, learn and grow in Christ, learn humility in God, self respect and self worth."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k00014",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k00013",
+       "_type": "span",
+       "marks": [],
+       "text": "We also focus on those who are just entering into their youthfulness and make the church a homely atmosphere for them to worship and serve and also offer various assistance to them that can help evolve their personal lives."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k00016",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k00015",
+       "_type": "span",
+       "marks": [],
+       "text": "REVIVE consists of a demographic of single youths from the age of 18 to 99."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    }
+   ],
+   "buttons": [],
+   "homeImage": {
+    "_type": "image",
+    "alt": "Young adults of the Revive ministry",
+    "asset": {
+     "_ref": "image-8e1b40662e5dc4eae20202d39552a71cf7f2373f-1024x768-jpg",
+     "_type": "reference"
+    }
+   },
+   "homeSummary": "REVIVE is an integral part of the body of Mercy Seat Chapel that focuses on young adults singles. We provide a safe place where young adults can serve freely, train leaders, learn and grow in Christ, learn humility in God, self respect and self worth.",
+   "homeTab": "Revive",
+   "homeWord": "Revive",
+   "image": {
+    "_type": "image",
+    "alt": "Young adults of the Revive ministry",
+    "asset": {
+     "_ref": "image-b62edb57a019889570cb0c028bc4ba3e4fc80448-1024x576-jpg",
+     "_type": "reference"
+    }
+   },
+   "logo": {
+    "_type": "image",
+    "alt": "Revive logo",
+    "asset": {
+     "_ref": "image-25e2c29bbc93516eed0c6b7f4195b9783b40f423-1920x1037-png",
+     "_type": "reference"
+    }
+   },
+   "name": "Revive",
+   "order": 2,
+   "tag": "Young Adults · 18–29"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "outreach-angel-treat",
+   "_type": "outreach",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "anchor": {
+    "_type": "slug",
+    "current": "angel-treat"
+   },
+   "archived": false,
+   "body": [
+    {
+     "_key": "k0003k",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0003j",
+       "_type": "span",
+       "marks": [],
+       "text": "The joy of Christmas is almost incomplete for the kids without gifts, which sometimes are not affordable to all parents during that season. Mercy Seat Chapel bridges this gap through the Angel Treat to plant smiles on the faces of so many children within the community."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0003m",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0003l",
+       "_type": "span",
+       "marks": [],
+       "text": "The program creates a memorable Christmas event for kids from Age 0-12, with age-appropriate gifts for every child to go home with. A well-lit and beautiful Christmas scenery that recreates the Christmas story, gives a funfair ambience and a handshake with Santa to complete the package. This also gives the church an opportunity to spread the love of Jesus as the reason for the season through tracts or the word of mouth."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0003o",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0003n",
+       "_type": "span",
+       "marks": [],
+       "text": "This program has attended to as many as 400 children in one event and has been running for almost a decade."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    }
+   ],
+   "buttons": [],
+   "cardImage": {
+    "_type": "image",
+    "alt": "Children receiving Christmas gifts at Angel Treat",
+    "asset": {
+     "_ref": "image-cab301f7f49ecc0060f5bcbfcd45417498964325-1080x739-jpg",
+     "_type": "reference"
+    }
+   },
+   "cardTag": "Christmas",
+   "cardText": "Planting smiles on the faces of so many children within the community at Christmas.",
+   "featured": true,
+   "image": {
+    "_type": "image",
+    "alt": "Children at the Angel Treat Christmas event",
+    "asset": {
+     "_ref": "image-cab301f7f49ecc0060f5bcbfcd45417498964325-1080x739-jpg",
+     "_type": "reference"
+    }
+   },
+   "name": "Angel Treat",
+   "order": 1,
+   "overviewIcon": "gift",
+   "overviewText": "Up to 400 children served in one event.",
+   "overviewTitle": "Angel Treat",
+   "tag": "Christmas"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "outreach-nursing-home",
+   "_type": "outreach",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "anchor": {
+    "_type": "slug",
+    "current": "nursing-home"
+   },
+   "archived": false,
+   "aside": {
+    "cite": "Matthew 25:34-36 NIV",
+    "text": "Then the King will say to those on his right, ‘Come, you who are blessed by my Father; take your inheritance, the kingdom prepared for you since the creation of the world. For I was hungry and you gave me something to eat, I was thirsty and you gave me something to drink, I was a stranger and you invited me in, I needed clothes and you clothed me, I was sick and you looked after me, I was in prison and you came to visit me.’"
+   },
+   "body": [
+    {
+     "_key": "k0003y",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0003x",
+       "_type": "span",
+       "marks": [],
+       "text": "Mercy Seat Chapel has over the years partnered with Interfaith Works to cater for the feeding of the residents at the Homeless shelter in Rockville once in a month. This visit usually includes a time of fellowship, sharing the word, praises and prayer. The residents are served after the session and it is always fulfilling to see them receive the meals with love and gratitude."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k00040",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0003z",
+       "_type": "span",
+       "marks": [],
+       "text": "There is also a monthly visit to the Montgomery Nursing Home to share fellowship and give hope to the hopeless through the word of God and prayers. Special events are also planned for Easter and Christmas to give them an opportunity to feel the joy and warmth of the season. The Christmas program also includes sharing of Christmas gifts."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k00042",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k00041",
+       "_type": "span",
+       "marks": [],
+       "text": "The Church also attends to other homes on request and ensures that every contact both the residents and the staff are touched with the love of God."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    }
+   ],
+   "buttons": [],
+   "cardImage": {
+    "_type": "image",
+    "alt": "Volunteers serving a meal",
+    "asset": {
+     "_ref": "image-30fcb3fc856b99ceba7f39dff7a38a0ea13e9501-1920x1280-jpg",
+     "_type": "reference"
+    }
+   },
+   "cardTag": "Monthly",
+   "cardText": "Visiting seniors in assisted living monthly for fellowship, the Word and prayer.",
+   "featured": true,
+   "image": {
+    "_type": "image",
+    "alt": "Volunteers serving a meal",
+    "asset": {
+     "_ref": "image-30fcb3fc856b99ceba7f39dff7a38a0ea13e9501-1920x1280-jpg",
+     "_type": "reference"
+    }
+   },
+   "name": "Nursing Home Visit",
+   "order": 3,
+   "overviewIcon": "heart-handshake",
+   "overviewText": "Monthly visits & fellowship.",
+   "overviewTitle": "Nursing Homes",
+   "tag": "Monthly"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "outreach-orphanage",
+   "_type": "outreach",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "anchor": {
+    "_type": "slug",
+    "current": "orphanage"
+   },
+   "archived": false,
+   "body": [
+    {
+     "_key": "k00044",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k00043",
+       "_type": "span",
+       "marks": [],
+       "text": "Through the Mercy For Many Foundation, Mercy Seat Chapel makes a difference by sponsoring needs of orphanages around the world."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k00046",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k00045",
+       "_type": "span",
+       "marks": [],
+       "text": "Our support helps provide food, clothing, school supplies and other essentials for children who have lost the care of their parents, so that they can grow up knowing they are seen, valued and loved by God. As James 1:27 reminds us, caring for orphans in their distress is at the heart of pure religion."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k00048",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k00047",
+       "_type": "span",
+       "marks": [],
+       "text": "Members and friends of the church can partner with this outreach through giving and donations of needed items. Contact the church office to learn about current needs."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    }
+   ],
+   "buttons": [
+    {
+     "_key": "k00049",
+     "_type": "button",
+     "icon": "",
+     "label": "Give to Mercy For Many",
+     "link": {
+      "newTab": false,
+      "page": "give.html"
+     },
+     "style": "secondary"
+    },
+    {
+     "_key": "k0004a",
+     "_type": "button",
+     "icon": "",
+     "label": "Contact the office",
+     "link": {
+      "newTab": false,
+      "page": "contact.html"
+     },
+     "style": "outline"
+    }
+   ],
+   "cardImage": {
+    "_type": "image",
+    "alt": "Hands sorting donated supplies",
+    "asset": {
+     "_ref": "image-e993ae098bac73ad5749dc3d00a90ce30fc4f812-1281x1920-jpg",
+     "_type": "reference"
+    }
+   },
+   "cardTag": "Worldwide",
+   "cardText": "Making a difference by sponsoring needs of orphanages around the world.",
+   "featured": true,
+   "image": {
+    "_type": "image",
+    "alt": "Hands packing donated supplies",
+    "asset": {
+     "_ref": "image-e993ae098bac73ad5749dc3d00a90ce30fc4f812-1281x1920-jpg",
+     "_type": "reference"
+    }
+   },
+   "name": "Orphanage",
+   "order": 4,
+   "overviewIcon": "globe",
+   "overviewText": "Sponsoring needs worldwide.",
+   "overviewTitle": "Orphanages",
+   "tag": "Worldwide"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "outreach-turkey-drive",
+   "_type": "outreach",
+   "_updatedAt": "2026-11-07T23:59:39Z",
+   "anchor": {
+    "_type": "slug",
+    "current": "turkey-drive"
+   },
+   "archived": false,
+   "body": [
+    {
+     "_key": "k0003q",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0003p",
+       "_type": "span",
+       "marks": [],
+       "text": "Thanksgiving is a season of gratitude, but for many families in our community it can also be a season of need. Through the Annual Turkey Drive, Mercy Seat Chapel shares the blessing of a Thanksgiving meal with families across Gaithersburg and the surrounding communities."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0003s",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0003r",
+       "_type": "span",
+       "marks": [],
+       "text": "Each year, members and friends of the church come together to give, pack and distribute turkeys and holiday food items to families, seniors and neighbours who could use a helping hand. Every gift is shared with a smile, a word of encouragement and the love of Jesus Christ."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    },
+    {
+     "_key": "k0003u",
+     "_type": "block",
+     "children": [
+      {
+       "_key": "k0003t",
+       "_type": "span",
+       "marks": [],
+       "text": "You can be part of the Turkey Drive by giving towards the outreach, volunteering on distribution day, or letting us know about a family who would be blessed by a Thanksgiving meal."
+      }
+     ],
+     "markDefs": [],
+     "style": "normal"
+    }
+   ],
+   "buttons": [
+    {
+     "_key": "k0003v",
+     "_type": "button",
+     "icon": "",
+     "label": "Support the outreach",
+     "link": {
+      "newTab": false,
+      "page": "give.html"
+     },
+     "style": "secondary"
+    },
+    {
+     "_key": "k0003w",
+     "_type": "button",
+     "icon": "",
+     "label": "Volunteer",
+     "link": {
+      "newTab": false,
+      "page": "contact.html"
+     },
+     "style": "outline"
+    }
+   ],
+   "cardImage": {
+    "_type": "image",
+    "alt": "Volunteers at the Annual Turkey Drive",
+    "asset": {
+     "_ref": "image-667f3afcca035047f0efb81237357b6ad4d753ba-1440x1800-jpg",
+     "_type": "reference"
+    }
+   },
+   "cardTag": "Thanksgiving",
+   "cardText": "Sharing the joy of Thanksgiving with families across our community.",
+   "featured": true,
+   "image": {
+    "_type": "image",
+    "alt": "Volunteers at the Annual Turkey Drive",
+    "asset": {
+     "_ref": "image-667f3afcca035047f0efb81237357b6ad4d753ba-1440x1800-jpg",
+     "_type": "reference"
+    }
+   },
+   "name": "Annual Turkey Drive",
+   "order": 2,
+   "overviewIcon": "utensils",
+   "overviewText": "Every Thanksgiving season.",
+   "overviewTitle": "Turkey Drive",
+   "tag": "Thanksgiving"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "sermon-fsbnlbd7bg0",
+   "_type": "sermon",
+   "_updatedAt": "2026-11-07T23:59:35Z",
+   "archived": false,
+   "category": "Seeking His Presence",
+   "date": "2023-09-07",
+   "dateLabel": "September 7, 2023",
+   "featured": true,
+   "order": 5,
+   "series": "SHP 2023",
+   "speaker": "Rev. Kathy Kiuna",
+   "title": "Commissioned To Build",
+   "videoTitle": "Commissioned To Build | SHP 2023 | Rev. Kathy Kiuna",
+   "youtube": "https://www.youtube.com/watch?v=FSbnlBd7BG0"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "sermon-im8myjobwv8",
+   "_type": "sermon",
+   "_updatedAt": "2026-11-07T23:59:35Z",
+   "archived": false,
+   "category": "Seeking His Presence",
+   "dateLabel": "August 2026",
+   "featured": true,
+   "order": 3,
+   "series": "Day 4",
+   "speaker": "Pst. Olu Olarinde",
+   "title": "My Seed are Overcomers",
+   "videoTitle": "DAY 4 - My Seed are Overcomers | Pst. Olu OLARINDE",
+   "youtube": "https://www.youtube.com/watch?v=im8mYJoBWV8"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "sermon-nbzfecavay",
+   "_type": "sermon",
+   "_updatedAt": "2026-11-07T23:59:35Z",
+   "archived": false,
+   "category": "Seeking His Presence",
+   "dateLabel": "",
+   "featured": true,
+   "order": 4,
+   "series": "SHP 2023",
+   "speaker": "Pst. Ola Olarinde",
+   "title": "Build For God, Build Your Dynasty",
+   "videoTitle": "Build For God, Build Your Dynasty | SHP 2023 | Pst. Ola Olarinde",
+   "youtube": "https://www.youtube.com/watch?v=NBZF-eCAVAY"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "sermon-plkow2d5o80",
+   "_type": "sermon",
+   "_updatedAt": "2026-11-07T23:59:35Z",
+   "archived": false,
+   "category": "Seeking His Presence",
+   "date": "2023-09-07",
+   "dateLabel": "September 7, 2023",
+   "featured": true,
+   "order": 6,
+   "series": "SHP 2023",
+   "speaker": "Rev. Dillimono Frama",
+   "title": "Commissioned To Build",
+   "videoTitle": "Commissioned To Build | SHP 2023 | Rev. Dillimono Frama",
+   "youtube": "https://www.youtube.com/watch?v=plkOw2d5O80"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "sermon-px9hmo3yw0",
+   "_type": "sermon",
+   "_updatedAt": "2026-11-07T23:59:35Z",
+   "archived": false,
+   "category": "Seeking His Presence",
+   "dateLabel": "August 2026",
+   "featured": true,
+   "order": 1,
+   "series": "Day 6",
+   "speaker": "Pst. Adeyinka Are",
+   "title": "Positioned To Win",
+   "videoTitle": "DAY 6 - Positioned To Win | Pst. Adeyinka ARE",
+   "youtube": "https://www.youtube.com/watch?v=px9hMO3-Yw0"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "sermon-r5sshtgkho0",
+   "_type": "sermon",
+   "_updatedAt": "2026-11-07T23:59:35Z",
+   "archived": false,
+   "category": "Prayer",
+   "dateLabel": "Day 4 · August 2026",
+   "featured": true,
+   "order": 2,
+   "series": "Prayer Night",
+   "title": "Conquering The Storm",
+   "videoTitle": "DAY 4 - Conquering The Storm | PRAYER NIGHT",
+   "youtube": "https://www.youtube.com/watch?v=r5SShtgKHO0"
+  },
+  {
+   "_createdAt": "2026-11-07T23:57:39Z",
+   "_id": "siteSettings",
+   "_type": "siteSettings",
+   "_updatedAt": "2026-11-07T23:59:35Z",
+   "address": "17604 Washington Grove Lane, Gaithersburg, MD 20877",
+   "email": "info@mercyseatchapel.org",
+   "givingUrl": "https://msc.edgdmedia.com/giving/",
+   "liveVideo": "https://www.youtube.com/watch?v=Zg8AQ9CMOZ4",
+   "mailingAddress": "P.O. Box 914, Washington Grove, MD 20880",
+   "phone": "(301) 740-8118",
+   "prayerLine": "1 857 216 6700, code 860476",
+   "prayerLineDial": "18572166700,860476",
+   "serviceTimes": [
+    {
+     "_key": "k00001",
+     "_type": "time",
+     "label": "Sunday Service",
+     "time": "10:00 AM"
+    },
+    {
+     "_key": "k00002",
+     "_type": "time",
+     "label": "Bible Study (Tue)",
+     "time": "7:30 PM"
+    },
+    {
+     "_key": "k00003",
+     "_type": "time",
+     "label": "Holy Communion",
+     "time": "1st Tue · 7:30 PM"
+    }
+   ],
+   "social": {
+    "facebook": "https://www.facebook.com/Mercyseatchapel/",
+    "instagram": "https://www.instagram.com/mercyseatchapel/",
+    "twitter": "https://twitter.com/mercyseatchapel",
+    "youtube": "https://www.youtube.com/c/Mercyseatchapel"
+   },
+   "youtubeChannelId": "UCVoCauuDqWoSh4fDPtVdt5g",
+   "youtubeLiveUrl": "https://www.youtube.com/@MercySeatChapel/live"
+  }
+ ]
+}
