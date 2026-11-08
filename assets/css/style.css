@@ -257,7 +257,7 @@ small, .small { font-size: 14px; }
   .site-header { top: 10px; padding: 0 12px; }
   .nav-shell { height: 66px; padding: 0 8px 0 12px; gap: 8px; }
   .brand { flex-shrink: 1; min-width: 0; }
-  .brand img { height: auto; max-height: 23px; width: 100%; object-fit: contain; object-position: left center; }
+  .brand img { height: auto; max-height: 28px; width: 100%; object-fit: contain; object-position: left center; }
   .nav-actions { gap: 6px; }
   .nav-cta { padding: 10px 11px; min-height: 40px; font-size: 14px; }
   .nav-give { display: none; }
