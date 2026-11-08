@@ -97,6 +97,8 @@ small, .small { font-size: 14px; }
 .skip-link:focus { top: 16px; }
 
 .container { width: 100%; max-width: calc(var(--w-content) + var(--pad-x) * 2); margin: 0 auto; padding: 0 var(--pad-x); }
+/* Keep content clear of phone notches / gesture bars on pages with viewport-fit=cover (0 everywhere else) */
+.container { padding-left: max(var(--pad-x), env(safe-area-inset-left, 0px)); padding-right: max(var(--pad-x), env(safe-area-inset-right, 0px)); }
 .container--wide { max-width: calc(var(--w-wide) + var(--pad-x) * 2); }
 .section { padding: var(--pad-section) 0; }
 .section--white { background: var(--c-white); }
@@ -406,11 +408,11 @@ body.menu-open { overflow: hidden; }
   .hero__lead { font-size: 18px; }
   .hero__inner { padding-bottom: 56px; }
 }
-/* Phones: hero fills the screen exactly, with the heading, text and buttons sitting
-   near the bottom over the full-screen photo/video */
+/* Phones: hero fills the whole screen, down behind the phone's gesture bar (index.html has
+   viewport-fit=cover), with the heading, text and buttons near the bottom, kept clear of the bar */
 @media (max-width: 767px) {
-  .hero { min-height: 100svh; }
-  .hero__inner { padding-bottom: 28px; }
+  .hero { min-height: 100svh; min-height: 100dvh; }
+  .hero__inner { padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px)); }
 }
 
 /* ---------- Page hero (inner pages) ---------- */
@@ -1420,7 +1422,7 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
 .footer-socials.footer-socials--light a { border: 2px solid var(--c-primary); color: var(--c-primary); }
 .footer-socials.footer-socials--light a:hover,
 .footer-socials.footer-socials--light a:focus-visible { background: var(--c-secondary); border-color: var(--c-secondary); color: var(--c-white); }
-.footer-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 24px 0; font-size: 14px; color: rgba(255, 255, 255, .6); }
+.footer-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 24px 0 calc(24px + env(safe-area-inset-bottom, 0px)); font-size: 14px; color: rgba(255, 255, 255, .6); }
 .footer-bottom nav { display: flex; gap: 18px; flex-wrap: wrap; }
 .footer-parish { display: inline-flex; align-items: center; gap: 10px; }
 .footer-parish img { width: 32px; height: 32px; }
@@ -1449,7 +1451,7 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
 @media (max-width: 599px) { .footer-grid { grid-template-columns: 1fr; gap: 36px; } .site-footer { padding-top: 64px; } }
 
 .to-top {
-  position: fixed; right: 20px; bottom: 20px; z-index: 90; width: 48px; height: 48px; border-radius: 50%;
+  position: fixed; right: 20px; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); z-index: 90; width: 48px; height: 48px; border-radius: 50%;
   display: grid; place-items: center; border: 0; cursor: pointer;
   background: var(--c-secondary); color: var(--c-white); box-shadow: var(--shadow-md);
   opacity: 0; visibility: hidden; transform: translateY(10px); transition: all .3s var(--ease);
