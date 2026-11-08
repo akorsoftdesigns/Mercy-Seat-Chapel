@@ -1929,11 +1929,11 @@
    "_system": {
     "base": {
      "id": "ministry-revive",
-     "rev": "rx4BlvTmIOnv1AjbQs8zrd"
+     "rev": "d8VcwWwx9mLgDd8bCodrej"
     }
    },
    "_type": "ministry",
-   "_updatedAt": "2026-11-08T00:11:40Z",
+   "_updatedAt": "2026-11-08T01:11:04Z",
    "anchor": {
     "_type": "slug",
     "current": "revive"
@@ -1992,7 +1992,7 @@
        "_key": "k00015",
        "_type": "span",
        "marks": [],
-       "text": "REVIVE consists of a demographic of single youths from the age of 18 to 99."
+       "text": "REVIVE consists of a demographic of single youths from the age of 18 to 29."
       }
      ],
      "markDefs": [],
