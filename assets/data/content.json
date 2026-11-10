@@ -2505,8 +2505,14 @@
   {
    "_createdAt": "2026-11-07T23:57:39Z",
    "_id": "siteSettings",
+   "_system": {
+    "base": {
+     "id": "siteSettings",
+     "rev": "rx4BlvTmIOnv1AjbQs8zKB"
+    }
+   },
    "_type": "siteSettings",
-   "_updatedAt": "2026-11-07T23:59:35Z",
+   "_updatedAt": "2026-11-08T04:01:34Z",
    "address": "17604 Washington Grove Lane, Gaithersburg, MD 20877",
    "email": "info@mercyseatchapel.org",
    "givingUrl": "https://msc.edgdmedia.com/giving/",
@@ -2538,6 +2544,7 @@
    "social": {
     "facebook": "https://www.facebook.com/Mercyseatchapel/",
     "instagram": "https://www.instagram.com/mercyseatchapel/",
+    "tiktok": "https://www.tiktok.com/@mercyseatchapel",
     "twitter": "https://twitter.com/mercyseatchapel",
     "youtube": "https://www.youtube.com/c/Mercyseatchapel"
    },
