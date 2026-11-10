@@ -23,6 +23,7 @@ If you don't see Publish, a publisher will review your draft.
 | Post an announcement in the slider | Announcements → **+**. Add an image and tick "Show in What's happening". |
 | Add a sermon to “More messages” | Sermons → **+**. Paste the YouTube link; the thumbnail is automatic. |
 | Change a hero slide | Homepage → Hero slides. Drag to reorder, or untick "Show this slide" to hide one. |
+| Edit the Vision, Growth Pillars, membership Journey or "Become a Member" box on the About page | About page → choose the tab (Our Vision, Growth Pillars, Your Journey, Membership call to action). Drag items to reorder; the numbers (01, 02…) follow the order. Put \*stars\* around a word in a heading to show it in coral. |
 | Update the phone number, address or service times | Site Settings (if it's locked, ask an administrator) |
 | Open or close a job | Job Center → the job → Status |
 

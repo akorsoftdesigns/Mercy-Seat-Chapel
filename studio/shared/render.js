@@ -321,6 +321,62 @@ export const leaderCardHtml = (c, l, i = 0) => lines(
   `  ${imgTag(c, l.photo, { alt: l.photo?.alt || l.name })}`,
   `</li>`);
 
+/* ---------- About page: Vision, Growth Pillars, Journey, membership CTA ----------
+   Each returns the inside of one marked block under "Our Beliefs" on about.html. */
+const num = (i) => String(i + 1).padStart(2, "0");
+const sectionHead = (eyebrow, heading, intro) => lines(
+  `<div class="section-head reveal">`,
+  eyebrow && `  <span class="eyebrow">${esc(eyebrow)}</span>`,
+  heading && `  <h2>${emphasis(heading)}</h2>`,
+  intro && `  <p>${esc(intro)}</p>`,
+  `</div>`);
+
+export const aboutVision = (doc) => lines(
+  sectionHead(doc.visionEyebrow, doc.visionHeading, doc.visionIntro),
+  `<div class="values">`,
+  (doc.values || []).map((v, i) => indent(lines(
+    `<article class="belief value reveal"${dStyle((i % 3) * 0.1)}>`,
+    `  <div class="belief__num">${num(i)}</div>`,
+    `  <h3>${esc(v.title)}</h3>`,
+    `  <p>${esc(v.text)}</p>`,
+    `</article>`))),
+  `</div>`);
+
+export const aboutPillars = (doc) => lines(
+  sectionHead(doc.pillarsEyebrow, doc.pillarsHeading, doc.pillarsIntro),
+  `<div class="grid grid--2 pillars">`,
+  (doc.pillars || []).map((p, i) => indent(lines(
+    `<article class="pillar reveal"${dStyle((i % 2) * 0.1)}>`,
+    `  <div class="pillar__num" aria-hidden="true">${num(i)}</div>`,
+    `  <div>`,
+    `    <h3>${esc(p.title)}</h3>`,
+    p.subtitle && `    <p class="pillar__sub">${esc(p.subtitle)}</p>`,
+    `    <p>${esc(p.text)}</p>`,
+    `  </div>`,
+    `</article>`))),
+  `</div>`);
+
+export const aboutJourney = (doc) => lines(
+  sectionHead(doc.journeyEyebrow, doc.journeyHeading, doc.journeyIntro),
+  `<ol class="journey">`,
+  (doc.journeySteps || []).map((s, i) => indent(lines(
+    `<li class="journey__step reveal"${dStyle((i % 3) * 0.1)}>`,
+    `  <span class="journey__num" aria-hidden="true">${num(i)}</span>`,
+    `  <span class="journey__stage">${esc(s.label)}</span>`,
+    `  <h3>${esc(s.title)}</h3>`,
+    `  <p>${esc(s.text)}</p>`,
+    `</li>`))),
+  `</ol>`);
+
+export const aboutCta = (c, doc) => lines(
+  `<div class="cta-band reveal">`,
+  `  <div>`,
+  doc.ctaHeading && `    <h2>${emphasis(doc.ctaHeading)}</h2>`,
+  doc.ctaText && `    <p>${esc(doc.ctaText)}</p>`,
+  `  </div>`,
+  doc.ctaButtons?.length && `  ${buttonRow(c, doc.ctaButtons)}`,
+  `</div>`);
+
 /* ---------- Jobs ---------- */
 export function jobsHtml(jobs) {
   if (!jobs.length) return `<p class="muted">There are no openings right now. Please check back soon.</p>`;

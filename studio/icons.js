@@ -1,6 +1,7 @@
 // Icons used in the dashboard (Sanity's icon set loads each icon from its own file)
 export { CogIcon } from "@sanity/icons/Cog";
 export { HomeIcon } from "@sanity/icons/Home";
+export { InfoOutlineIcon } from "@sanity/icons/InfoOutline";
 export { CalendarIcon } from "@sanity/icons/Calendar";
 export { BellIcon } from "@sanity/icons/Bell";
 export { PlayIcon } from "@sanity/icons/Play";

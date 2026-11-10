@@ -1078,6 +1078,51 @@ html:not(.no-js) .place__tabs.reveal:not(.is-in) .place__tab { opacity: 0; }
 .belief p { margin: 0; }
 .belief strong { color: var(--c-primary); }
 
+/* ---------- About page: Vision, Growth Pillars, Journey (under Our Beliefs) ---------- */
+.about-block { margin-top: clamp(80px, 9vw, 128px); }
+.about-block--cta { margin-top: clamp(64px, 7vw, 96px); }
+.about-block .section-head p { margin-top: 14px; }
+
+/* Vision values: numbered belief cards; flex so a short last row sits centred (5 = 3 + 2) */
+.values { --cols: 3; --gap: 24px; display: flex; flex-wrap: wrap; justify-content: center; gap: var(--gap); }
+.value { width: calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols)); }
+.value h3 { font-size: 21px; margin: 0 0 10px; }
+@media (max-width: 1023px) { .values { --cols: 2; } }
+@media (max-width: 639px) { .values { --cols: 1; } }
+
+/* Growth pillars: soft cards with a blue number tile */
+.pillar { display: grid; grid-template-columns: 64px 1fr; gap: 24px; padding: 36px 32px; background: var(--c-soft); border-radius: var(--r-card); }
+.pillar__num { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 16px; background: var(--c-primary); color: var(--c-white); font: 800 22px/1 var(--f-heading); }
+.pillar h3 { font-size: 22px; margin: 4px 0 6px; }
+.pillar__sub { margin: 0 0 14px; font: 700 13px/1.4 var(--f-heading); letter-spacing: 1.5px; text-transform: uppercase; color: var(--c-accent); }
+.pillar p:last-child { margin: 0; }
+@media (max-width: 900px) { .pillars { grid-template-columns: 1fr; } }
+@media (max-width: 639px) { .pillar { grid-template-columns: 1fr; gap: 16px; padding: 28px 24px; } .pillar__num { width: 52px; height: 52px; font-size: 19px; border-radius: 14px; } }
+
+/* Membership journey: numbered stages joined by a dashed line, in reading order.
+   Desktop 3 per row, tablet 2, phones one column with the line running down the left. */
+.journey { --gap: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px var(--gap); list-style: none; margin: 0; padding: 0; }
+.journey__step { position: relative; }
+.journey__step:not(:last-child)::before { content: ""; position: absolute; top: 27px; left: 64px; right: calc(-1 * var(--gap) + 8px); border-top: 2px dashed var(--c-secondary-light); }
+.journey__step:nth-child(3n)::before { display: none; }
+.journey__num { position: relative; display: grid; place-items: center; width: 56px; height: 56px; margin-bottom: 20px; border-radius: 50%; background: var(--c-primary); color: var(--c-white); font: 800 18px/1 var(--f-heading); }
+.journey__step:last-child .journey__num { background: var(--c-secondary); }
+.journey__stage { display: block; margin-bottom: 6px; font: 700 13px/1.3 var(--f-heading); letter-spacing: 2px; text-transform: uppercase; color: var(--c-accent); }
+.journey__step h3 { font-size: 21px; margin: 0 0 10px; }
+.journey__step p { margin: 0; }
+@media (max-width: 1023px) {
+  .journey { --gap: 32px; grid-template-columns: repeat(2, 1fr); }
+  .journey__step:nth-child(3n)::before { display: block; }
+  .journey__step:nth-child(2n)::before { display: none; }
+}
+@media (max-width: 639px) {
+  .journey { grid-template-columns: 1fr; row-gap: 36px; }
+  .journey__step { padding-left: 76px; min-height: 56px; }
+  .journey__num { position: absolute; left: 0; top: 0; margin: 0; }
+  .journey__step:nth-child(n)::before { display: block; top: 64px; bottom: -28px; left: 27px; right: auto; border-top: 0; border-left: 2px dashed var(--c-secondary-light); }
+  .journey__step:last-child::before { display: none; }
+}
+
 /* Timeline */
 .timeline { position: relative; margin: 0; padding: 0; list-style: none; }
 .timeline::before { content: ""; position: absolute; left: 70px; top: 6px; bottom: 6px; width: 1px; background: var(--c-border); }

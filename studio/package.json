@@ -9,7 +9,8 @@
     "build": "sanity build",
     "deploy": "sanity deploy",
     "seed": "node tools/seed-from-site.mjs",
-    "seed:import": "sanity dataset import seed/seed.ndjson production --missing"
+    "seed:import": "sanity dataset import seed/seed.ndjson production --missing",
+    "seed:about": "sanity dataset import seed/about-page.ndjson production --missing"
   },
   "engines": {
     "node": ">=22.12"

@@ -51,6 +51,14 @@ npm run seed:import
 
 `seed:import` uses `--missing`, so running it again never overwrites edits made in the dashboard.
 
+The **About page** entry (Vision, Growth Pillars, Journey, membership call to action) was added later and has its own starting file. Load it once with:
+
+```bash
+npm run seed:about
+```
+
+It also uses `--missing`: it only creates the About page entry if there isn't one yet.
+
 ## 4. Publish the dashboard online
 
 ```bash

@@ -49,6 +49,12 @@ function render(doc, c, refs) {
         + `<section class="place"><div class="container" data-tabs>${R.placeTabs(c, list("featuredMinistries"))}</div></section>`
         + wrap(`<div class="grid grid--4">${list("featuredOutreach").map((o, i) => R.outreachHomeCard(c, o, i)).join("")}</div>`);
     }
+    case "aboutPage": return wrap([
+      `<div class="about-block">${R.aboutVision(doc)}</div>`,
+      `<div class="about-block">${R.aboutPillars(doc)}</div>`,
+      `<div class="about-block">${R.aboutJourney(doc)}</div>`,
+      `<div class="about-block about-block--cta">${R.aboutCta(c, doc)}</div>`
+    ].join(""), "section section--white");
     default: return `<p>No preview for this item.</p>`;
   }
 }

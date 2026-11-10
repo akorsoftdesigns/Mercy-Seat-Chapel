@@ -9,7 +9,7 @@ export const SITE_PAGES = [
   ["Ministries", "ministries.html"], ["Departments", "departments.html"], ["Marriage Counselling", "marriage-counselling.html"],
   ["Outreach & Community", "outreach.html"], ["Events & Programs", "events.html"], ["Seeking His Presence", "seeking-his-presence.html"],
   ["Foundation Academy", "foundation-academy.html"], ["Sermons", "sermons.html"], ["Watch Live", "live.html"],
-  ["Plan a Visit", "plan-a-visit.html"], ["Need a Ride", "plan-a-visit.html#ride"], ["Give", "give.html"], ["Contact", "contact.html"],
+  ["Plan a Visit", "plan-a-visit.html"], ["Need a Ride", "plan-a-visit.html#ride"], ["First Time Guest card", "first-timer.html"], ["Give", "give.html"], ["Contact", "contact.html"],
   ["Prayer request", "contact.html#prayer"], ["Testimonies", "testimonies.html"], ["Gallery", "gallery.html"], ["Job Center", "job-center.html"],
   ["Service times (homepage)", "index.html#service-times"]
 ].map(([title, value]) => ({ title, value }));
@@ -43,6 +43,7 @@ export const button = defineArrayMember({
         { title: "Coral (main action)", value: "primary" },
         { title: "Blue", value: "secondary" },
         { title: "Outline", value: "outline" },
+        { title: "Outline, white (on a dark blue background)", value: "outline-light" },
         { title: "Watch Live (red)", value: "live" }
       ], layout: "radio" } }),
     defineField({ name: "icon", title: "Icon", type: "string", description: "Optional small icon after the text.",

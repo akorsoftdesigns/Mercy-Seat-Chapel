@@ -32,7 +32,7 @@ const flag = (f) => args.includes(f);
 const opt = (f) => { const i = args.indexOf(f); return i >= 0 ? args[i + 1] : undefined; };
 const DRY = flag("--dry-run");
 const API_VERSION = "v2025-02-19";
-const TYPES = ["siteSettings", "homepage", "announcement", "event", "sermon", "ministry", "department", "outreach", "leader", "job"];
+const TYPES = ["siteSettings", "homepage", "aboutPage", "announcement", "event", "sermon", "ministry", "department", "outreach", "leader", "job"];
 const log = (...a) => console.log("[cms]", ...a);
 
 /* ---------- 1. Load published content ---------- */
@@ -272,6 +272,15 @@ async function main() {
     if (mins.length) await region("index.html", "place-tabs", R.placeTabs(c, mins));
     const outs = deref(home.featuredOutreach);
     if (outs.length) await region("index.html", "outreach-cards", outs.map((o, i) => R.outreachHomeCard(c, o, i)).join("\n"));
+  }
+
+  // ---- About page: Vision, Growth Pillars, Journey, membership CTA (under Our Beliefs) ----
+  const about = byId.aboutPage;
+  if (about) {
+    if (about.values?.length) await region("about.html", "about-vision", R.aboutVision(about));
+    if (about.pillars?.length) await region("about.html", "about-pillars", R.aboutPillars(about));
+    if (about.journeySteps?.length) await region("about.html", "about-journey", R.aboutJourney(about));
+    if (about.ctaHeading) await region("about.html", "about-cta", R.aboutCta(c, about));
   }
 
   // ---- Ministries, departments, outreach, leaders, jobs ----
