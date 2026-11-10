@@ -315,6 +315,12 @@ export const leaderHtml = (c, l) => lines(
   `  </div>`,
   `</article>`);
 
+/* Compact leader card (About page summary): photo only; the name is kept in the alt text */
+export const leaderCardHtml = (c, l, i = 0) => lines(
+  `<li class="minister reveal"${i ? ` style="--d:${(i * 0.08).toFixed(2)}s"` : ""}>`,
+  `  ${imgTag(c, l.photo, { alt: l.photo?.alt || l.name })}`,
+  `</li>`);
+
 /* ---------- Jobs ---------- */
 export function jobsHtml(jobs) {
   if (!jobs.length) return `<p class="muted">There are no openings right now. Please check back soon.</p>`;

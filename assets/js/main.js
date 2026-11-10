@@ -9,8 +9,8 @@
 // Fixed details (not managed in the dashboard)
 const SITE_FIXED = {
   name: "Mercy Seat Chapel",
-  logo: "assets/images/msc-logo-white.png",       // white logo: header, mobile menu, footer and any blue background
-  logoOnLight: "assets/images/msc-logo-blue.png", // blue logo: light backgrounds inside pages (<img data-site="logo-on-light">)
+  logo: "assets/images/mercy-seat-logo-white.png",       // white logo: header, mobile menu, footer and any blue background
+  logoOnLight: "assets/images/mercy-seat-logo-blue.png", // blue logo: light backgrounds inside pages (<img data-site="logo-on-light">)
   website: "https://www.mercyseatchapel.org",
   dashboardUrl: "https://crm.mercyseatchapel.org/"
 };
@@ -55,7 +55,7 @@ const NAV = [
     { label: "About MSC", href: "about.html" },
     { label: "Our Beliefs", href: "about.html#beliefs" },
     { label: "Pastor’s Message", href: "about.html#pastor" },
-    { label: "Leadership", href: "about.html#leadership" }
+    { label: "Leadership", href: "leadership.html" }
   ]},
   // Connect has no page of its own: the label opens the dropdown (href "#" is never followed)
   // "pages" = extra pages that should highlight this menu item as the current section
@@ -121,7 +121,7 @@ function renderHeader() {
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header" id="site-header">
     <div class="nav-shell">
-      <a class="brand" href="index.html" aria-label="${SITE.name} home"><img src="${SITE.logo}" alt="${SITE.name}" width="146" height="27"></a>
+      <a class="brand" href="index.html" aria-label="${SITE.name} home"><img src="${SITE.logo}" alt="${SITE.name}" width="141" height="27"></a>
       <nav class="primary-nav" aria-label="Primary"><ul>${items}<li>${searchBtn("")}</li></ul></nav>
       <div class="nav-actions">
         <a class="btn btn--outline-light nav-cta nav-give" href="give.html">Give</a>
@@ -879,6 +879,26 @@ function initReveal() {
   els.forEach((e) => io.observe(e));
 }
 
+/* Leadership page: wrap each minister's photo and add the hover overlay, filled with
+   the portfolio already written under the photo (so it's only ever typed once). */
+function initMinisters() {
+  document.querySelectorAll(".minister").forEach((card) => {
+    const img = card.querySelector("img"), role = card.querySelector(".minister__role");
+    // Photo-only cards (About page pastors) get no overlay or hover
+    if (!img || !role || img.parentElement.classList.contains("minister__photo")) return;
+    const photo = document.createElement("div");
+    photo.className = "minister__photo";
+    img.replaceWith(photo);
+    photo.append(img);
+    const overlay = document.createElement("div");
+    overlay.className = "minister__overlay";
+    overlay.setAttribute("aria-hidden", "true"); // the portfolio is already read out under the photo
+    overlay.innerHTML = "<span></span>";
+    overlay.firstChild.textContent = role.textContent;
+    photo.append(overlay);
+  });
+}
+
 /* Count-up numbers: <b data-count="10000" data-format="grouped" data-suffix="+">10,000+</b>
    counts from 0 the first time it scrolls into view. The final value stays in the HTML,
    so it shows as-is without JavaScript or with reduced motion.
@@ -1086,6 +1106,7 @@ loadIncludes().then(() => {
   initVideos();
   initReveal();
   initCounters();
+  initMinisters();
   initSubnav();
   initTabnav();
   initForms();

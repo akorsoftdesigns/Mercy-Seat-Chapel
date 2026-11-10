@@ -38,7 +38,7 @@ Church staff edit public website content in a dashboard (Sanity Studio) instead 
 | Job Center | Job Center listing | `jobs` |
 
 **Not managed by the dashboard (unchanged):**
-- Every form and its submissions (contact, prayer, counselling, first-timer, membership, job applications) and `forms.html`
+- Every form and its submissions (contact, prayer, counselling, first-timer, membership, job applications)
 - Giving and donations
 - Page layouts, the menu, legal pages, the About/RCCG/beliefs text, the Gallery, Testimonies, Plan a Visit, the Foundation Academy and Seeking His Presence pages
 - Job detail pages (each has its own application form)

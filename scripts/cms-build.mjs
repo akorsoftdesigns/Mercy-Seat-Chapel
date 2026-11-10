@@ -282,7 +282,11 @@ async function main() {
     await region("outreach.html", "outreach-rows", R.zzRows(c, visible("outreach")));
     await region("outreach.html", "outreach-overview", visible("outreach").filter((o) => o.overviewTitle).map(R.outreachOverviewCard).join("\n"));
   }
-  if (visible("leader").length) await region("about.html", "leaders", visible("leader").map((l) => R.leaderHtml(c, l)).join("\n"));
+  if (visible("leader").length) {
+    // About shows a compact summary (photo, name, role); the Leadership page shows the full cards
+    await region("about.html", "leaders-summary", visible("leader").map((l, i) => R.leaderCardHtml(c, l, i)).join("\n"));
+    await region("leadership.html", "leaders", visible("leader").map((l) => R.leaderHtml(c, l)).join("\n"));
+  }
   if (byType("job").length) {
     const open = sorted(byType("job").filter((j) => j.status === "open" && j.page && (!j.deadline || j.deadline >= today)));
     await region("job-center.html", "jobs", R.jobsHtml(open));

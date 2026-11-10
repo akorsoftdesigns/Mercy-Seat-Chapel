@@ -5,7 +5,7 @@ import { defineField, defineArrayMember } from "sanity";
 
 // Pages that exist on the website, offered as link choices so editors don't type file names
 export const SITE_PAGES = [
-  ["Home", "index.html"], ["About", "about.html"], ["Leadership", "about.html#leadership"], ["RCCG", "rccg.html"],
+  ["Home", "index.html"], ["About", "about.html"], ["Leadership", "leadership.html"], ["RCCG", "rccg.html"],
   ["Ministries", "ministries.html"], ["Departments", "departments.html"], ["Marriage Counselling", "marriage-counselling.html"],
   ["Outreach & Community", "outreach.html"], ["Events & Programs", "events.html"], ["Seeking His Presence", "seeking-his-presence.html"],
   ["Foundation Academy", "foundation-academy.html"], ["Sermons", "sermons.html"], ["Watch Live", "live.html"],

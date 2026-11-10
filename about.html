@@ -128,26 +128,20 @@
           <span class="eyebrow">Leadership</span>
           <h2>Our Leadership</h2>
         </div>
-        <!-- Managed in the dashboard (Leadership) -->
-        <div style="display:grid; gap:28px">
-          <!-- cms:leaders -->
-          <article class="leader">
-            <img class="reveal reveal--left" src="assets/images/pastor-ola.jpeg" alt="Pastor Ola Olarinde" loading="lazy">
-            <div class="reveal reveal--right" style="--d:.12s">
-              <div class="leader__role">Senior Pastor</div>
-              <h3>Pastor Ola Olarinde</h3>
-              <blockquote>God has also promised that there will be a constant flow of oil in order to remain above and not beneath. The oil signifies the Spirit of God, His gifts and graces. Even when a wild ox has its head bowed down to drink water the head always remains elevated. This is the grace of God. In all your endeavors this year, even when the enemy tries or threatens with failure, struggle, sickness, divorce or grief like the head of a unicorn and by the grace of God you will come out victorious.</blockquote>
-            </div>
-          </article>
-          <article class="leader">
-            <img class="reveal reveal--left" src="assets/images/pastor-olu.jpeg" alt="Pastor Olu Olarinde" loading="lazy">
-            <div class="reveal reveal--right" style="--d:.12s">
-              <div class="leader__role">Senior Pastor</div>
-              <h3>Pastor Olu Olarinde</h3>
-              <blockquote>Spiritually, standing tall means standing above sin and unrighteousness. The grace to live holy and pure. It also means rising above the forces of the enemy. Anything that struggles to overcome one’s victory in life is an enemy.</blockquote>
-            </div>
-          </article>
-          <!-- /cms:leaders -->
+        <!-- Managed in the dashboard (Leadership): photo, name and role only; the full cards are on leadership.html -->
+        <ul class="ministers ministers--pair">
+          <!-- cms:leaders-summary -->
+          <li class="minister reveal">
+            <img src="assets/images/pastor-ola.jpeg" alt="Pastor Ola Olarinde" loading="lazy">
+          </li>
+          <li class="minister reveal" style="--d:0.08s">
+            <img src="assets/images/pastor-olu.jpeg" alt="Pastor Olu Olarinde" loading="lazy">
+          </li>
+          <!-- /cms:leaders-summary -->
+        </ul>
+        <p class="leadership-intro reveal">At Mercy Seat Chapel, our vibrant community of dedicated volunteers, ministry leaders, and pastors is led by Pastor Olu Olarinde, our Lead Pastor, alongside his wife, Pastor Ola Olarinde. Together, they are committed to building a Christ-centered community where people encounter God’s mercy and grace, grow in faith, and discover their God-given purpose.</p>
+        <div class="btn-row btn-row--center reveal">
+          <a class="btn btn--secondary" href="leadership.html">View Leaders <i data-lucide="arrow-right"></i></a>
         </div>
       </div>
     </section>
