@@ -1,6 +1,150 @@
 {
  "documents": [
   {
+   "_createdAt": "2026-11-10T23:23:14Z",
+   "_id": "aboutPage",
+   "_type": "aboutPage",
+   "_updatedAt": "2026-11-10T23:23:14Z",
+   "ctaButtons": [
+    {
+     "_key": "b1",
+     "_type": "button",
+     "icon": "arrow-right",
+     "label": "Become a Member",
+     "link": {
+      "page": "first-timer.html"
+     },
+     "style": "primary"
+    },
+    {
+     "_key": "b2",
+     "_type": "button",
+     "label": "Plan Your Visit",
+     "link": {
+      "page": "plan-a-visit.html"
+     },
+     "style": "outline-light"
+    }
+   ],
+   "ctaHeading": "Ready to Become Part of the MSC Family?",
+   "ctaText": "Your journey of faith, fellowship, and purpose starts here. We would love to welcome you, help you connect, and walk alongside you as you grow in Christ.",
+   "journeyEyebrow": "Your Journey at MSC",
+   "journeyHeading": "From Your First Visit to Finding Your *Place*",
+   "journeyIntro": "Whether you’re visiting for the first time or looking for a church family, we want you to feel welcomed, supported, and connected. Our membership journey is designed to help you discover Mercy Seat Chapel, grow in your relationship with Christ, and find meaningful ways to belong and serve.",
+   "journeySteps": [
+    {
+     "_key": "j1",
+     "_type": "stage",
+     "label": "Meet",
+     "text": "Your journey begins with a warm welcome. Our Welcome & Follow-Up Team is here to connect with you, answer your questions, introduce you to church activities, and help you feel at home.",
+     "title": "You’re Welcome Here"
+    },
+    {
+     "_key": "j2",
+     "_type": "stage",
+     "label": "Decide",
+     "text": "As you get to know our church family, we invite you to learn more about our vision, values, and membership opportunities, helping you prayerfully decide whether Mercy Seat Chapel is where you would like to grow.",
+     "title": "Take the Next Step"
+    },
+    {
+     "_key": "j3",
+     "_type": "stage",
+     "label": "Learn",
+     "text": "Our monthly membership classes introduce you to the church’s beliefs, vision, ministries, and opportunities for spiritual growth. You’ll also learn about SoulCare and the different ways we support our members.",
+     "title": "Discover Who We Are"
+    },
+    {
+     "_key": "j4",
+     "_type": "stage",
+     "label": "Connect",
+     "text": "Through the SoulCare Directorate, we help you connect with a fellowship group or ministry community where you can build friendships, receive encouragement, and grow alongside others.",
+     "title": "Find Your Community"
+    },
+    {
+     "_key": "j5",
+     "_type": "stage",
+     "label": "Serve",
+     "text": "Everyone has something valuable to contribute. We encourage members interested in serving to explore ministry opportunities, receive relevant training, and develop their gifts through pathways such as the Workers Academy.",
+     "title": "Discover Your Gifts"
+    },
+    {
+     "_key": "j6",
+     "_type": "stage",
+     "label": "Celebrate",
+     "text": "We celebrate every step of your spiritual journey, from finding a church family to becoming actively involved in ministry. Together, we continue growing in faith, building relationships, and making a difference for Christ.",
+     "title": "Grow and Thrive Together"
+    }
+   ],
+   "pillars": [
+    {
+     "_key": "p1",
+     "_type": "pillar",
+     "subtitle": "Building a Caring Church Family",
+     "text": "We strengthen relationships through genuine fellowship, prayer, encouragement, celebrating special moments, and supporting one another through life’s different seasons. Through our ministries and departments, we create opportunities for everyone to experience a true sense of belonging.",
+     "title": "Bonding"
+    },
+    {
+     "_key": "p2",
+     "_type": "pillar",
+     "subtitle": "Sharing the Message of Hope",
+     "text": "We extend our reach through personal evangelism, community outreach, digital media, and creative communication. By sharing our faith, church activities, and testimonies, we invite more people to experience the love of Christ and become part of our church family.",
+     "title": "Visibility & Outreach"
+    },
+    {
+     "_key": "p3",
+     "_type": "pillar",
+     "subtitle": "Helping Everyone Find Their Place",
+     "text": "We believe everyone should have the opportunity to belong, grow, and contribute. Through membership classes, ministry groups, training, and leadership development, we help visitors and members discover meaningful connections and opportunities to serve.",
+     "title": "Integration"
+    },
+    {
+     "_key": "p4",
+     "_type": "pillar",
+     "subtitle": "Creating Opportunities for Transformation",
+     "text": "Our worship services, teaching programs, conferences, youth gatherings, family events, empowerment initiatives, and community outreach activities provide opportunities to deepen faith, strengthen relationships, discover purpose, and make a difference.",
+     "title": "Programs"
+    }
+   ],
+   "pillarsEyebrow": "Our Growth Pillars",
+   "pillarsHeading": "Growing Stronger, *Together*",
+   "pillarsIntro": "At Mercy Seat Chapel, growth is about more than numbers. It is about building lasting relationships, reaching new people, helping everyone find a place to belong, and creating opportunities for spiritual transformation. Our approach to growth is anchored in four pillars.",
+   "values": [
+    {
+     "_key": "v1",
+     "_type": "value",
+     "text": "Jesus Christ is at the heart of everything we do. Through worship, prayer, and biblical teaching, we seek to honour Him, reflect His love, and live according to His Word.",
+     "title": "Christ-Centered"
+    },
+    {
+     "_key": "v2",
+     "_type": "value",
+     "text": "We are committed to helping people grow into mature followers of Christ through purposeful teaching, mentorship, spiritual development, and opportunities to put their faith into action.",
+     "title": "Intentional Discipleship"
+    },
+    {
+     "_key": "v3",
+     "_type": "value",
+     "text": "We believe church is more than a gathering; it is a spiritual family. We cultivate meaningful relationships built on love, unity, encouragement, accountability, and genuine care for one another.",
+     "title": "Covenant Family Fellowship"
+    },
+    {
+     "_key": "v4",
+     "_type": "value",
+     "text": "We believe everyone has gifts, talents, and resources entrusted to them by God. We encourage faithful stewardship and joyful service, empowering individuals to contribute meaningfully to the church and wider community.",
+     "title": "Stewardship & Service"
+    },
+    {
+     "_key": "v5",
+     "_type": "value",
+     "text": "We are called to share the Gospel and demonstrate Christ’s love beyond the walls of the church through evangelism, compassion, community engagement, and practical acts of service.",
+     "title": "Mission & Outreach"
+    }
+   ],
+   "visionEyebrow": "Our Vision",
+   "visionHeading": "Rooted in Christ. Growing in Faith. Serving with *Purpose*.",
+   "visionIntro": "At Mercy Seat Chapel, our vision is to build a Christ-centered family where people encounter God’s mercy and grace, grow as disciples, develop meaningful relationships, and discover their purpose in serving God and others. Five foundational values guide who we are and everything we do."
+  },
+  {
    "_createdAt": "2026-11-07T23:57:39Z",
    "_id": "department-choir",
    "_type": "department",
