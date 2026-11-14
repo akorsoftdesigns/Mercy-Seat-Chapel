@@ -4,7 +4,7 @@
    "_createdAt": "2026-11-10T23:23:14Z",
    "_id": "aboutPage",
    "_type": "aboutPage",
-   "_updatedAt": "2026-11-10T23:23:14Z",
+   "_updatedAt": "2026-11-14T23:49:53Z",
    "ctaButtons": [
     {
      "_key": "b1",
@@ -112,30 +112,70 @@
     {
      "_key": "v1",
      "_type": "value",
+     "photo": {
+      "_type": "image",
+      "alt": "People standing in worship, one woman singing with an open hand raised and another bowing her head in prayer",
+      "asset": {
+       "_ref": "image-036cd97511be9a576347abb4208266f633fcde46-960x720-jpg",
+       "_type": "reference"
+      }
+     },
      "text": "Jesus Christ is at the heart of everything we do. Through worship, prayer, and biblical teaching, we seek to honour Him, reflect His love, and live according to His Word.",
      "title": "Christ-Centered"
     },
     {
      "_key": "v2",
      "_type": "value",
+     "photo": {
+      "_type": "image",
+      "alt": "A small group studying open Bibles together around a table",
+      "asset": {
+       "_ref": "image-d74341f2e5fc1ae6ad5c98d2cb3dd054ebe541bf-960x720-jpg",
+       "_type": "reference"
+      }
+     },
      "text": "We are committed to helping people grow into mature followers of Christ through purposeful teaching, mentorship, spiritual development, and opportunities to put their faith into action.",
      "title": "Intentional Discipleship"
     },
     {
      "_key": "v3",
      "_type": "value",
+     "photo": {
+      "_type": "image",
+      "alt": "Church members laughing and talking together in fellowship",
+      "asset": {
+       "_ref": "image-58e331d9bebfc74ded4fe2597eb70c73018c6a67-960x720-jpg",
+       "_type": "reference"
+      }
+     },
      "text": "We believe church is more than a gathering; it is a spiritual family. We cultivate meaningful relationships built on love, unity, encouragement, accountability, and genuine care for one another.",
      "title": "Covenant Family Fellowship"
     },
     {
      "_key": "v4",
      "_type": "value",
+     "photo": {
+      "_type": "image",
+      "alt": "Choir members singing together on stage",
+      "asset": {
+       "_ref": "image-e2b81daad87b4ad193fadd0fe8449b848b95c9ff-960x720-jpg",
+       "_type": "reference"
+      }
+     },
      "text": "We believe everyone has gifts, talents, and resources entrusted to them by God. We encourage faithful stewardship and joyful service, empowering individuals to contribute meaningfully to the church and wider community.",
      "title": "Stewardship & Service"
     },
     {
      "_key": "v5",
      "_type": "value",
+     "photo": {
+      "_type": "image",
+      "alt": "Volunteers in high-visibility vests packing food boxes and bottled water",
+      "asset": {
+       "_ref": "image-765ae75de71cb15644147fe401b92bc0583b0bc5-960x720-jpg",
+       "_type": "reference"
+      }
+     },
      "text": "We are called to share the Gospel and demonstrate Christ’s love beyond the walls of the church through evangelism, compassion, community engagement, and practical acts of service.",
      "title": "Mission & Outreach"
     }
