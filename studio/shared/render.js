@@ -129,15 +129,30 @@ export const zzRows = (c, docs) => docs.map((d, i) => zzRow(c, d, i)).join("\n\n
 const cardTitle = (e) => e.shortTitle || e.title;
 const eventTime = (e, compact) => e.timeNote || formatTimeRange(e.startTime, e.endTime, { compact });
 
-/** One slide of the "What's happening" slider (special event or announcement). */
+/** Where a slide's event happens, as short lines (no meeting IDs, passcodes or phone numbers:
+    those are on the flyer). Uses the event's "Where" when filled in; otherwise its
+    "In person or online" setting: in person → the church address (Site Settings),
+    online → "Zoom" when the join link or details mention Zoom, else "Online".
+    The online part is left out for prayer-line events (the number is on the flyer). */
+function slidePlaces(c, e) {
+  if (e.location) return [["map-pin", e.location]];
+  const att = e.attendance || "inperson";
+  const zoom = /zoom\.us/i.test(e.joinUrl || "") || (e.details || []).some((x) => /zoom/i.test(x.text || ""));
+  return [
+    att !== "online" && c.site.address && ["map-pin", c.site.address],
+    att !== "inperson" && !e.showPrayerLine && ["video", zoom ? "Zoom" : "Online"]
+  ].filter(Boolean);
+}
+
+/** One slide of the "What's happening" slider. Every slide has the same layout:
+    eyebrow, title, theme, then date, time and place, then its button(s).
+    Only announcements keep their summary text, since that is their message. */
 export function eventSlide(c, e) {
   const dateText = e.dateLabel || formatDateRange(e.startDate, e.endDate);
   const meta = [
     dateText && `<span>${icon("calendar")}${esc(dateText)}</span>`,
     ...(e.timeLines || []).map((t) => `<span>${icon("clock")}${esc(t)}</span>`),
-    e.location && `<span>${icon("map-pin")}${esc(e.location)}</span>`,
-    e.showPrayerLine && `<span>${icon("phone")}Prayer line:&nbsp;<a data-site="prayer-line" href="#">${esc(c.site.prayerLine)}</a></span>`,
-    ...(e.details || []).map((x) => `<span>${icon(x.icon)}${esc(x.text)}</span>`)
+    ...(e.isAnnouncement && !e.location ? [] : slidePlaces(c, e)).map(([i, t]) => `<span>${icon(i)}${esc(t)}</span>`)
   ].filter(Boolean);
   return lines(
     `<article class="special-program event-slider__slide" aria-roledescription="slide">`,
@@ -148,9 +163,8 @@ export function eventSlide(c, e) {
         e.eyebrow && `<span class="eyebrow">${esc(e.eyebrow)}</span>`,
         `<h3>${esc(e.title)}</h3>`,
         e.theme && `<p class="special-program__theme"><span>Theme</span>${esc(e.theme)}</p>`,
-        e.verse?.text && `<p class="special-program__verse">“${esc(e.verse.text)}” ${e.verse.cite ? `<span>${esc(e.verse.cite)}</span>` : ""}</p>`.replace(" </p>", "</p>"),
         meta.length && lines(`<div class="special-program__meta">`, indent(meta.join("\n")), `</div>`),
-        e.summary && `<p class="special-program__people">${esc(e.summary)}</p>`,
+        e.isAnnouncement && e.summary && `<p class="special-program__people">${esc(e.summary)}</p>`,
         buttonRow(c, e.buttons)
       )),
       `</div>`
@@ -186,7 +200,7 @@ export function upcomingEventsPartial(c, slides) {
 
 /** Announcements become slides of the same slider, so no new layout is needed. */
 export const announcementAsSlide = (a) => ({
-  title: a.title, eyebrow: "Announcement", image: a.image, summary: a.summary, buttons: a.buttons,
+  title: a.title, eyebrow: "Announcement", image: a.image, summary: a.summary, buttons: a.buttons, isAnnouncement: true,
   dateLabel: a.relatedEvent ? (a.relatedEvent.dateLabel || formatDateRange(a.relatedEvent.startDate, a.relatedEvent.endDate)) : "",
   timeLines: a.relatedEvent?.timeLines || [], location: a.relatedEvent?.location
 });
@@ -241,8 +255,23 @@ export const gatheringsSentence = (events) => {
   return `<p>Our regular gatherings include ${list}.</p>`;
 };
 
+/** Events page calendar badge: the next date the gathering takes place, e.g. "Next Sun / 22 / Nov 2026"
+    ("Today" on the day itself; cancelled dates are skipped). The site rebuilds every 30 minutes, so it
+    moves on after 11:59 PM. Gatherings with no fixed day keep the dashboard badge or "1× / Month". */
+function dateBadge(e, today) {
+  const next = today && nextOccurrence(e, today, 70);
+  if (!next) {
+    const [top, bottom] = e.badge?.top || e.badge?.bottom ? [e.badge.top || "", e.badge.bottom || ""] : scheduleBadge(e.recurrence);
+    return `<div class="date-block"><b>${esc(top)}</b><span>${esc(bottom)}</span></div>`;
+  }
+  const d = new Date(next.date + "T00:00:00Z");
+  const part = (o) => d.toLocaleDateString("en-US", { ...o, timeZone: "UTC" });
+  const label = next.date === today ? "Today" : `Next ${part({ weekday: "short" })}`;
+  const full = part({ weekday: "long", month: "long", day: "numeric", year: "numeric" });
+  return `<time class="date-block date-block--next" datetime="${next.date}" aria-label="${attr(`${label === "Today" ? "Today" : "Next"}: ${full}`)}"><small>${esc(label)}</small><b>${d.getUTCDate()}</b><span>${esc(part({ month: "short" }))} ${d.getUTCFullYear()}</span></time>`;
+}
+
 export function eventRow(c, e, today) {
-  const [top, bottom] = e.badge?.top || e.badge?.bottom ? [e.badge.top || "", e.badge.bottom || ""] : scheduleBadge(e.recurrence);
   const time = eventTime(e, false);
   const meta = [
     time && `<span>${icon("clock")}${esc(time)}</span>`,
@@ -252,7 +281,7 @@ export function eventRow(c, e, today) {
     ...upcomingChanges(e.recurrence, e.exceptions, today).map((t) => `<span class="event-row__change">${icon("info")}${esc(t)}</span>`)
   ].filter(Boolean).join("");
   const btn = e.buttons?.[0] ? buttonHtml(c, { ...e.buttons[0], style: "outline", icon: "" }, " btn--sm") : "";
-  return `<div class="event-row reveal"><div class="date-block"><b>${esc(top)}</b><span>${esc(bottom)}</span></div><div><h3>${esc(e.title)}</h3>${e.summary ? `<p>${esc(e.summary)}</p>` : ""}${meta ? `<div class="event-row__meta">${meta}</div>` : ""}</div>${btn}</div>`;
+  return `<div class="event-row reveal">${dateBadge(e, today)}<div><h3>${esc(e.title)}</h3>${e.summary ? `<p>${esc(e.summary)}</p>` : ""}${meta ? `<div class="event-row__meta">${meta}</div>` : ""}</div>${btn}</div>`;
 }
 
 /** Events page: "Seasonal outreaches" cards (yearly events). */

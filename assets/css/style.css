@@ -493,8 +493,9 @@ body.menu-open { overflow: hidden; }
   border-radius: var(--r-card); overflow: hidden; background: var(--c-primary); box-shadow: var(--shadow-md);
 }
 /* Flyer area: fills the full height of the card edge to edge (no bands above or below).
-   Square by default to match the flyers; if the text column is taller, the photo grows with it. */
-.special-program__media { position: relative; overflow: hidden; aspect-ratio: 1 / 1; min-height: 100%; background: var(--c-primary); }
+   Square by default to match the flyers; if the text column is taller, the photo grows taller with it.
+   width:100% keeps it inside its own column (without it the square spread sideways under the text). */
+.special-program__media { position: relative; overflow: hidden; width: 100%; aspect-ratio: 1 / 1; min-height: 100%; background: var(--c-primary); }
 .special-program__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .special-program__body { padding: 44px 48px; display: flex; flex-direction: column; justify-content: center; color: rgba(255, 255, 255, .82); }
 .special-program__body h3 { color: var(--c-white); font-size: clamp(26px, 2.8vw, 36px); margin-bottom: 12px; }
@@ -507,6 +508,10 @@ body.menu-open { overflow: hidden; }
 .special-program__theme span { display: block; margin-bottom: 4px; font-family: var(--f-heading); font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255, 255, 255, .7); }
 .special-program__meta a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 .special-program__people { font-size: 15px; margin-bottom: 22px; }
+.special-program__meta + .btn-row { margin-top: 10px; }
+/* Outline buttons on the blue panel: white outline (same look as .btn--outline-light) so they're visible */
+.special-program__body .btn--outline { background: transparent; border-color: rgba(255, 255, 255, .8); color: var(--c-white); }
+.special-program__body .btn--outline:hover { background: var(--c-white); color: var(--c-primary); }
 
 /* Events slider: slides stacked in one grid cell (height = tallest), crossfade */
 .event-slider__track { display: grid; touch-action: pan-y; } /* sideways swipes go to the slider (main.js), vertical ones still scroll */
@@ -528,6 +533,11 @@ body.menu-open { overflow: hidden; }
 .event-slider__dot { width: 28px; height: 6px; padding: 0; border: 0; border-radius: 3px; background: rgba(27, 48, 104, .2); cursor: pointer; transition: background-color .2s var(--ease), width .2s var(--ease); }
 .event-slider__dot[aria-current="true"] { width: 44px; background: var(--c-secondary); }
 .event-slider__dot:focus-visible, .event-slider__arrow:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 3px; }
+/* Small laptops: half-and-half, so the flyer column is wide enough to stay square (not trimmed at the sides) */
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .special-program { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .special-program__body { padding: 36px; }
+}
 @media (max-width: 1023px) {
   .special-program { grid-template-columns: 1fr; }
   .special-program__media { min-height: 0; }
@@ -880,6 +890,11 @@ html:not(.no-js) .place__tabs.reveal:not(.is-in) .place__tab { opacity: 0; }
 .date-block { text-align: center; padding: 12px 6px; border-radius: 10px; background: var(--c-soft); color: var(--c-primary); }
 .date-block b { display: block; font: 800 22px/1 var(--f-heading); }
 .date-block span { display: block; font: 700 11px/1.2 var(--f-heading); letter-spacing: 1.5px; text-transform: uppercase; color: var(--c-accent); margin-top: 6px; }
+/* Next date (Events → Service Times): "Next Sun / 22 / Nov 2026", written by the build */
+.date-block--next { display: block; padding: 10px 4px; }
+.date-block--next small { display: block; font: 700 10px/1.2 var(--f-heading); letter-spacing: 1px; text-transform: uppercase; color: var(--c-muted); margin-bottom: 4px; white-space: nowrap; }
+.date-block--next b { font-size: 26px; }
+.date-block--next span { letter-spacing: 1px; margin-top: 4px; white-space: nowrap; }
 .event-row h3 { font-size: 19px; margin-bottom: 4px; }
 .event-row p { margin: 0; font-size: 15px; color: var(--c-muted); }
 .event-row__meta { display: flex; gap: 16px; flex-wrap: wrap; font-size: 14px; color: var(--c-muted); margin-top: 6px; }
