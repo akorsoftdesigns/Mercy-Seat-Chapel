@@ -98,7 +98,8 @@ small, .small { font-size: 14px; }
 .skip-link:focus { top: 16px; }
 
 .container { width: 100%; max-width: calc(var(--w-content) + var(--pad-x) * 2); margin: 0 auto; padding: 0 var(--pad-x); }
-/* Keep content clear of phone notches / gesture bars on pages with viewport-fit=cover (0 everywhere else) */
+/* Every page uses viewport-fit=cover, so pages run behind the phone's gesture bar (no white strip).
+   env(safe-area-inset-*) keeps text and buttons clear of notches and the bar (0 on other devices). */
 .container { padding-left: max(var(--pad-x), env(safe-area-inset-left, 0px)); padding-right: max(var(--pad-x), env(safe-area-inset-right, 0px)); }
 .container--wide { max-width: calc(var(--w-wide) + var(--pad-x) * 2); }
 .section { padding: var(--pad-section) 0; }
@@ -282,7 +283,7 @@ small, .small { font-size: 14px; }
 .search-panel {
   position: fixed; inset: 0; z-index: 200;
   display: flex; justify-content: center; align-items: flex-start;
-  padding: 110px var(--pad-x) 24px;
+  padding: 110px var(--pad-x) calc(24px + env(safe-area-inset-bottom, 0px)); /* clear of the phone's gesture bar */
   background: rgba(16, 28, 51, .55); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
   opacity: 0; visibility: hidden; transition: opacity .25s var(--ease), visibility .25s;
 }
@@ -325,7 +326,7 @@ small, .small { font-size: 14px; }
   background: transparent; color: var(--c-white); display: grid; place-items: center; cursor: pointer;
 }
 .mobile-close svg { width: 22px; height: 22px; }
-.mobile-menu nav { padding: 8px var(--pad-x) 24px; max-width: 640px; width: 100%; margin: 0 auto; }
+.mobile-menu nav { padding: 8px var(--pad-x) calc(24px + env(safe-area-inset-bottom, 0px)); max-width: 640px; width: 100%; margin: 0 auto; }
 .m-group { border-bottom: 1px solid rgba(255, 255, 255, .12); }
 .m-group > a, .m-group > button {
   width: 100%; display: flex; justify-content: space-between; align-items: center;
@@ -682,8 +683,8 @@ body.menu-open { overflow: hidden; }
 .lightbox__prev { left: 12px; }
 .lightbox__next { right: 12px; }
 @media (max-width: 767px) {
-  .lightbox { padding: 72px 12px 96px; }
-  .lightbox__prev, .lightbox__next { top: auto; bottom: 24px; translate: none; }
+  .lightbox { padding: 72px 12px calc(96px + env(safe-area-inset-bottom, 0px)); }
+  .lightbox__prev, .lightbox__next { top: auto; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); translate: none; }
   .lightbox__prev { left: calc(50% - 60px); }
   .lightbox__next { right: calc(50% - 60px); }
 }
