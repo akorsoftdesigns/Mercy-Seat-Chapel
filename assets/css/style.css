@@ -53,7 +53,10 @@
 
 /* ---------- Base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+/* html is footer blue so the area a phone shows past the end of the page (behind the gesture
+   bar, or when pulled beyond the footer) matches the footer instead of a light strip.
+   body keeps the light page colour for the page itself. */
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: var(--c-primary); }
 body {
   margin: 0;
   font-family: var(--f-body);
