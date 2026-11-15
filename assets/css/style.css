@@ -1103,7 +1103,7 @@ html:not(.no-js) .place__tabs.reveal:not(.is-in) .place__tab { opacity: 0; }
   .vision-grid .value-card:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - 12px); }
 }
 @media (max-width: 639px) {
-  .vision-grid { grid-template-columns: 1fr; }
+  .vision-grid { grid-template-columns: 1fr; row-gap: 48px; } /* double the usual gap between stacked cards */
   .vision-grid .value-card:last-child:nth-child(odd) { width: auto; justify-self: stretch; }
   .value-card .card__body { padding: 26px 22px 28px; }
 }
@@ -1115,7 +1115,7 @@ html:not(.no-js) .place__tabs.reveal:not(.is-in) .place__tab { opacity: 0; }
 .pillar__sub { margin: 0 0 14px; font: 700 13px/1.4 var(--f-heading); letter-spacing: 1.5px; text-transform: uppercase; color: var(--c-accent); }
 .pillar p:last-child { margin: 0; }
 @media (max-width: 900px) { .pillars { grid-template-columns: 1fr; } }
-@media (max-width: 639px) { .pillar { grid-template-columns: 1fr; gap: 16px; padding: 28px 24px; } .pillar__num { width: 52px; height: 52px; font-size: 19px; border-radius: 14px; } }
+@media (max-width: 639px) { .pillars { row-gap: 48px; } .pillar { grid-template-columns: 1fr; gap: 16px; padding: 28px 24px; } .pillar__num { width: 52px; height: 52px; font-size: 19px; border-radius: 14px; } }
 
 /* Membership journey: numbered stages joined by a dashed line, in reading order.
    Desktop 3 per row, tablet 2, phones one column with the line running down the left. */
