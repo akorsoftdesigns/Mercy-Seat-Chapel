@@ -4,7 +4,7 @@
    "_createdAt": "2026-11-10T23:23:14Z",
    "_id": "aboutPage",
    "_type": "aboutPage",
-   "_updatedAt": "2026-11-15T00:44:25Z",
+   "_updatedAt": "2026-11-15T03:57:41Z",
    "ctaButtons": [
     {
      "_key": "b1",
@@ -80,28 +80,28 @@
      "_key": "p1",
      "_type": "pillar",
      "subtitle": "Building a Caring Church Family",
-     "text": "We strengthen relationships through genuine fellowship, prayer, encouragement, celebrating special moments, and supporting one another through life’s different seasons. Through our ministries and departments, we create opportunities for everyone to experience a true sense of belonging.",
+     "text": "We build genuine fellowship through prayer, encouragement and celebrating together, supporting one another through every season so everyone experiences a true sense of belonging.",
      "title": "Bonding"
     },
     {
      "_key": "p2",
      "_type": "pillar",
      "subtitle": "Sharing the Message of Hope",
-     "text": "We extend our reach through personal evangelism, community outreach, digital media, and creative communication. By sharing our faith, church activities, and testimonies, we invite more people to experience the love of Christ and become part of our church family.",
+     "text": "Through evangelism, community outreach, digital media and shared testimonies, we invite more people to experience Christ’s love and join our church family.",
      "title": "Visibility & Outreach"
     },
     {
      "_key": "p3",
      "_type": "pillar",
      "subtitle": "Helping Everyone Find Their Place",
-     "text": "We believe everyone should have the opportunity to belong, grow, and contribute. Through membership classes, ministry groups, training, and leadership development, we help visitors and members discover meaningful connections and opportunities to serve.",
+     "text": "Through membership classes, ministry groups, training and leadership development, we help visitors and members connect, grow and find meaningful ways to serve.",
      "title": "Integration"
     },
     {
      "_key": "p4",
      "_type": "pillar",
      "subtitle": "Creating Opportunities for Transformation",
-     "text": "Our worship services, teaching programs, conferences, youth gatherings, family events, empowerment initiatives, and community outreach activities provide opportunities to deepen faith, strengthen relationships, discover purpose, and make a difference.",
+     "text": "Our services, teaching, conferences, youth and family events and outreach help people deepen their faith, strengthen relationships, discover purpose and make a difference.",
      "title": "Programs"
     }
    ],
@@ -120,7 +120,7 @@
        "_type": "reference"
       }
      },
-     "text": "Jesus Christ is at the heart of everything we do. Through worship, prayer, and biblical teaching, we seek to honour Him, reflect His love, and live according to His Word.",
+     "text": "Jesus Christ is at the heart of everything we do. Through worship, prayer and the Word, we seek to honour Him and reflect His love.",
      "title": "Christ-Centered"
     },
     {
@@ -134,7 +134,7 @@
        "_type": "reference"
       }
      },
-     "text": "We are committed to helping people grow into mature followers of Christ through purposeful teaching, mentorship, spiritual development, and opportunities to put their faith into action.",
+     "text": "We help people grow into mature followers of Christ through purposeful teaching, mentorship and opportunities to put their faith into action.",
      "title": "Intentional Discipleship"
     },
     {
@@ -148,7 +148,7 @@
        "_type": "reference"
       }
      },
-     "text": "We believe church is more than a gathering; it is a spiritual family. We cultivate meaningful relationships built on love, unity, encouragement, accountability, and genuine care for one another.",
+     "text": "Church is more than a gathering; it is a spiritual family built on love, unity, encouragement and genuine care for one another.",
      "title": "Covenant Family Fellowship"
     },
     {
@@ -162,7 +162,7 @@
        "_type": "reference"
       }
      },
-     "text": "We believe everyone has gifts, talents, and resources entrusted to them by God. We encourage faithful stewardship and joyful service, empowering individuals to contribute meaningfully to the church and wider community.",
+     "text": "Everyone has God-given gifts, talents and resources. We encourage faithful stewardship and joyful service in the church and wider community.",
      "title": "Stewardship & Service"
     },
     {
@@ -176,7 +176,7 @@
        "_type": "reference"
       }
      },
-     "text": "We are called to share the Gospel and demonstrate Christ’s love beyond the walls of the church through evangelism, compassion, community engagement, and practical acts of service.",
+     "text": "We share the Gospel and show Christ’s love beyond our walls through evangelism, compassion and practical acts of service.",
      "title": "Mission & Outreach"
     }
    ],
