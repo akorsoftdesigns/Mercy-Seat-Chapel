@@ -49,7 +49,7 @@
         <div style="display:grid; gap:28px">
           <!-- cms:leaders -->
           <article class="leader">
-            <img class="reveal reveal--left" src="assets/images/pastor-ola.jpeg" alt="Pastor Ola Olarinde" loading="lazy">
+            <img class="reveal reveal--left" src="assets/images/pastor-ola-portrait.jpg" alt="Pastor Ola Olarinde" loading="lazy">
             <div class="reveal reveal--right" style="--d:.12s">
               <div class="leader__role">Senior Pastor</div>
               <h3>Pastor Ola Olarinde</h3>
@@ -57,7 +57,7 @@
             </div>
           </article>
           <article class="leader">
-            <img class="reveal reveal--left" src="assets/cms/45c573f32d22f75bdbfd500b7afbda7c930363af.webp" alt="Pastor Olu Olarinde" loading="lazy">
+            <img class="reveal reveal--left" src="assets/images/pastor-olu-portrait.jpg" alt="Pastor Olu Olarinde" loading="lazy">
             <div class="reveal reveal--right" style="--d:.12s">
               <div class="leader__role">Senior Pastor</div>
               <h3>Pastor Olu Olarinde</h3>
@@ -70,10 +70,12 @@
     </section>
 
     <!-- Ministers
-         To add someone: copy one <li> block, change the photo, name and portfolio.
+         Order: Pastors, then Assistant Pastors (if any), Deacons & Deaconesses, then Ministers.
+         To add someone: copy one <li> block into their group, change the photo, name and portfolio.
          Photos go in assets/images/leadership/ (square, about 600×600).
          Anyone without a portfolio yet shows "Minister".
-         No photo yet: use assets/images/leadership/placeholder.svg with alt "Photo coming soon: Name". -->
+         No photo yet: use assets/images/leadership/placeholder-male.jpg or placeholder-female.jpg
+         with alt "Photo coming soon: Name". -->
     <section class="section section--white" id="ministers">
       <div class="container">
         <div class="section-head reveal">
@@ -94,73 +96,75 @@
           </li>
           <!-- Placeholder photo: replace src with this person's photo, e.g. assets/images/leadership/pst-anosike-nwokoye.jpg -->
           <li class="minister reveal" style="--d:.12s">
-            <img src="assets/images/leadership/placeholder.svg" alt="Photo coming soon: Pst. Anosike Nwokoye" width="600" height="600" loading="lazy">
+            <img src="assets/images/leadership/placeholder-male.jpg" alt="Photo coming soon: Pst. Anosike Nwokoye" width="600" height="600" loading="lazy">
             <h3>Pst. Anosike Nwokoye</h3>
             <p class="minister__role">MSC Kidz &amp; MSC Teens</p>
           </li>
           <!-- Placeholder photo -->
           <li class="minister reveal" style="--d:.18s">
-            <img src="assets/images/leadership/placeholder.svg" alt="Photo coming soon: Pst. Toyin Omola" width="600" height="600" loading="lazy">
+            <img src="assets/images/leadership/placeholder-female.jpg" alt="Photo coming soon: Pst. Toyin Omola" width="600" height="600" loading="lazy">
             <h3>Pst. Toyin Omola</h3>
             <p class="minister__role">Prayer</p>
           </li>
-          <!-- Placeholder photo -->
-          <li class="minister reveal" style="--d:.18s">
-            <img src="assets/images/leadership/placeholder.svg" alt="Photo coming soon: Min. Simi Onafuwa" width="600" height="600" loading="lazy">
-            <h3>Min. Simi Onafuwa</h3>
-            <p class="minister__role">Sales</p>
-          </li>
+          <!-- Deacons & Deaconesses -->
           <li class="minister reveal">
-            <img src="assets/images/leadership/min-temitope-alade.jpg" alt="Min. Temitope Alade" width="600" height="600" loading="lazy">
-            <h3>Min. Temitope Alade</h3>
-            <p class="minister__role">Information Technology</p>
-          </li>
-          <li class="minister reveal" style="--d:.06s">
-            <img src="assets/images/leadership/min-toyin-ladipo.jpg" alt="Min. Toyin Ladipo" width="600" height="600" loading="lazy">
-            <h3>Min. Toyin Ladipo</h3>
-            <p class="minister__role">Ushering</p>
-          </li>
-          <li class="minister reveal" style="--d:.12s">
             <img src="assets/images/leadership/dcn-lekan-abioye.jpg" alt="Dcn. ’Lekan Abioye" width="600" height="600" loading="lazy">
             <h3>Dcn. ’Lekan Abioye</h3>
             <p class="minister__role">Media &amp; Communication</p>
           </li>
           <!-- Placeholder photo -->
-          <li class="minister reveal" style="--d:.18s">
-            <img src="assets/images/leadership/placeholder.svg" alt="Photo coming soon: Dcn. Adedayo Kemiki" width="600" height="600" loading="lazy">
+          <li class="minister reveal" style="--d:.06s">
+            <img src="assets/images/leadership/placeholder-male.jpg" alt="Photo coming soon: Dcn. Adedayo Kemiki" width="600" height="600" loading="lazy">
             <h3>Dcn. Adedayo Kemiki</h3>
             <p class="minister__role">Sunday School</p>
           </li>
           <!-- Placeholder photo -->
-          <li class="minister reveal">
-            <img src="assets/images/leadership/placeholder.svg" alt="Photo coming soon: Dcn. George Oyedele" width="600" height="600" loading="lazy">
+          <li class="minister reveal" style="--d:.12s">
+            <img src="assets/images/leadership/placeholder-male.jpg" alt="Photo coming soon: Dcn. George Oyedele" width="600" height="600" loading="lazy">
             <h3>Dcn. George Oyedele</h3>
             <p class="minister__role">Parking &amp; Traffic Control, Transportation</p>
           </li>
-          <li class="minister reveal" style="--d:.06s">
+          <li class="minister reveal" style="--d:.18s">
             <img src="assets/images/leadership/dcns-abiola-akinyosoye.jpg" alt="Dcns. Abiola Akinyosoye" width="600" height="600" loading="lazy">
             <h3>Dcns. Abiola Akinyosoye</h3>
             <p class="minister__role">Welcome &amp; Follow-Up</p>
           </li>
-          <li class="minister reveal" style="--d:.12s">
+          <li class="minister reveal">
             <img src="assets/images/leadership/dcns-kenny-soile.jpg" alt="Dcns. Kenny Soile" width="600" height="600" loading="lazy">
             <h3>Dcns. Kenny Soile</h3>
             <p class="minister__role">Accounts &amp; Treasury</p>
           </li>
-          <li class="minister reveal" style="--d:.18s">
+          <li class="minister reveal" style="--d:.06s">
             <img src="assets/images/leadership/dcns-nike-oyeyiola.jpg" alt="Dcns. Nike Oyeyiola" width="600" height="600" loading="lazy">
             <h3>Dcns. Nike Oyeyiola</h3>
             <p class="minister__role">Workers &amp; Believers Academy</p>
           </li>
-          <li class="minister reveal">
+          <li class="minister reveal" style="--d:.12s">
             <img src="assets/images/leadership/dcns-roseline-ubadike.jpg" alt="Dcns. Roseline Ubadike" width="600" height="600" loading="lazy">
             <h3>Dcns. Roseline Ubadike</h3>
             <p class="minister__role">Sanitation</p>
           </li>
-          <li class="minister reveal" style="--d:.06s">
+          <li class="minister reveal" style="--d:.18s">
             <img src="assets/images/leadership/dcns-toyin-kemiki.jpg" alt="Dcns. Toyin Kemiki" width="600" height="600" loading="lazy">
             <h3>Dcns. Toyin Kemiki</h3>
             <p class="minister__role">Welfare</p>
+          </li>
+          <!-- Ministers -->
+          <!-- Placeholder photo -->
+          <li class="minister reveal">
+            <img src="assets/images/leadership/placeholder-female.jpg" alt="Photo coming soon: Min. Simi Onafuwa" width="600" height="600" loading="lazy">
+            <h3>Min. Simi Onafuwa</h3>
+            <p class="minister__role">Sales</p>
+          </li>
+          <li class="minister reveal" style="--d:.06s">
+            <img src="assets/images/leadership/min-temitope-alade.jpg" alt="Min. Temitope Alade" width="600" height="600" loading="lazy">
+            <h3>Min. Temitope Alade</h3>
+            <p class="minister__role">Information Technology</p>
+          </li>
+          <li class="minister reveal" style="--d:.12s">
+            <img src="assets/images/leadership/min-toyin-ladipo.jpg" alt="Min. Toyin Ladipo" width="600" height="600" loading="lazy">
+            <h3>Min. Toyin Ladipo</h3>
+            <p class="minister__role">Ushering</p>
           </li>
         </ul>
       </div>
