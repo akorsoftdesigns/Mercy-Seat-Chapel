@@ -1863,16 +1863,15 @@
    "_createdAt": "2026-11-07T23:57:39Z",
    "_id": "leader-1",
    "_type": "leader",
-   "_updatedAt": "2026-11-07T23:59:39Z",
+   "_updatedAt": "2026-11-15T21:01:11Z",
    "archived": false,
    "message": "God has also promised that there will be a constant flow of oil in order to remain above and not beneath. The oil signifies the Spirit of God, His gifts and graces. Even when a wild ox has its head bowed down to drink water the head always remains elevated. This is the grace of God. In all your endeavors this year, even when the enemy tries or threatens with failure, struggle, sickness, divorce or grief like the head of a unicorn and by the grace of God you will come out victorious.",
    "name": "Pastor Ola Olarinde",
    "order": 1,
    "photo": {
     "_type": "image",
-    "alt": "Pastor Ola Olarinde",
     "asset": {
-     "_ref": "image-4d7ce38aee6d19888997442b7fdc5b5a2e2685e3-1066x949-jpg",
+     "_ref": "image-e5d5d89e98befabf815e0c5eea2e203332686bdd-900x900-jpg",
      "_type": "reference"
     }
    },
@@ -1882,16 +1881,15 @@
    "_createdAt": "2026-11-07T23:57:39Z",
    "_id": "leader-2",
    "_type": "leader",
-   "_updatedAt": "2026-11-07T23:59:39Z",
+   "_updatedAt": "2026-11-15T21:01:14Z",
    "archived": false,
    "message": "Spiritually, standing tall means standing above sin and unrighteousness. The grace to live holy and pure. It also means rising above the forces of the enemy. Anything that struggles to overcome one’s victory in life is an enemy.",
    "name": "Pastor Olu Olarinde",
    "order": 2,
    "photo": {
     "_type": "image",
-    "alt": "Pastor Olu Olarinde",
     "asset": {
-     "_ref": "image-45c573f32d22f75bdbfd500b7afbda7c930363af-1068x1600-jpg",
+     "_ref": "image-6debe074c803fb95459496dcfbbe63104197aab9-900x900-jpg",
      "_type": "reference"
     }
    },
