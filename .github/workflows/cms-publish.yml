@@ -3,10 +3,15 @@
 # Runs when:
 #   - someone publishes in the dashboard (Sanity webhook → "sanity-publish"),
 #   - every 30 minutes (safety net: refreshes YouTube lists, removes ended events),
+#   - every 5 minutes around service times, so Watch Live switches to the stream quickly
+#     (Sunday 8 AM–3 PM and Tuesday 6–11 PM, Eastern time; GitHub may run these a few minutes late),
 #   - code is pushed to main, or someone presses "Run workflow" in GitHub → Actions.
 #
 # Settings (GitHub → Settings → Secrets and variables → Actions):
 #   Variables: SANITY_PROJECT_ID, SANITY_DATASET (optional, default "production")
+#   Secret YOUTUBE_API_KEY (optional): YouTube Data API v3 key used to find the live stream.
+#     Only the build step can read it; it is never written into the website. Unset = the
+#     dashboard's "Current livestream link" is used instead.
 #   Secrets (only for SiteGround upload; leave unset to skip it):
 #     SITEGROUND_HOST, SITEGROUND_USER, SITEGROUND_PORT (usually 18765),
 #     SITEGROUND_SSH_KEY (private key, no passphrase), SITEGROUND_PATH (e.g. www/mercyseatchapel.org/public_html/)
@@ -18,6 +23,10 @@ on:
     types: [sanity-publish]
   schedule:
     - cron: "*/30 * * * *"
+    # Service times in UTC, wide enough for both summer (EDT) and winter (EST) time:
+    - cron: "5-55/5 12-19 * * 0"   # Sunday morning service
+    - cron: "5-55/5 22-23 * * 2"   # Tuesday Bible Study (evening, EDT)
+    - cron: "5-55/5 0-4 * * 3"     # Tuesday Bible Study (late evening = Wednesday UTC)
   workflow_dispatch:
   push:
     branches: [main]
@@ -48,6 +57,8 @@ jobs:
 
       - name: Write published content into the pages
         if: env.SANITY_PROJECT_ID != ''
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}  # only this step sees the key
         run: node scripts/cms-build.mjs
 
       - name: Save the updated pages

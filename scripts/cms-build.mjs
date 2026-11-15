@@ -123,7 +123,38 @@ async function download(pending) {
   }
 }
 
-/* ---------- 3. YouTube lists (replaces the old /youtube-feed server route) ---------- */
+/* ---------- 3a. Which stream is live (YouTube Data API) ----------
+   Uses the YOUTUBE_API_KEY secret, which exists only inside GitHub Actions (GitHub →
+   Settings → Secrets and variables → Actions). The key is never written into any file,
+   page or log: only the chosen video ID goes on the website. No key = this step is skipped
+   and the dashboard's "Current livestream link" is used as before.
+   Costs 3 of the 10,000 free daily quota units per run. */
+async function youtubeLive(channel, key) {
+  const api = async (endpoint, params) => {
+    const res = await fetch(`https://www.googleapis.com/youtube/v3/${endpoint}?${new URLSearchParams({ ...params, key })}`).catch(() => null);
+    if (!res?.ok) throw new Error(`YouTube API ${endpoint} answered ${res ? res.status : "nothing"}`); // (message never includes the key)
+    return res.json();
+  };
+  // Newest items of the channel's uploads (UU…) and live streams (UULV…): a broadcast that is live
+  // or scheduled shows up there; then one call tells us which of them is live, upcoming or finished.
+  const lists = await Promise.all(["UU", "UULV"].map((p) =>
+    api("playlistItems", { part: "contentDetails", playlistId: p + channel.slice(2), maxResults: "5" })));
+  const ids = [...new Set(lists.flatMap((l) => (l.items || []).map((i) => i.contentDetails?.videoId)).filter(Boolean))];
+  if (!ids.length) return { live: "", upcoming: "", latest: "" };
+  const { items = [] } = await api("videos", { part: "snippet,liveStreamingDetails", id: ids.join(",") });
+  const soon = Date.now() + 2 * 3600e3; // a scheduled stream counts from 2 hours before it starts
+  const upcoming = items.filter((v) => v.snippet?.liveBroadcastContent === "upcoming" && Date.parse(v.liveStreamingDetails?.scheduledStartTime) <= soon)
+    .sort((a, b) => Date.parse(a.liveStreamingDetails.scheduledStartTime) - Date.parse(b.liveStreamingDetails.scheduledStartTime))[0];
+  const latest = items.filter((v) => v.liveStreamingDetails?.actualEndTime)
+    .sort((a, b) => Date.parse(b.liveStreamingDetails.actualEndTime) - Date.parse(a.liveStreamingDetails.actualEndTime))[0];
+  return {
+    live: items.find((v) => v.snippet?.liveBroadcastContent === "live")?.id || "",
+    upcoming: upcoming?.id || "",
+    latest: latest?.id || ""
+  };
+}
+
+/* ---------- 3b. YouTube lists (replaces the old /youtube-feed server route) ---------- */
 const xmlText = (s) => s.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
 async function youtubeFeed(channel, streams) {
   const q = streams ? "playlist_id=UULV" + channel.slice(2) : "channel_id=" + channel;
@@ -234,6 +265,25 @@ async function main() {
       return { href: "#" };
     }
   };
+
+  // ---- Live stream for the Watch Live player ----
+  // Order: what's live right now → a stream starting within 2 hours → the dashboard's
+  // "Current livestream link" → the most recent finished stream.
+  const ytKey = process.env.YOUTUBE_API_KEY;
+  const ytChannel = site?.youtubeChannelId || (await file("assets/js/main.js")).match(/youtubeChannelId:\s*"(UC[\w-]{22})"/)?.[1];
+  if (site && ytKey && ytChannel && !flag("--no-youtube")) {
+    try {
+      const yt = await youtubeLive(ytChannel, ytKey);
+      const chosen = yt.live || yt.upcoming || site.liveVideoId || yt.latest;
+      const status = yt.live ? "live" : yt.upcoming ? "upcoming" : site.liveVideoId ? "dashboard" : "latest";
+      site.liveVideoId = chosen || "";
+      // Public status file (no key in it): lets the mobile app show the same stream
+      await writeWhole("assets/data/youtube-live.json", JSON.stringify({ liveVideoId: site.liveVideoId, status }, null, 1) + "\n");
+      log(`YouTube live: ${status}${chosen ? ` (${chosen})` : ""}`);
+    } catch (e) {
+      console.warn("[cms] YouTube live check failed; using the dashboard's livestream link:", e.message);
+    }
+  }
 
   // ---- Shared details (SITE) ----
   if (site) await region("assets/js/main.js", "site-settings", siteJs(site));

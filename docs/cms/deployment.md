@@ -111,6 +111,30 @@ The token lives only in Sanity's webhook settings. It is never in the website or
 4. Run the workflow by hand once. It uploads the website files only, skipping `studio/`, `scripts/`, `docs/`, `.github/` and notes. It never deletes files on the server.
 5. Delete the local `msc-deploy` files once they are saved in GitHub.
 
+## Automatic live stream (YouTube API key)
+
+The Watch Live player can find the live stream by itself, using a YouTube Data API v3 key.
+
+**Where the key lives:** only in GitHub, as an encrypted secret, never in Sanity or the website. The church's Sanity content can be read by anyone, and anything inside a web page can be read by any visitor or bot, so a key in either place would be exposed. GitHub hands the secret only to the build step, which uses it to ask YouTube what's live. The website then receives just the video ID. GitHub also hides the key in run logs.
+
+1. In GitHub, go to **Settings → Secrets and variables → Actions → Secrets → New repository secret**. Set the name to `YOUTUBE_API_KEY` and paste the key as the value.
+2. In **Google Cloud Console → APIs & Services → Credentials**, open the key and set:
+   - **API restrictions:** "Restrict key" → only **YouTube Data API v3**.
+   - **Application restrictions:** leave as *None*. The calls come from GitHub's servers, whose addresses change, so website and IP restrictions would block them.
+3. Optional: in **APIs & Services → YouTube Data API v3 → Quotas**, keep the default 10,000 units a day. The website uses about 3 units per check, roughly 1,000 a day at most.
+
+**How the player chooses** (each run of *Update website from dashboard*):
+1. a stream that is live right now;
+2. else a stream scheduled to start within 2 hours (YouTube shows its waiting screen);
+3. else the dashboard's **Site Settings → Current livestream link**, if filled in;
+4. else the most recent finished stream.
+
+Clear the dashboard's livestream link if you want the player to show the latest replay automatically between services. A link left there pins that video until a new stream goes live.
+
+**How often:** every 30 minutes, and every 5 minutes on Sundays 8 AM–3 PM and Tuesdays 6–11 PM Eastern. GitHub sometimes starts scheduled runs a few minutes late. The result is also saved to `assets/data/youtube-live.json` (video ID only), so the mobile app can use the same stream.
+
+**If the key stops working** (deleted, quota used up), the log shows "YouTube live check failed" and the site falls back to the dashboard link. **To replace the key:** create a new one in Google Cloud, update the GitHub secret, then delete the old key.
+
 **Domain:** point `www.mercyseatchapel.org` at SiteGround in its DNS settings, as for any SiteGround site. The dashboard address doesn't change. When the domain is live, set `SANITY_STUDIO_SITE_URL=https://www.mercyseatchapel.org/` in `studio/.env` and run `npm run deploy` again, so Preview loads the production styles.
 
 ## Staging and branches
@@ -162,6 +186,7 @@ Options:
 | Action failed at "Write published content" | Open the log. "SANITY_PROJECT_ID is not set" means step 5.1 is missing. The pages are left unchanged on any error. |
 | Action failed at "Save the updated pages" | Workflow permissions (step 5.2). |
 | SiteGround upload failed | Check the secrets, that the key was imported and authorized in SSH Keys Manager, and that the port is right. |
+| Watch Live shows an old video during a service | GitHub → Actions: did a run happen after the stream started? Its log should say "YouTube live: live". "YouTube live check failed" means the `YOUTUBE_API_KEY` secret is missing or wrong. |
 | Video lists not updating | YouTube's public feed sometimes returns errors for hours. Lists stay as they were and refresh on a later run. |
 | Dashboard says "project not found" | `SANITY_STUDIO_PROJECT_ID` in `studio/.env`, then `npm run deploy` again. |
 | Someone can't sign in | They need an invitation (see the admin guide) and must sign in with the same email or Google account. |
