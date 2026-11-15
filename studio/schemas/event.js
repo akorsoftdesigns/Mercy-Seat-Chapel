@@ -11,6 +11,9 @@ import { timeRule, scheduleLabel, WEEKDAYS, MONTHS } from "../shared/schedule.js
 const isOneOff = ({ document }) => document?.kind !== "oneoff";
 const isRecurring = ({ document }) => document?.kind !== "recurring";
 const rec = (p) => p.document?.recurrence || {};
+// Slider-only fields: special events, or regular gatherings switched into the slider
+const notInSlider = ({ document }) => document?.kind === "recurring" && !document?.inSlider;
+const notRecurringSlide = ({ document }) => document?.kind !== "recurring" || !document?.inSlider;
 
 export default defineType({
   name: "event",
@@ -30,8 +33,8 @@ export default defineType({
     defineField({ name: "shortTitle", title: "Short name for cards (optional)", type: "string", group: "main", hidden: isRecurring, description: "e.g. Holy Communion, if the full name is too long for the schedule cards." }),
     defineField({ name: "category", title: "Category", type: "string", group: "main",
       options: { list: ["Service", "Bible Study", "Prayer", "Fast", "Ministry program", "Outreach", "Conference", "Children & Teens", "Other"] } }),
-    defineField({ name: "eyebrow", title: "Small line above the name", type: "string", group: "main", hidden: isOneOff, description: "e.g. Special program · Pillars of Mercy" }),
-    defineField({ name: "theme", title: "Theme", type: "string", group: "main", hidden: isOneOff }),
+    defineField({ name: "eyebrow", title: "Small line above the name", type: "string", group: "main", hidden: notInSlider, description: "e.g. Special program · Pillars of Mercy. Regular gatherings: leave empty to show e.g. “Every Tuesday · Bible Study”." }),
+    defineField({ name: "theme", title: "Theme", type: "string", group: "main", hidden: notInSlider }),
     inGroup(scriptureField("verse", "Scripture", "Optional verse shown under the name."), "main"),
     defineField({ name: "summary", title: "Description", type: "text", rows: 3, group: "main", validation: (R) => R.max(400),
       description: "A sentence or two. For special events this is the text under the dates." }),
@@ -52,9 +55,11 @@ export default defineType({
       fields: [
         defineField({ name: "frequency", title: "How often", type: "string", initialValue: "weekly",
           options: { list: [{ title: "Every week", value: "weekly" }, { title: "Every month, on a set day", value: "monthly" }, { title: "Every year", value: "yearly" }, { title: "Monthly, date varies", value: "irregular" }], layout: "radio" } }),
-        defineField({ name: "weekOfMonth", title: "Which week", type: "number", hidden: (p) => p.parent?.frequency !== "monthly",
+        defineField({ name: "dayOfMonth", title: "On a fixed date (optional)", type: "number", hidden: (p) => p.parent?.frequency !== "monthly",
+          description: "e.g. 1 for the 1st of every month. Leave empty to choose a week and day instead.", validation: (R) => R.min(1).max(28).integer() }),
+        defineField({ name: "weekOfMonth", title: "Which week", type: "number", hidden: (p) => p.parent?.frequency !== "monthly" || !!p.parent?.dayOfMonth,
           options: { list: [{ title: "1st", value: 1 }, { title: "2nd", value: 2 }, { title: "3rd", value: 3 }, { title: "4th", value: 4 }, { title: "Last", value: -1 }] } }),
-        defineField({ name: "weekday", title: "Day", type: "string", hidden: (p) => !["weekly", "monthly"].includes(p.parent?.frequency),
+        defineField({ name: "weekday", title: "Day", type: "string", hidden: (p) => !["weekly", "monthly"].includes(p.parent?.frequency) || !!p.parent?.dayOfMonth,
           options: { list: WEEKDAYS.map((d) => ({ title: d[0].toUpperCase() + d.slice(1), value: d })) } }),
         defineField({ name: "month", title: "Month", type: "number", hidden: (p) => p.parent?.frequency !== "yearly",
           options: { list: MONTHS.map((m, i) => ({ title: m, value: i + 1 })) } }),
@@ -64,11 +69,12 @@ export default defineType({
       validation: (R) => R.custom((r, c) => {
         if (c.document?.kind !== "recurring") return true;
         if (!r?.frequency) return "Choose how often it repeats.";
+        if (r.frequency === "monthly" && r.dayOfMonth) return true;
         if (["weekly", "monthly"].includes(r.frequency) && !r.weekday) return "Choose the day.";
         if (r.frequency === "monthly" && !r.weekOfMonth) return "Choose which week of the month.";
         return true;
       }),
-      description: "Shown as e.g. “Every Sunday” or “1st Tuesday · Monthly”." }),
+      description: "Shown as e.g. “Every Sunday”, “1st Tuesday · Monthly” or “1st of every month”." }),
     defineField({ name: "startTime", title: "Starts at", type: "string", group: "when", hidden: isRecurring, validation: timeRule, description: "e.g. 10:00 AM" }),
     defineField({ name: "endTime", title: "Ends at (optional)", type: "string", group: "when", hidden: isRecurring, validation: timeRule }),
     defineField({ name: "timeNote", title: "Time as words (optional)", type: "string", group: "when", hidden: isRecurring, description: "Use instead of a time, e.g. “Immediately after Sunday Service”." }),
@@ -98,6 +104,11 @@ export default defineType({
     inGroup(buttons(), "display"),
     defineField({ name: "featured", title: "Show in “What’s happening” slider", type: "boolean", group: "display", initialValue: true, hidden: isOneOff,
       description: "The slider on the homepage and Events page. Events leave it automatically after their end date." }),
+    defineField({ name: "inSlider", title: "Show in “What’s happening” slider before each date", type: "boolean", group: "display", initialValue: false, hidden: isRecurring,
+      description: "The slider shows the next date automatically, then moves on to the following one after it ends." }),
+    defineField({ name: "sliderDaysBefore", title: "Days before to show it", type: "number", group: "display", initialValue: 7, hidden: notRecurringSlide,
+      description: "e.g. 7 for weekly gatherings (always shows the next one), 14 for monthly ones.", validation: (R) => R.min(1).max(60).integer() }),
+    inGroup({ ...imageField("sliderImage", "Flyer for the slider", { decorative: false, description: "Optional. The poster shown in the slider; without one, the photo above is used." }), hidden: notRecurringSlide }, "display"),
     defineField({ name: "listed", title: "Show on the Events page", type: "boolean", group: "display", initialValue: true, hidden: isRecurring }),
     defineField({ name: "badge", title: "Calendar badge (optional)", type: "object", group: "display", hidden: isRecurring, options: { collapsible: true, collapsed: true },
       description: "The two short lines in the date square. Leave empty to fill automatically.",

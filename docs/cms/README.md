@@ -27,13 +27,14 @@ Church staff edit public website content in a dashboard (Sanity Studio) instead 
 | Site Settings | Header, footer, every `data-site` link, Give page, Watch Live player | `cms:site-settings` in `assets/js/main.js` |
 | Homepage → Hero slides & buttons | Homepage hero | `hero-slides`, `hero-kicker`, `hero-texts`, `hero-buttons`, `hero-thumbs` |
 | Homepage → featured sections | Service-time cards, ministry tabs, outreach cards, Watch Live schedule | `service-times`, `place-tabs`, `outreach-cards`, `live-schedule` |
-| Announcements (featured) + Special events | “What’s happening” slider on Home and Events | `assets/partials/upcoming-events.html` (whole file) |
+| Announcements (featured) + Special events + regular gatherings set to “Show in slider” (shown *Days before* their next date, with their *Flyer for the slider*) | “What’s happening” slider on Home and Events | `assets/partials/upcoming-events.html` (whole file) |
 | Events → Regular gatherings | Events page list; yearly ones as “Seasonal outreaches” | `events-regular`, `events-seasonal` |
 | Sermons (featured) | Sermons page “More messages” | `sermons-more` |
 | YouTube channel (automatic) | Home “Latest messages”, Sermons “Recent services”, Watch Live “Recent livestreams” | `latest-messages`, `recent-services`, `recent-livestreams` + `assets/data/youtube-*.json` |
 | Ministries | Ministries page | `ministries` |
 | Departments | Departments page | `departments` |
 | Outreach | Outreach page (rows + overview boxes) | `outreach-rows`, `outreach-overview` |
+| About page (dashboard section) | Vision + values + Growth Pillars on `our-vision-values.html`; membership journey + call to action on `become-a-member.html` | `about-vision`, `about-pillars`, `about-journey`, `about-cta` |
 | Leadership | About page | `leaders` |
 | Job Center | Job Center listing | `jobs` |
 

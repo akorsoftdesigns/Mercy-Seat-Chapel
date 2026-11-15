@@ -27,7 +27,9 @@ function render(doc, c, refs) {
     case "event":
       if (doc.kind === "recurring") {
         const yearly = doc.recurrence?.frequency === "yearly";
-        return wrap(yearly ? `<div class="grid grid--3">${R.seasonalCard(c, doc, 0)}</div>` : `<div class="event-list">${R.eventRow(c, doc, today)}</div>`, "section section--white")
+        // Slider preview uses the next date even if it's further away than "Days before"
+        const slide = doc.inSlider && R.recurringAsSlide({ ...doc, sliderDaysBefore: 60 }, today);
+        return (slide ? wrap(R.upcomingEventsPartial(c, [slide]), "section section--soft") : "") + wrap(yearly ? `<div class="grid grid--3">${R.seasonalCard(c, doc, 0)}</div>` : `<div class="event-list">${R.eventRow(c, doc, today)}</div>`, "section section--white")
           + wrap(`<div class="times-grid times-grid--feature">${R.timeCard(c, doc, 0)}</div>`)
           + (doc.liveNote ? wrap(`<div class="grid grid--3">${R.liveCard(c, doc, 0)}</div>`, "section section--white") : "");
       }
@@ -50,7 +52,7 @@ function render(doc, c, refs) {
         + wrap(`<div class="grid grid--4">${list("featuredOutreach").map((o, i) => R.outreachHomeCard(c, o, i)).join("")}</div>`);
     }
     case "aboutPage": return wrap([
-      `<div class="about-block">${R.aboutVision(doc)}</div>`,
+      `<div class="about-block">${R.aboutVision(c, doc)}</div>`,
       `<div class="about-block">${R.aboutPillars(doc)}</div>`,
       `<div class="about-block">${R.aboutJourney(doc)}</div>`,
       `<div class="about-block about-block--cta">${R.aboutCta(c, doc)}</div>`

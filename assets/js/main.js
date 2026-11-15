@@ -50,20 +50,22 @@ const SITE = { ...SITE_FIXED, ...SITE_SETTINGS };
 
 const NAV = [
   { label: "Home", href: "index.html" },
-  { label: "About", href: "about.html", children: [
-    { label: "RCCG", href: "rccg.html" },
-    { label: "About MSC", href: "about.html" },
-    { label: "Our Beliefs", href: "about.html#beliefs" },
+  // About: four links jump to sections of about.html; Our Vision & Values is its own page.
+  // "pages" = extra pages that should highlight this menu item as the current section
+  { label: "About", href: "about.html", pages: ["about.html", "rccg.html", "leadership.html"], children: [
+    { label: "RCCG", href: "about.html#who-we-are" },
     { label: "Pastor’s Message", href: "about.html#pastor" },
+    { label: "Our Beliefs", href: "about.html#beliefs" },
+    { label: "Our Vision & Values", href: "our-vision-values.html" },
     { label: "Leadership", href: "leadership.html" }
   ]},
   // Connect has no page of its own: the label opens the dropdown (href "#" is never followed)
-  // "pages" = extra pages that should highlight this menu item as the current section
   { label: "Connect", href: "#", pages: ["foundation-academy.html", "marriage-counselling.html", "seeking-his-presence.html"], children: [
     { label: "Ministries", href: "ministries.html" },
     { label: "Departments", href: "departments.html" },
     { label: "Events & Programs", href: "events.html" },
     { label: "Outreach & Community", href: "outreach.html" },
+    { label: "Become a Member", href: "become-a-member.html" },
     { label: "Testimonies", href: "testimonies.html" },
     { label: "Gallery", href: "gallery.html" }
   ]},
@@ -483,12 +485,12 @@ function initFloatGallery() {
   });
 }
 
-/* Photo gallery: turns the page's photo list into three full-width rows that scroll
-   endlessly (left, right, left; the CSS animation pauses on hover), plus a lightbox (<dialog>)
+/* Photo gallery: turns the page's photo list into full-width rows that scroll endlessly
+   (PHOTO_ROWS of them: left, right, left…; the CSS animation pauses on hover), plus a lightbox (<dialog>)
    with previous/next, arrow keys and swipe. Each row holds its photos twice so the loop is
    seamless; only the first row's first set is focusable/announced, so keyboard and
    screen-reader users meet each photo once. Without JavaScript the list shows as a grid. */
-const PHOTO_ROWS = 3;
+const PHOTO_ROWS = 1; // number of scrolling rows on the Gallery page
 const ROW_SPEED = { fastest: 20, slowest: 160, apart: 25 }; // seconds per full loop, picked at random on each visit; rows differ by at least "apart"
 function randomRowSpeeds() {
   const speeds = [];
@@ -879,23 +881,17 @@ function initReveal() {
   els.forEach((e) => io.observe(e));
 }
 
-/* Leadership page: wrap each minister's photo and add the hover overlay, filled with
-   the portfolio already written under the photo (so it's only ever typed once). */
+/* Leadership page: wrap each minister's photo so it can carry the soft shade that
+   lifts and brightens on hover (style.css .minister__photo). */
 function initMinisters() {
   document.querySelectorAll(".minister").forEach((card) => {
     const img = card.querySelector("img"), role = card.querySelector(".minister__role");
-    // Photo-only cards (About page pastors) get no overlay or hover
+    // Photo-only cards (About page pastors) get no shade or hover
     if (!img || !role || img.parentElement.classList.contains("minister__photo")) return;
     const photo = document.createElement("div");
     photo.className = "minister__photo";
     img.replaceWith(photo);
     photo.append(img);
-    const overlay = document.createElement("div");
-    overlay.className = "minister__overlay";
-    overlay.setAttribute("aria-hidden", "true"); // the portfolio is already read out under the photo
-    overlay.innerHTML = "<span></span>";
-    overlay.firstChild.textContent = role.textContent;
-    photo.append(overlay);
   });
 }
 

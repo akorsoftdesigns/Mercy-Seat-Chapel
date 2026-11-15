@@ -1,9 +1,9 @@
-/* About page: the Vision, Growth Pillars, membership Journey and membership
-   call-to-action shown under "Our Beliefs" on about.html. Numbers (01, 02…)
+/* About page: the Vision and Growth Pillars (shown on our-vision-values.html) and the
+   membership Journey and call-to-action (shown on become-a-member.html). Numbers (01, 02…)
    are added automatically from the order of each list. */
 import { defineType, defineField, defineArrayMember } from "sanity";
 import { InfoOutlineIcon } from "../icons.js";
-import { buttons } from "./parts.js";
+import { buttons, imageField } from "./parts.js";
 
 const headingHelp = "Put *stars* around words to show them in coral, e.g. Growing Stronger, *Together*";
 
@@ -14,17 +14,18 @@ const head = (prefix, group, eyebrow) => [
   defineField({ name: `${prefix}Intro`, title: "Introduction", type: "text", rows: 4, group, validation: (R) => R.max(600) })
 ];
 
-// A numbered item: heading, optional second line, text
-const item = (name, title, { label, labelHelp, subtitle } = {}) => defineArrayMember({
+// A numbered item: optional photo, heading, optional second line, text
+const item = (name, title, { label, labelHelp, subtitle, photo } = {}) => defineArrayMember({
   type: "object", name, title,
   fields: [
+    photo && imageField("photo", "Photo", { description: photo }),
     label && defineField({ name: "label", title: label, type: "string", description: labelHelp, validation: (R) => R.required().max(24) }),
     defineField({ name: "title", title: "Heading", type: "string", validation: (R) => R.required().max(60) }),
     subtitle && defineField({ name: "subtitle", title: subtitle, type: "string", validation: (R) => R.max(70) }),
     defineField({ name: "text", title: "Text", type: "text", rows: 4, validation: (R) => R.required().max(500) })
   ].filter(Boolean),
-  preview: { select: { title: "title", label: "label", subtitle: "subtitle" },
-    prepare: ({ title, label, subtitle }) => ({ title: label ? `${label}: ${title}` : title, subtitle }) }
+  preview: { select: { title: "title", label: "label", subtitle: "subtitle", media: "photo" },
+    prepare: ({ title, label, subtitle, media }) => ({ title: label ? `${label}: ${title}` : title, subtitle, media }) }
 });
 
 const list = (name, title, group, of, max, description) => defineField({
@@ -45,7 +46,9 @@ export default defineType({
   ],
   fields: [
     ...head("vision", "vision", "Our Vision"),
-    list("values", "Values", "vision", item("value", "Value"), 8, "Shown as numbered cards."),
+    list("values", "Values", "vision", item("value", "Value", {
+      photo: "Shown at the top of the card. Use a landscape photo (4:3, at least 960 × 720); use the focus point to keep faces in view."
+    }), 8, "Shown as numbered photo cards beside the Vision statement (best with 5)."),
 
     ...head("pillars", "pillars", "Our Growth Pillars"),
     list("pillars", "Pillars", "pillars", item("pillar", "Pillar", { subtitle: "Second line (optional)" }), 6,

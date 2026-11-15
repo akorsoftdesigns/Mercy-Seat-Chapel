@@ -35,7 +35,7 @@
   --w-wide: 100%;
   --w-nav: 1200px;
   --pad-x: clamp(40px, 4vw, 72px);
-  --pad-section: 88px;
+  --pad-section: 112px; /* space above and below every section (tablet 88px, phone 64px below) */
   --r-btn: 8px;
   --r-card: 12px;
   --shadow-sm: 0 1px 2px rgba(27, 48, 104, .05), 0 4px 16px rgba(27, 48, 104, .05);
@@ -45,10 +45,10 @@
 
 /* Side padding: desktop grows 40–72px with the screen, tablet 40px, phone 28px */
 @media (min-width: 768px) and (max-width: 1023px) {
-  :root { --pad-x: 40px; }
+  :root { --pad-x: 40px; --pad-section: 88px; }
 }
 @media (max-width: 767px) {
-  :root { --pad-x: 28px; --pad-section: 48px; }
+  :root { --pad-x: 28px; --pad-section: 64px; }
 }
 
 /* ---------- Base ---------- */
@@ -1037,27 +1037,14 @@ html:not(.no-js) .place__tabs.reveal:not(.is-in) .place__tab { opacity: 0; }
 .ministers { --cols: 4; --gap: 28px; display: flex; flex-wrap: wrap; justify-content: center; gap: 36px var(--gap); list-style: none; margin: 0; padding: 0; }
 .minister { width: calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols)); text-align: center; }
 .minister img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; object-position: top; border-radius: var(--r-card); box-shadow: var(--shadow-sm); margin-bottom: 18px; }
-/* Hover: church blue rises over the photo from the bottom, then the portfolio appears on it.
-   main.js wraps each photo in .minister__photo and copies the portfolio into the overlay. */
+/* A soft vignette darkens the edges of each photo (the face stays clear); on hover it
+   clears and the photo brightens slightly and lifts. main.js wraps each photo in .minister__photo. */
 .minister__photo { position: relative; margin-bottom: 18px; border-radius: var(--r-card); overflow: hidden; box-shadow: var(--shadow-sm); transition: transform .35s var(--ease), box-shadow .35s var(--ease); }
-.minister__photo img { margin: 0; border-radius: 0; box-shadow: none; }
-/* Slides up from below; the blue is solid at the bottom and fades out softly about halfway
-   up, and the portfolio is centred in the lower half (the 3/4 mark of the photo) */
-.minister__overlay {
-  position: absolute; inset: 0; display: grid; grid-template-rows: 1fr 1fr; justify-items: center; align-items: center; padding: 12px 20px; text-align: center;
-  background: linear-gradient(to top, rgba(27, 48, 104, .8) 0%, rgba(27, 48, 104, .72) 40%, rgba(27, 48, 104, 0) 75%);
-  transform: translateY(100%);
-  transition: transform .5s var(--ease);
-}
-.minister__overlay span { grid-row: 2; }
-.minister__overlay span {
-  font: 700 15px/1.35 var(--f-heading); letter-spacing: 1.5px; text-transform: uppercase; color: var(--c-white);
-  opacity: 0; transform: translateY(12px); transition: opacity .3s var(--ease), transform .3s var(--ease);
-}
-.minister__overlay span::before { content: ""; display: block; width: 32px; height: 2px; margin: 0 auto 12px; background: var(--c-secondary); }
+.minister__photo img { margin: 0; border-radius: 0; box-shadow: none; transition: filter .35s var(--ease); }
+.minister__photo::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, .22) 100%); pointer-events: none; transition: opacity .35s var(--ease); }
 .minister:hover .minister__photo { transform: translateY(-4px); box-shadow: var(--shadow-md); }
-.minister:hover .minister__overlay { transform: none; }
-.minister:hover .minister__overlay span { opacity: 1; transform: none; transition-delay: .2s; }
+.minister:hover .minister__photo::after { opacity: 0; }
+.minister:hover .minister__photo img { filter: brightness(1.08); }
 .minister h3 { font-size: 19px; margin: 0 0 6px; }
 .minister__role { margin: 0; font: 700 12px/1.4 var(--f-heading); letter-spacing: 1.5px; text-transform: uppercase; color: var(--c-accent); }
 @media (max-width: 1100px) { .ministers { --cols: 3; } }
@@ -1067,7 +1054,7 @@ html:not(.no-js) .place__tabs.reveal:not(.is-in) .place__tab { opacity: 0; }
 .leadership-intro { max-width: 760px; margin: 40px auto 0; text-align: center; font-size: 18px; }
 .leadership-intro + .btn-row--center { margin-top: 28px; }
 @media (max-width: 767px) { .leadership-intro { margin-top: 28px; font-size: 17px; } }
-@media (max-width: 767px) { .ministers, .ministers.ministers--pair { --cols: 2; --gap: 16px; row-gap: 28px; } .minister h3 { font-size: 16px; } .minister__role { font-size: 11px; letter-spacing: 1px; } .minister__overlay { padding: 8px 10px; } .minister__overlay span { font-size: 11px; letter-spacing: .8px; } .minister__overlay span::before { display: none; } }
+@media (max-width: 767px) { .ministers, .ministers.ministers--pair { --cols: 2; --gap: 16px; row-gap: 28px; } .minister h3 { font-size: 16px; } .minister__role { font-size: 11px; letter-spacing: 1px; } }
 .leader blockquote { margin: 0; font-size: 18px; color: var(--c-text); }
 .leader blockquote::before { content: "\201C"; display: block; font: 800 64px/0.6 var(--f-heading); color: var(--c-secondary); margin: 18px 0 6px; }
 @media (max-width: 800px) { .leader { grid-template-columns: 1fr; padding: 24px; gap: 24px; } .leader img { max-width: 360px; } }
@@ -1080,15 +1067,33 @@ html:not(.no-js) .place__tabs.reveal:not(.is-in) .place__tab { opacity: 0; }
 
 /* ---------- About page: Vision, Growth Pillars, Journey (under Our Beliefs) ---------- */
 .about-block { margin-top: clamp(80px, 9vw, 128px); }
+.about-block--first { margin-top: 0; } /* first block on its page (Vision & Values, Become a Member) */
 .about-block--cta { margin-top: clamp(64px, 7vw, 96px); }
 .about-block .section-head p { margin-top: 14px; }
 
-/* Vision values: numbered belief cards; flex so a short last row sits centred (5 = 3 + 2) */
-.values { --cols: 3; --gap: 24px; display: flex; flex-wrap: wrap; justify-content: center; gap: var(--gap); }
-.value { width: calc((100% - (var(--cols) - 1) * var(--gap)) / var(--cols)); }
-.value h3 { font-size: 21px; margin: 0 0 10px; }
-@media (max-width: 1023px) { .values { --cols: 2; } }
-@media (max-width: 639px) { .values { --cols: 1; } }
+/* Vision: centred heading (.section-head), then the value photo cards (homepage .card).
+   Desktop 3 across with a shorter last row centred (5 cards = 3 + 2); tablet 2 by 2 with
+   a lone last card centred; phones one column. */
+.vision-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 24px; }
+.vision-grid .value-card { grid-column: span 2; }
+@media (min-width: 1024px) {
+  .value-card:nth-child(3n+1):nth-last-child(2) { grid-column: 2 / span 2; } /* last row of 2 */
+  .value-card:nth-child(3n+1):last-child { grid-column: 3 / span 2; }       /* last row of 1 */
+}
+.value-card .card__media { background: var(--c-soft); } /* shows while a photo is missing */
+.value-card__num { margin-bottom: 10px; font: 800 28px/1 var(--f-heading); color: var(--c-secondary); }
+.value-card .card__body { padding: 32px 30px 34px; background: var(--c-soft); } /* tinted so the text area stands out on the white section */
+.value-card .card__body p { margin: 0; color: var(--c-text); } /* body colour keeps contrast on the tint */
+@media (max-width: 1023px) {
+  .vision-grid { grid-template-columns: repeat(2, 1fr); }
+  .vision-grid .value-card { grid-column: auto; }
+  .vision-grid .value-card:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - 12px); }
+}
+@media (max-width: 639px) {
+  .vision-grid { grid-template-columns: 1fr; }
+  .vision-grid .value-card:last-child:nth-child(odd) { width: auto; justify-self: stretch; }
+  .value-card .card__body { padding: 26px 22px 28px; }
+}
 
 /* Growth pillars: soft cards with a blue number tile */
 .pillar { display: grid; grid-template-columns: 64px 1fr; gap: 24px; padding: 36px 32px; background: var(--c-soft); border-radius: var(--r-card); }
@@ -1110,6 +1115,14 @@ html:not(.no-js) .place__tabs.reveal:not(.is-in) .place__tab { opacity: 0; }
 .journey__stage { display: block; margin-bottom: 6px; font: 700 13px/1.3 var(--f-heading); letter-spacing: 2px; text-transform: uppercase; color: var(--c-accent); }
 .journey__step h3 { font-size: 21px; margin: 0 0 10px; }
 .journey__step p { margin: 0; }
+/* Sequence: once the list scrolls into view (.is-in from the reveal script), stage 1 fades up,
+   its line draws towards stage 2, stage 2 fades up, and so on to the last (--i = position, --step = pace). */
+.journey.reveal { --step: .6s; opacity: 1; transform: none; } /* the list stays put; its stages animate */
+.journey.reveal .journey__step { opacity: 0; transform: translateY(18px); transition: opacity .5s var(--ease), transform .5s var(--ease); transition-delay: calc(var(--i, 0) * var(--step)); }
+.journey.reveal .journey__step::before { transform: scaleX(0); transform-origin: left center; transition: transform .35s linear; transition-delay: calc(var(--i, 0) * var(--step) + .3s); }
+.journey.reveal.is-in .journey__step, .journey.reveal.is-in .journey__step::before { opacity: 1; transform: none; }
+.no-js .journey.reveal .journey__step, .no-js .journey.reveal .journey__step::before { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .journey.reveal .journey__step, .journey.reveal .journey__step::before { transition-delay: 0s; } }
 @media (max-width: 1023px) {
   .journey { --gap: 32px; grid-template-columns: repeat(2, 1fr); }
   .journey__step:nth-child(3n)::before { display: block; }
@@ -1121,6 +1134,7 @@ html:not(.no-js) .place__tabs.reveal:not(.is-in) .place__tab { opacity: 0; }
   .journey__num { position: absolute; left: 0; top: 0; margin: 0; }
   .journey__step:nth-child(n)::before { display: block; top: 64px; bottom: -28px; left: 27px; right: auto; border-top: 0; border-left: 2px dashed var(--c-secondary-light); }
   .journey__step:last-child::before { display: none; }
+  .journey.reveal .journey__step::before { transform: scaleY(0); transform-origin: center top; } /* the line draws downwards */
 }
 
 /* Timeline */
@@ -1143,7 +1157,6 @@ html:not(.no-js) .place__tabs.reveal:not(.is-in) .place__tab { opacity: 0; }
 .faq details[open] summary .plus { transform: rotate(45deg); background: var(--c-secondary); color: var(--c-white); }
 .faq .faq__body { padding: 0 26px 24px; }
 .faq .faq__body p:last-child { margin-bottom: 0; }
-
 /* ---------- Forms ---------- */
 .form-card { background: var(--c-white); border: 1px solid var(--c-border); border-radius: var(--r-card); padding: 40px; box-shadow: var(--shadow-sm); }
 .form-card--dark { background: var(--c-primary); border-color: var(--c-primary); color: rgba(255, 255, 255, .82); }

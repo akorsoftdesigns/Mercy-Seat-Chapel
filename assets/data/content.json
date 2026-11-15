@@ -4,7 +4,7 @@
    "_createdAt": "2026-11-10T23:23:14Z",
    "_id": "aboutPage",
    "_type": "aboutPage",
-   "_updatedAt": "2026-11-10T23:23:14Z",
+   "_updatedAt": "2026-11-15T00:44:25Z",
    "ctaButtons": [
     {
      "_key": "b1",
@@ -28,50 +28,50 @@
    ],
    "ctaHeading": "Ready to Become Part of the MSC Family?",
    "ctaText": "Your journey of faith, fellowship, and purpose starts here. We would love to welcome you, help you connect, and walk alongside you as you grow in Christ.",
-   "journeyEyebrow": "Your Journey at MSC",
+   "journeyEyebrow": "Become Part of Our Family",
    "journeyHeading": "From Your First Visit to Finding Your *Place*",
-   "journeyIntro": "Whether you’re visiting for the first time or looking for a church family, we want you to feel welcomed, supported, and connected. Our membership journey is designed to help you discover Mercy Seat Chapel, grow in your relationship with Christ, and find meaningful ways to belong and serve.",
+   "journeyIntro": "Whether it’s your first visit or you’re looking for a church family, here’s how you can belong, grow and serve at Mercy Seat Chapel.",
    "journeySteps": [
     {
      "_key": "j1",
      "_type": "stage",
      "label": "Meet",
-     "text": "Your journey begins with a warm welcome. Our Welcome & Follow-Up Team is here to connect with you, answer your questions, introduce you to church activities, and help you feel at home.",
+     "text": "Our Welcome & Follow-Up Team will greet you, answer your questions and help you feel at home.",
      "title": "You’re Welcome Here"
     },
     {
      "_key": "j2",
      "_type": "stage",
      "label": "Decide",
-     "text": "As you get to know our church family, we invite you to learn more about our vision, values, and membership opportunities, helping you prayerfully decide whether Mercy Seat Chapel is where you would like to grow.",
+     "text": "Learn about our vision, values and membership, and prayerfully decide if MSC is your church home.",
      "title": "Take the Next Step"
     },
     {
      "_key": "j3",
      "_type": "stage",
      "label": "Learn",
-     "text": "Our monthly membership classes introduce you to the church’s beliefs, vision, ministries, and opportunities for spiritual growth. You’ll also learn about SoulCare and the different ways we support our members.",
+     "text": "Monthly membership classes introduce our beliefs, vision, ministries and how SoulCare supports members.",
      "title": "Discover Who We Are"
     },
     {
      "_key": "j4",
      "_type": "stage",
      "label": "Connect",
-     "text": "Through the SoulCare Directorate, we help you connect with a fellowship group or ministry community where you can build friendships, receive encouragement, and grow alongside others.",
+     "text": "Through the SoulCare Directorate, join a fellowship group to build friendships and grow together.",
      "title": "Find Your Community"
     },
     {
      "_key": "j5",
      "_type": "stage",
      "label": "Serve",
-     "text": "Everyone has something valuable to contribute. We encourage members interested in serving to explore ministry opportunities, receive relevant training, and develop their gifts through pathways such as the Workers Academy.",
+     "text": "Explore ministry opportunities, get trained and develop your gifts through pathways like the Workers Academy.",
      "title": "Discover Your Gifts"
     },
     {
      "_key": "j6",
      "_type": "stage",
      "label": "Celebrate",
-     "text": "We celebrate every step of your spiritual journey, from finding a church family to becoming actively involved in ministry. Together, we continue growing in faith, building relationships, and making a difference for Christ.",
+     "text": "We celebrate every step as you grow in faith, build relationships and make a difference for Christ.",
      "title": "Grow and Thrive Together"
     }
    ],
@@ -112,30 +112,70 @@
     {
      "_key": "v1",
      "_type": "value",
+     "photo": {
+      "_type": "image",
+      "alt": "People standing in worship, one woman singing with an open hand raised and another bowing her head in prayer",
+      "asset": {
+       "_ref": "image-036cd97511be9a576347abb4208266f633fcde46-960x720-jpg",
+       "_type": "reference"
+      }
+     },
      "text": "Jesus Christ is at the heart of everything we do. Through worship, prayer, and biblical teaching, we seek to honour Him, reflect His love, and live according to His Word.",
      "title": "Christ-Centered"
     },
     {
      "_key": "v2",
      "_type": "value",
+     "photo": {
+      "_type": "image",
+      "alt": "A small group studying open Bibles together around a table",
+      "asset": {
+       "_ref": "image-d74341f2e5fc1ae6ad5c98d2cb3dd054ebe541bf-960x720-jpg",
+       "_type": "reference"
+      }
+     },
      "text": "We are committed to helping people grow into mature followers of Christ through purposeful teaching, mentorship, spiritual development, and opportunities to put their faith into action.",
      "title": "Intentional Discipleship"
     },
     {
      "_key": "v3",
      "_type": "value",
+     "photo": {
+      "_type": "image",
+      "alt": "Church members laughing and talking together in fellowship",
+      "asset": {
+       "_ref": "image-58e331d9bebfc74ded4fe2597eb70c73018c6a67-960x720-jpg",
+       "_type": "reference"
+      }
+     },
      "text": "We believe church is more than a gathering; it is a spiritual family. We cultivate meaningful relationships built on love, unity, encouragement, accountability, and genuine care for one another.",
      "title": "Covenant Family Fellowship"
     },
     {
      "_key": "v4",
      "_type": "value",
+     "photo": {
+      "_type": "image",
+      "alt": "Choir members singing together on stage",
+      "asset": {
+       "_ref": "image-e2b81daad87b4ad193fadd0fe8449b848b95c9ff-960x720-jpg",
+       "_type": "reference"
+      }
+     },
      "text": "We believe everyone has gifts, talents, and resources entrusted to them by God. We encourage faithful stewardship and joyful service, empowering individuals to contribute meaningfully to the church and wider community.",
      "title": "Stewardship & Service"
     },
     {
      "_key": "v5",
      "_type": "value",
+     "photo": {
+      "_type": "image",
+      "alt": "Volunteers in high-visibility vests packing food boxes and bottled water",
+      "asset": {
+       "_ref": "image-765ae75de71cb15644147fe401b92bc0583b0bc5-960x720-jpg",
+       "_type": "reference"
+      }
+     },
      "text": "We are called to share the Gospel and demonstrate Christ’s love beyond the walls of the church through evangelism, compassion, community engagement, and practical acts of service.",
      "title": "Mission & Outreach"
     }
@@ -818,7 +858,7 @@
    "_createdAt": "2026-11-07T23:57:39Z",
    "_id": "event-bible-study",
    "_type": "event",
-   "_updatedAt": "2026-11-07T23:59:39Z",
+   "_updatedAt": "2026-11-15T00:20:51Z",
    "archived": false,
    "attendance": "both",
    "buttons": [
@@ -841,6 +881,12 @@
      "_type": "detail",
      "icon": "radio",
      "text": "In person & online"
+    },
+    {
+     "_key": "zoomdetails",
+     "_type": "detail",
+     "icon": "video",
+     "text": "Zoom · Meeting ID 849 0400 2964 · Passcode 860476"
     }
    ],
    "homeNote": "A Lifestyle of Word · on Zoom",
@@ -860,6 +906,7 @@
      "y": 0.4
     }
    },
+   "inSlider": true,
    "kind": "recurring",
    "listed": true,
    "liveNote": "Midweek teaching",
@@ -868,8 +915,18 @@
     "frequency": "weekly",
     "weekday": "tuesday"
    },
+   "sliderDaysBefore": 7,
+   "sliderImage": {
+    "_type": "image",
+    "alt": "Flyer: A Lifestyle of Word, every Tuesday at 7:30 PM on Zoom, meeting ID 849 0400 2964, passcode 860476",
+    "asset": {
+     "_ref": "image-130594f21f7ccde54543ce51f32cbcdd87b136a9-1170x1170-jpg",
+     "_type": "reference"
+    }
+   },
    "startTime": "7:30 PM",
    "summary": "Midweek teaching to grow in the knowledge of God’s Word.",
+   "theme": "A Lifestyle of Word",
    "title": "Bible Study"
   },
   {
@@ -972,6 +1029,52 @@
    "title": "Evangelism"
   },
   {
+   "_createdAt": "2026-11-15T00:20:51Z",
+   "_id": "event-expectant-parents-prayer",
+   "_type": "event",
+   "_updatedAt": "2026-11-15T00:20:51Z",
+   "archived": false,
+   "attendance": "online",
+   "buttons": [
+    {
+     "_key": "Prayerreques",
+     "_type": "button",
+     "icon": "",
+     "label": "Prayer request",
+     "link": {
+      "newTab": false,
+      "page": "contact.html#prayer"
+     },
+     "style": "outline"
+    }
+   ],
+   "category": "Prayer",
+   "icon": "heart",
+   "inSlider": true,
+   "kind": "recurring",
+   "listed": true,
+   "order": 8,
+   "recurrence": {
+    "frequency": "monthly",
+    "weekOfMonth": 2,
+    "weekday": "sunday"
+   },
+   "shortTitle": "Expectant Parents Prayer",
+   "showPrayerLine": true,
+   "sliderDaysBefore": 14,
+   "sliderImage": {
+    "_type": "image",
+    "alt": "Flyer: Expectant Parents and Pregnant Women Prayer Session, every 2nd Sunday at 1:00 PM, prayer line +1 857 216 6700, access code 860476",
+    "asset": {
+     "_ref": "image-2f9635a0e97b333c5d08175cdb17fba43e2fce2c-1170x1170-jpg",
+     "_type": "reference"
+    }
+   },
+   "startTime": "1:00 PM",
+   "summary": "A monthly prayer session for expectant parents and pregnant women, on the prayer line.",
+   "title": "Expectant Parents & Pregnant Women Prayer Session"
+  },
+  {
    "_createdAt": "2026-11-07T23:57:39Z",
    "_id": "event-grace-to-finish-well-2026",
    "_type": "event",
@@ -1019,7 +1122,7 @@
    "_createdAt": "2026-11-07T23:57:39Z",
    "_id": "event-holy-communion",
    "_type": "event",
-   "_updatedAt": "2026-11-07T23:59:39Z",
+   "_updatedAt": "2026-11-15T02:21:07Z",
    "archived": false,
    "buttons": [
     {
@@ -1060,6 +1163,7 @@
      "y": 0.5
     }
    },
+   "inSlider": true,
    "kind": "recurring",
    "listed": true,
    "liveNote": "Holy Communion service",
@@ -1070,9 +1174,63 @@
     "weekday": "tuesday"
    },
    "shortTitle": "Holy Communion",
+   "sliderDaysBefore": 7,
+   "sliderImage": {
+    "_type": "image",
+    "alt": "Flyer: Holy Communion, …and when I see the blood. 1st Tuesday of every month at 7:30 PM",
+    "asset": {
+     "_ref": "image-5e0c71720c29603b39ce06d5a3e6feecd88b396d-1080x1080-jpg",
+     "_type": "reference"
+    }
+   },
    "startTime": "7:30 PM",
    "summary": "Held on the first Tuesday of each month.",
+   "theme": "…and when I see the blood",
    "title": "Holy Communion Service"
+  },
+  {
+   "_createdAt": "2026-11-15T02:21:11Z",
+   "_id": "event-morning-glory",
+   "_type": "event",
+   "_updatedAt": "2026-11-15T02:21:33Z",
+   "archived": false,
+   "attendance": "online",
+   "buttons": [
+    {
+     "_key": "prayerreq",
+     "_type": "button",
+     "icon": "",
+     "label": "Prayer request",
+     "link": {
+      "newTab": false,
+      "page": "contact.html#prayer"
+     },
+     "style": "outline"
+    }
+   ],
+   "category": "Prayer",
+   "icon": "sparkles",
+   "inSlider": true,
+   "kind": "recurring",
+   "listed": true,
+   "order": 9,
+   "recurrence": {
+    "dayOfMonth": 1,
+    "frequency": "monthly"
+   },
+   "showPrayerLine": true,
+   "sliderDaysBefore": 7,
+   "sliderImage": {
+    "_type": "image",
+    "alt": "Flyer: Morning Glory. Join us to seek the mind and purpose of God for the month. Every 1st day of the month at 6:00 AM, prayer line 1 857 216 6700, code 860476",
+    "asset": {
+     "_ref": "image-de77ba89bad995cfbb9b5c2a1af17b6b9fd06ed6-1079x1083-jpg",
+     "_type": "reference"
+    }
+   },
+   "startTime": "6:00 AM",
+   "summary": "Join us to seek the mind and purpose of God for the month over your life. The Holy Spirit will give you speed and favour.",
+   "title": "Morning Glory"
   },
   {
    "_createdAt": "2026-11-07T23:57:39Z",
@@ -1112,10 +1270,54 @@
    "title": "Nursing Home & Shelter Visits"
   },
   {
+   "_createdAt": "2026-11-15T00:20:51Z",
+   "_id": "event-revive-capacity-2026",
+   "_type": "event",
+   "_updatedAt": "2026-11-15T00:20:51Z",
+   "archived": false,
+   "attendance": "inperson",
+   "buttons": [
+    {
+     "_key": "AboutRevivem",
+     "_type": "button",
+     "icon": "",
+     "label": "About Revive",
+     "link": {
+      "newTab": false,
+      "page": "ministries.html#revive"
+     },
+     "style": "outline"
+    }
+   ],
+   "category": "Ministry program",
+   "eyebrow": "Revival Wells · Revive Young Adult Ministry",
+   "featured": true,
+   "image": {
+    "_type": "image",
+    "alt": "Flyer: Revive Young Adult Ministry, Revival Wells, Capacity, 2 Corinthians 3:5, November 28 at 3 PM, 17604 Washington Grove Lane, Gaithersburg",
+    "asset": {
+     "_ref": "image-ffb419553710aa94f55ca525291d671e8c61789a-1199x1312-jpg",
+     "_type": "reference"
+    }
+   },
+   "kind": "oneoff",
+   "location": "Mercy Seat Chapel, 17604 Washington Grove Lane, Gaithersburg",
+   "startDate": "2026-11-28",
+   "summary": "A Revival Wells gathering for young adults, hosted by Revive Young Adult Ministry.",
+   "timeLines": [
+    "3:00 PM"
+   ],
+   "title": "Capacity",
+   "verse": {
+    "cite": "2 Corinthians 3:5",
+    "text": "Not that we are sufficient of ourselves to think any thing as of ourselves; but our sufficiency is of God."
+   }
+  },
+  {
    "_createdAt": "2026-11-07T23:57:39Z",
    "_id": "event-seed-and-future",
    "_type": "event",
-   "_updatedAt": "2026-11-07T23:59:39Z",
+   "_updatedAt": "2026-11-15T00:20:51Z",
    "archived": false,
    "attendance": "online",
    "buttons": [
@@ -1144,6 +1346,12 @@
      "_type": "detail",
      "icon": "video",
      "text": "Virtual"
+    },
+    {
+     "_key": "pillarsofmercy",
+     "_type": "detail",
+     "icon": "users",
+     "text": "Pillars of Mercy Women Ministry"
     }
    ],
    "endTime": "1:00 PM",
@@ -1164,6 +1372,7 @@
      "y": 0.5
     }
    },
+   "inSlider": true,
    "kind": "recurring",
    "listed": true,
    "order": 7,
@@ -1172,8 +1381,18 @@
     "weekOfMonth": 2,
     "weekday": "saturday"
    },
+   "sliderDaysBefore": 14,
+   "sliderImage": {
+    "_type": "image",
+    "alt": "Flyer: The Seed and the Future, a prayer meeting for our children by Pillars of Mercy Women Ministry, every 2nd Saturday 12 to 1 PM, virtual",
+    "asset": {
+     "_ref": "image-74a8bae04652c27d81d5bb5cd9a4923e2cde6fdf-1500x1500-jpg",
+     "_type": "reference"
+    }
+   },
    "startTime": "12:00 PM",
    "summary": "Monthly prayer for our children, held virtually.",
+   "theme": "Praying for our children",
    "title": "The Seed & the Future"
   },
   {
@@ -1218,7 +1437,7 @@
    "_createdAt": "2026-11-07T23:57:39Z",
    "_id": "event-strength-in-prayer",
    "_type": "event",
-   "_updatedAt": "2026-11-07T23:59:39Z",
+   "_updatedAt": "2026-11-15T00:20:51Z",
    "archived": false,
    "attendance": "online",
    "buttons": [
@@ -1252,6 +1471,7 @@
      "y": 0.3
     }
    },
+   "inSlider": true,
    "kind": "recurring",
    "listed": true,
    "order": 4,
@@ -1261,8 +1481,18 @@
    },
    "shortTitle": "Strength in Prayer",
    "showPrayerLine": true,
+   "sliderDaysBefore": 7,
+   "sliderImage": {
+    "_type": "image",
+    "alt": "Flyer: Strength in Prayer, every Wednesday at 9:00 PM, prayer line 1 857 216 6700, code 860476",
+    "asset": {
+     "_ref": "image-07dbe9bad7f79756fc6824f27b2e52546e011c30-1080x1080-jpg",
+     "_type": "reference"
+    }
+   },
    "startTime": "9:00 PM",
    "summary": "Midweek prayer on the prayer line.",
+   "theme": "Strength in Prayer",
    "title": "Midweek Prayer"
   },
   {
@@ -1352,7 +1582,7 @@
    "_createdAt": "2026-11-07T23:57:39Z",
    "_id": "event-thanksgiving-sunday",
    "_type": "event",
-   "_updatedAt": "2026-11-07T23:59:39Z",
+   "_updatedAt": "2026-11-15T02:21:09Z",
    "archived": false,
    "badge": {
     "bottom": "Sunday",
@@ -1390,6 +1620,7 @@
      "_type": "reference"
     }
    },
+   "inSlider": true,
    "kind": "recurring",
    "listed": true,
    "order": 5,
@@ -1397,6 +1628,15 @@
     "frequency": "monthly",
     "weekOfMonth": 1,
     "weekday": "sunday"
+   },
+   "sliderDaysBefore": 7,
+   "sliderImage": {
+    "_type": "image",
+    "alt": "Flyer: Thanksgiving Service, Sunday 10 AM, Church Auditorium, 17604 Washington Grove Ln., Gaithersburg MD 20877. Stream on Instagram, Facebook and YouTube @mercyseatchapel",
+    "asset": {
+     "_ref": "image-291226f4bab50e4a729bc1cbead68ecdccfdda84-1080x1080-jpg",
+     "_type": "reference"
+    }
    },
    "startTime": "10:00 AM",
    "summary": "On the first Sunday of each month we come together to give thanks.",

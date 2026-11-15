@@ -10,7 +10,7 @@
      c.link(link)  → { href, newTab }
      c.site        → Site Settings */
 import { youtubeId, ytThumb, toSeconds } from "./youtube.js";
-import { scheduleLabel, scheduleBadge, formatTimeRange, formatDateRange, upcomingChanges } from "./schedule.js";
+import { scheduleLabel, scheduleBadge, formatTimeRange, formatDateRange, upcomingChanges, nextOccurrence } from "./schedule.js";
 
 export const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 export const attr = (s) => esc(s).replace(/"/g, "&quot;");
@@ -164,7 +164,8 @@ export function upcomingEventsPartial(c, slides) {
   const header = `<!-- ==========================================================================
      UPCOMING EVENTS — shared by the homepage (index.html) and the Events page (events.html).
      Managed in the dashboard: special events and featured announcements appear here
-     automatically and leave after their end date. Changes made by hand are replaced
+     automatically and leave after their end date; regular gatherings set to "Show in
+     slider" appear a few days before their next date. Changes made by hand are replaced
      the next time the website is updated from the dashboard.
      ========================================================================== -->`;
   if (!slides.length) {
@@ -190,7 +191,35 @@ export const announcementAsSlide = (a) => ({
   timeLines: a.relatedEvent?.timeLines || [], location: a.relatedEvent?.location
 });
 
+/** A regular gathering as a slide for its next date (or null when it isn't due yet).
+    It appears `sliderDaysBefore` days ahead (default 7) and moves on to the following
+    date once it has ended, so the slider always shows what's coming next. */
+export function recurringAsSlide(e, today) {
+  const next = nextOccurrence(e, today, e.sliderDaysBefore ?? 7);
+  if (!next) return null;
+  const time = e.timeNote || formatTimeRange(next.time, next.endTime);
+  return {
+    ...e, image: hasImage(e.sliderImage) ? e.sliderImage : e.image,
+    eyebrow: e.eyebrow || [e.dayLabel || scheduleLabel(e.recurrence), e.category].filter(Boolean).join(" · "),
+    startDate: next.date, endDate: "", dateLabel: "",
+    timeLines: [time, next.note].filter(Boolean)
+  };
+}
+
 /** Events page: one row of "Regular gatherings". */
+/** Plan a Visit FAQ: every regular gathering in one sentence, with when it happens in brackets, e.g.
+    "Our regular gatherings include Sunday Service (every Sunday, 10:00 AM), …, and Morning Glory (1st of every month, 6:00 AM)." */
+const lowerFirst = (s) => s.charAt(0).toLowerCase() + s.slice(1);
+const whenInWords = (e) => {
+  const day = (e.dayLabel || scheduleLabel(e.recurrence)).replace(/^(.+) · Monthly$/, "every $1"); // "1st Sunday · Monthly" → "every 1st Sunday"
+  return [day, eventTime(e, false)].filter(Boolean).map(lowerFirst).join(", ");
+};
+export const gatheringsSentence = (events) => {
+  const parts = events.map((e) => `${esc(e.title)} (${esc(whenInWords(e))})`);
+  const list = parts.length > 1 ? `${parts.slice(0, -1).join(", ")} and ${parts.at(-1)}` : parts[0];
+  return `<p>Our regular gatherings include ${list}.</p>`;
+};
+
 export function eventRow(c, e, today) {
   const [top, bottom] = e.badge?.top || e.badge?.bottom ? [e.badge.top || "", e.badge.bottom || ""] : scheduleBadge(e.recurrence);
   const time = eventTime(e, false);
@@ -322,7 +351,8 @@ export const leaderCardHtml = (c, l, i = 0) => lines(
   `</li>`);
 
 /* ---------- About page: Vision, Growth Pillars, Journey, membership CTA ----------
-   Each returns the inside of one marked block under "Our Beliefs" on about.html. */
+   Each returns the inside of one marked block: Vision and Pillars on our-vision-values.html,
+   Journey and the call to action on become-a-member.html. */
 const num = (i) => String(i + 1).padStart(2, "0");
 const sectionHead = (eyebrow, heading, intro) => lines(
   `<div class="section-head reveal">`,
@@ -331,14 +361,15 @@ const sectionHead = (eyebrow, heading, intro) => lines(
   intro && `  <p>${esc(intro)}</p>`,
   `</div>`);
 
-export const aboutVision = (doc) => lines(
+/* Vision: centred heading, then one photo card per value (3 across, the rest centred
+   below), built like the homepage "Mercy for Many" cards (without a Read More link) */
+export const aboutVision = (c, doc) => lines(
   sectionHead(doc.visionEyebrow, doc.visionHeading, doc.visionIntro),
-  `<div class="values">`,
+  `<div class="vision-grid">`,
   (doc.values || []).map((v, i) => indent(lines(
-    `<article class="belief value reveal"${dStyle((i % 3) * 0.1)}>`,
-    `  <div class="belief__num">${num(i)}</div>`,
-    `  <h3>${esc(v.title)}</h3>`,
-    `  <p>${esc(v.text)}</p>`,
+    `<article class="card value-card reveal"${dStyle((i % 3) * 0.12)}>`,
+    `  <div class="card__media">${imgTag(c, v.photo, { alt: v.photo?.alt || "" })}</div>`,
+    `  <div class="card__body"><div class="value-card__num">${num(i)}</div><h3>${esc(v.title)}</h3><p>${esc(v.text)}</p></div>`,
     `</article>`))),
   `</div>`);
 
@@ -358,9 +389,10 @@ export const aboutPillars = (doc) => lines(
 
 export const aboutJourney = (doc) => lines(
   sectionHead(doc.journeyEyebrow, doc.journeyHeading, doc.journeyIntro),
-  `<ol class="journey">`,
+  // The list reveals as a whole; CSS then shows each stage and draws its line in turn (--i = position)
+  `<ol class="journey reveal">`,
   (doc.journeySteps || []).map((s, i) => indent(lines(
-    `<li class="journey__step reveal"${dStyle((i % 3) * 0.1)}>`,
+    `<li class="journey__step" style="--i:${i}">`,
     `  <span class="journey__num" aria-hidden="true">${num(i)}</span>`,
     `  <span class="journey__stage">${esc(s.label)}</span>`,
     `  <h3>${esc(s.title)}</h3>`,

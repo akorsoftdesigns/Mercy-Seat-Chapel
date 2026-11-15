@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <!-- Placeholder for a minister without a photo yet (brand Primary Blue on a soft tint) -->
+  <rect width="600" height="600" fill="#E9ECF4"/>
+  <circle cx="300" cy="235" r="105" fill="#1B3068" opacity=".22"/>
+  <path d="M90 600c0-128 94-215 210-215s210 87 210 215z" fill="#1B3068" opacity=".22"/>
+</svg>

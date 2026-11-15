@@ -241,16 +241,20 @@ async function main() {
   // ---- Events & announcements ----
   const events = byType("event").filter((e) => !e.archived);
   const live = (e) => e.kind === "oneoff" && (e.endDate || e.startDate) >= today;
+  // Regular gatherings marked "Show in slider" join it a few days before their next date,
+  // and stay until the end of that day; sorted with special events by date (the build runs every 30 minutes, so it moves on by itself)
+  const dueRecurring = events.filter((e) => e.kind === "recurring" && e.inSlider && !e.archived).map((e) => R.recurringAsSlide(e, today)).filter(Boolean);
   const slides = [
     ...byType("announcement").filter((a) => a.featured && (a.image?.asset || a.image?._sanityAsset) && (!a.publishDate || a.publishDate <= today) && (!a.expiryDate || a.expiryDate >= today))
       .sort((a, b) => (a.publishDate < b.publishDate ? 1 : -1))
       .map((a) => R.announcementAsSlide({ ...a, relatedEvent: byId[a.relatedEvent?._ref] })),
-    ...events.filter((e) => live(e) && e.featured !== false).sort((a, b) => (a.startDate < b.startDate ? -1 : 1))
+    ...[...events.filter((e) => live(e) && e.featured !== false), ...dueRecurring].sort((a, b) => (a.startDate < b.startDate ? -1 : 1))
   ];
   if (byType("event").length || byType("announcement").length) await writeWhole("assets/partials/upcoming-events.html", R.upcomingEventsPartial(c, slides));
   const regular = sorted(events.filter((e) => e.kind === "recurring" && e.listed !== false && e.recurrence?.frequency !== "yearly" && (!e.recurrence?.endsOn || e.recurrence.endsOn >= today)));
   const seasonal = sorted(events.filter((e) => e.kind === "recurring" && e.listed !== false && e.recurrence?.frequency === "yearly"));
   if (regular.length) await region("events.html", "events-regular", regular.map((e) => R.eventRow(c, e, today)).join("\n"));
+  if (regular.length) await region("plan-a-visit.html", "visit-gatherings", R.gatheringsSentence(regular));
   if (seasonal.length) await region("events.html", "events-seasonal", seasonal.map((e, i) => R.seasonalCard(c, e, i)).join("\n"));
 
   // ---- Homepage ----
@@ -274,13 +278,14 @@ async function main() {
     if (outs.length) await region("index.html", "outreach-cards", outs.map((o, i) => R.outreachHomeCard(c, o, i)).join("\n"));
   }
 
-  // ---- About page: Vision, Growth Pillars, Journey, membership CTA (under Our Beliefs) ----
+  // ---- "About page" content: Vision, Growth Pillars, Journey, membership CTA (on their own pages) ----
   const about = byId.aboutPage;
   if (about) {
-    if (about.values?.length) await region("about.html", "about-vision", R.aboutVision(about));
-    if (about.pillars?.length) await region("about.html", "about-pillars", R.aboutPillars(about));
-    if (about.journeySteps?.length) await region("about.html", "about-journey", R.aboutJourney(about));
-    if (about.ctaHeading) await region("about.html", "about-cta", R.aboutCta(c, about));
+    // Vision & pillars → Our Vision & Values page; journey & membership call to action → Become a Member page
+    if (about.values?.length) await region("our-vision-values.html", "about-vision", R.aboutVision(c, about));
+    if (about.pillars?.length) await region("our-vision-values.html", "about-pillars", R.aboutPillars(about));
+    if (about.journeySteps?.length) await region("become-a-member.html", "about-journey", R.aboutJourney(about));
+    if (about.ctaHeading) await region("become-a-member.html", "about-cta", R.aboutCta(c, about));
   }
 
   // ---- Ministries, departments, outreach, leaders, jobs ----

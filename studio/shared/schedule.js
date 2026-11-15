@@ -7,6 +7,8 @@ export const WEEKDAYS = ["sunday", "monday", "tuesday", "wednesday", "thursday",
 export const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const ORDINAL = { 1: "1st", 2: "2nd", 3: "3rd", 4: "4th", 5: "5th", "-1": "Last" };
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+// 1 → "1st", 2 → "2nd", 3 → "3rd", 11 → "11th", 21 → "21st"
+const dayOrdinal = (n) => { n = Number(n); const s = n % 100 >= 11 && n % 100 <= 13 ? "th" : ({ 1: "st", 2: "nd", 3: "rd" }[n % 10] || "th"); return n + s; };
 
 /** Today's date in the church's time zone, as "YYYY-MM-DD". */
 export function todayInChurchTz(now = new Date()) {
@@ -57,7 +59,9 @@ export function scheduleLabel(r = {}) {
   const day = r.weekday ? cap(r.weekday) : "";
   switch (r.frequency) {
     case "weekly": return day ? `Every ${day}` : "Weekly";
-    case "monthly": return day && r.weekOfMonth ? `${ORDINAL[r.weekOfMonth]} ${day} · Monthly` : "Monthly";
+    case "monthly":
+      if (r.dayOfMonth) return `${dayOrdinal(r.dayOfMonth)} of every month`;
+      return day && r.weekOfMonth ? `${ORDINAL[r.weekOfMonth]} ${day} · Monthly` : "Monthly";
     case "yearly": return r.month ? MONTHS[r.month - 1] : "Annual";
     default: return "Monthly";
   }
@@ -67,6 +71,7 @@ export function scheduleLabel(r = {}) {
 export function scheduleBadge(r = {}) {
   const short = r.weekday ? cap(r.weekday).slice(0, 3) : "";
   if (r.frequency === "weekly") return [short || "1×", "Weekly"];
+  if (r.frequency === "monthly" && r.dayOfMonth) return [dayOrdinal(r.dayOfMonth), "Monthly"];
   if (r.frequency === "monthly" && r.weekday && r.weekOfMonth) return [ORDINAL[r.weekOfMonth], short];
   if (r.frequency === "yearly") return [r.month ? MONTHS[r.month - 1].slice(0, 3) : "1×", "Yearly"];
   return ["1×", "Month"];
@@ -80,6 +85,7 @@ function matches(r, ymd) {
   const wd = WEEKDAYS[d.getUTCDay()];
   if (r.frequency === "weekly") return wd === r.weekday;
   if (r.frequency === "monthly") {
+    if (r.dayOfMonth) return d.getUTCDate() === Number(r.dayOfMonth); // a fixed date, e.g. the 1st
     if (wd !== r.weekday || !r.weekOfMonth) return false;
     const dom = d.getUTCDate();
     if (Number(r.weekOfMonth) === -1) return toDate(addDays(ymd, 7)).getUTCMonth() !== d.getUTCMonth();
@@ -103,6 +109,19 @@ export function occurrences(r, exceptions = [], from = todayInChurchTz(), days =
     else if (x.kind === "special") out.push({ date: x.date, exception: x });
   }
   return out.sort((a, b) => (a.date < b.date ? -1 : 1));
+}
+
+/** The next date a regular gathering actually takes place (skipping cancellations),
+    within `days`. The day of the gathering counts until 11:59 PM (church time).
+    Returns { date, time, endTime, note } or null. */
+export function nextOccurrence(e, from = todayInChurchTz(), days = 60) {
+  for (const o of occurrences(e.recurrence || {}, e.exceptions, from, days)) {
+    const x = o.exception;
+    if (x?.kind === "cancelled") continue;
+    const time = x?.time || e.startTime, endTime = x?.time ? x.endTime : e.endTime;
+    return { date: o.date, time, endTime, note: x?.note || "" };
+  }
+  return null;
 }
 
 /** "Sunday, Nov 9" */

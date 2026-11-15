@@ -20,10 +20,12 @@ If you don't see Publish, a publisher will review your draft.
 | Change today's livestream video | Site Settings → **Watch Live** → paste the YouTube link → Publish |
 | Add a special event (conference, fast, program) | Events & Programs → Special events → **+**. Add the dates, times, flyer and buttons. It shows in the slider until its end date. |
 | Cancel one week's Bible Study | Events & Programs → Regular gatherings → Bible Study → *When & where* → **Exceptions → Add** → date + "Cancelled" |
+| Show a regular gathering in the slider before each date | Events & Programs → Regular gatherings → open it → *Display* → tick **Show in "What's happening" slider before each date**, set **Days before** and add the **Flyer for the slider**. |
+| Set a gathering on a date each month (e.g. the 1st) | *When & where* → Repeats → **Every month, on a set day** → **On a fixed date** = 1 |
 | Post an announcement in the slider | Announcements → **+**. Add an image and tick "Show in What's happening". |
 | Add a sermon to “More messages” | Sermons → **+**. Paste the YouTube link; the thumbnail is automatic. |
 | Change a hero slide | Homepage → Hero slides. Drag to reorder, or untick "Show this slide" to hide one. |
-| Edit the Vision, Growth Pillars, membership Journey or "Become a Member" box on the About page | About page → choose the tab (Our Vision, Growth Pillars, Your Journey, Membership call to action). Drag items to reorder; the numbers (01, 02…) follow the order. Put \*stars\* around a word in a heading to show it in coral. |
+| Edit the Vision, Growth Pillars, membership Journey or "Become a Member" box on the About page | About page → choose the tab (Our Vision, Growth Pillars, Your Journey, Membership call to action). Drag items to reorder; the numbers (01, 02…) follow the order. Put \*stars\* around a word in a heading to show it in coral. Each Vision value has its own **Photo** (landscape, 4:3) shown at the top of its card. |
 | Update the phone number, address or service times | Site Settings (if it's locked, ask an administrator) |
 | Open or close a job | Job Center → the job → Status |
 
