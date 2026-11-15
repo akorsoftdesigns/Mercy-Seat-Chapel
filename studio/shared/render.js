@@ -256,7 +256,7 @@ export const gatheringsSentence = (events) => {
 };
 
 /** Events page calendar badge: the next date the gathering takes place, e.g. "Next Sun / 22 / Nov 2026"
-    ("Today" on the day itself; cancelled dates are skipped). The site rebuilds every 30 minutes, so it
+    ("Today" on the day itself; cancelled dates are skipped). The site rebuilds every 5 minutes, so it
     moves on after 11:59 PM. Gatherings with no fixed day keep the dashboard badge or "1× / Month". */
 function dateBadge(e, today) {
   const next = today && nextOccurrence(e, today, 70);
