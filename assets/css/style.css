@@ -1060,7 +1060,14 @@ html:not(.no-js) .place__tabs.reveal:not(.is-in) .place__tab { opacity: 0; }
 .leadership-intro { max-width: 760px; margin: 40px auto 0; text-align: center; font-size: 18px; }
 .leadership-intro + .btn-row--center { margin-top: 28px; }
 @media (max-width: 767px) { .leadership-intro { margin-top: 28px; font-size: 17px; } }
-@media (max-width: 767px) { .ministers, .ministers.ministers--pair { --cols: 2; --gap: 16px; row-gap: 28px; } .minister h3 { font-size: 16px; } .minister__role { font-size: 11px; letter-spacing: 1px; } }
+/* Phones: Ministers in Charge one per row (photo kept to a comfortable size, centred);
+   the About page's two Senior Pastors stay side by side */
+@media (max-width: 767px) {
+  .ministers { --cols: 1; row-gap: 40px; max-width: 340px; margin: 0 auto; }
+  .ministers.ministers--pair { --cols: 2; --gap: 16px; row-gap: 28px; max-width: none; }
+  .ministers--pair .minister h3 { font-size: 16px; }
+  .ministers--pair .minister__role { font-size: 11px; letter-spacing: 1px; }
+}
 .leader blockquote { margin: 0; font-size: 18px; color: var(--c-text); }
 .leader blockquote::before { content: "\201C"; display: block; font: 800 64px/0.6 var(--f-heading); color: var(--c-secondary); margin: 18px 0 6px; }
 @media (max-width: 800px) { .leader { grid-template-columns: 1fr; padding: 24px; gap: 24px; } .leader img { max-width: 360px; } }
