@@ -144,11 +144,21 @@ function slidePlaces(c, e) {
   ].filter(Boolean);
 }
 
+/** Slide date with the year, e.g. "Tuesday, November 17, 2026" or
+    "Mon, Oct 26 – Sun, Nov 8, 2026" (both years shown when a range crosses New Year). */
+const slideDay = (ymd, opts) => new Date(`${ymd}T12:00:00Z`).toLocaleDateString("en-US", { ...opts, timeZone: "UTC" });
+function slideDate(start, end) {
+  if (!start) return "";
+  if (!end || end === start) return slideDay(start, { weekday: "long", month: "long", day: "numeric", year: "numeric" });
+  const short = { weekday: "short", month: "short", day: "numeric" };
+  return `${slideDay(start, { ...short, ...(start.slice(0, 4) !== end.slice(0, 4) && { year: "numeric" }) })} – ${slideDay(end, { ...short, year: "numeric" })}`;
+}
+
 /** One slide of the "What's happening" slider. Every slide has the same layout:
-    eyebrow, title, theme, then date, time and place, then its button(s).
+    eyebrow, title, theme, then date (with year), time and place. No buttons.
     Only announcements keep their summary text, since that is their message. */
 export function eventSlide(c, e) {
-  const dateText = e.dateLabel || formatDateRange(e.startDate, e.endDate);
+  const dateText = e.dateLabel || slideDate(e.startDate, e.endDate);
   const meta = [
     dateText && `<span>${icon("calendar")}${esc(dateText)}</span>`,
     ...(e.timeLines || []).map((t) => `<span>${icon("clock")}${esc(t)}</span>`),
@@ -164,8 +174,8 @@ export function eventSlide(c, e) {
         `<h3>${esc(e.title)}</h3>`,
         e.theme && `<p class="special-program__theme"><span>Theme</span>${esc(e.theme)}</p>`,
         meta.length && lines(`<div class="special-program__meta">`, indent(meta.join("\n")), `</div>`),
-        e.isAnnouncement && e.summary && `<p class="special-program__people">${esc(e.summary)}</p>`,
-        buttonRow(c, e.buttons)
+        e.isAnnouncement && e.summary && `<p class="special-program__people">${esc(e.summary)}</p>`
+        // Buttons left off on purpose (user's choice, Nov 2026). To bring them back: buttonRow(c, e.buttons)
       )),
       `</div>`
     )),
@@ -201,7 +211,7 @@ export function upcomingEventsPartial(c, slides) {
 /** Announcements become slides of the same slider, so no new layout is needed. */
 export const announcementAsSlide = (a) => ({
   title: a.title, eyebrow: "Announcement", image: a.image, summary: a.summary, buttons: a.buttons, isAnnouncement: true,
-  dateLabel: a.relatedEvent ? (a.relatedEvent.dateLabel || formatDateRange(a.relatedEvent.startDate, a.relatedEvent.endDate)) : "",
+  dateLabel: a.relatedEvent ? (a.relatedEvent.dateLabel || slideDate(a.relatedEvent.startDate, a.relatedEvent.endDate)) : "",
   timeLines: a.relatedEvent?.timeLines || [], location: a.relatedEvent?.location
 });
 
@@ -214,7 +224,8 @@ export function recurringAsSlide(e, today) {
   const time = e.timeNote || formatTimeRange(next.time, next.endTime);
   return {
     ...e, image: hasImage(e.sliderImage) ? e.sliderImage : e.image,
-    eyebrow: e.eyebrow || [e.dayLabel || scheduleLabel(e.recurrence), e.category].filter(Boolean).join(" · "),
+    // The slide is about one date this week, so "Every Tuesday" reads "This Tuesday"
+    eyebrow: e.eyebrow || [(e.dayLabel || scheduleLabel(e.recurrence)).replace(/^Every /, "This "), e.category].filter(Boolean).join(" · "),
     startDate: next.date, endDate: "", dateLabel: "",
     timeLines: [time, next.note].filter(Boolean)
   };
@@ -256,7 +267,7 @@ export const gatheringsSentence = (events) => {
 };
 
 /** Events page calendar badge: the next date the gathering takes place, e.g. "Next Sun / 22 / Nov 2026"
-    ("Today" on the day itself; cancelled dates are skipped). The site rebuilds every 5 minutes, so it
+    ("Today" on the day itself; cancelled dates are skipped). The site rebuilds every 30 minutes, so it
     moves on after 11:59 PM. Gatherings with no fixed day keep the dashboard badge or "1× / Month". */
 function dateBadge(e, today) {
   const next = today && nextOccurrence(e, today, 70);

@@ -75,7 +75,7 @@ In the repository on GitHub:
 2. **Settings → Actions → General → Workflow permissions:** choose **Read and write permissions**, so the Action can save updated pages.
 3. Test it: **Actions → Update website from dashboard → Run workflow.** It should finish green and commit "Website update from the content dashboard" if anything changed.
 
-Without the next step, updates still arrive within about 5 minutes through the scheduled run.
+Without the next step, updates still arrive within 30 minutes through the scheduled run.
 
 ### Instant updates on publish (recommended, you)
 
@@ -121,7 +121,7 @@ The Watch Live player can find the live stream by itself, using a YouTube Data A
 2. In **Google Cloud Console → APIs & Services → Credentials**, open the key and set:
    - **API restrictions:** "Restrict key" → only **YouTube Data API v3**.
    - **Application restrictions:** leave as *None*. The calls come from GitHub's servers, whose addresses change, so website and IP restrictions would block them.
-3. Optional: in **APIs & Services → YouTube Data API v3 → Quotas**, keep the default 10,000 units a day. The website uses 3 units per check, about 864 a day.
+3. Optional: in **APIs & Services → YouTube Data API v3 → Quotas**, keep the default 10,000 units a day. The website uses 3 units per check, about 300 a day.
 
 **How the player chooses** (each run of *Update website from dashboard*):
 1. a stream that is live right now;
@@ -131,7 +131,7 @@ The Watch Live player can find the live stream by itself, using a YouTube Data A
 
 Clear the dashboard's livestream link if you want the player to show the latest replay automatically between services. A link left there pins that video until a new stream goes live.
 
-**How often:** every 5 minutes, all day, every day, so any program's stream appears within a few minutes. GitHub sometimes starts scheduled runs a few minutes late, and occasionally skips one when it's very busy. That's about 864 of the 10,000 daily quota units, and Actions minutes are free because the repository is public. A run that finds nothing new changes nothing, so there are no extra commits or uploads. The result is also saved to `assets/data/youtube-live.json` (video ID only), so the mobile app can use the same stream.
+**How often:** every 30 minutes, and every 5 minutes on Sundays 8 AM–3 PM and Tuesdays 6–11 PM Eastern. Streams at other times appear within 30 minutes. GitHub sometimes starts scheduled runs a few minutes late. Actions minutes are free because the repository is public, and a run that finds nothing new changes nothing. The result is also saved to `assets/data/youtube-live.json` (video ID only), so the mobile app can use the same stream.
 
 **If the key stops working** (deleted, quota used up), the log shows "YouTube live check failed" and the site falls back to the dashboard link. **To replace the key:** create a new one in Google Cloud, update the GitHub secret, then delete the old key.
 
@@ -182,7 +182,7 @@ Options:
 
 | Problem | What to check |
 |---|---|
-| Published but the website didn't change | GitHub → Actions: did *Update website from dashboard* run and pass? If no run started, check the webhook (Sanity → API → Webhooks → attempts log) and the token's expiry. The 5-minute scheduled run catches up anyway. |
+| Published but the website didn't change | GitHub → Actions: did *Update website from dashboard* run and pass? If no run started, check the webhook (Sanity → API → Webhooks → attempts log) and the token's expiry. The 30-minute run catches up anyway. |
 | Action failed at "Write published content" | Open the log. "SANITY_PROJECT_ID is not set" means step 5.1 is missing. The pages are left unchanged on any error. |
 | Action failed at "Save the updated pages" | Workflow permissions (step 5.2). |
 | SiteGround upload failed | Check the secrets, that the key was imported and authorized in SSH Keys Manager, and that the port is right. |

@@ -71,6 +71,6 @@ These can be moved into the dashboard later if needed.
 **Known limits:**
 - **Roles.** Sanity's free plan has only **Administrator** and **Viewer**. The dashboard hides Publish/Delete and locks Site Settings for anyone not on the lists in `studio/.env` (see the admin guide), but this is a guard against mistakes, not security. Real Editor/Contributor roles need Sanity Growth at **$15 per user per month**, which has not been turned on.
 - **History.** The free plan keeps draft change history for **3 days**. Published content is also kept in Git through `assets/data/content.json` on every publish, so older versions can be recovered from the repository history.
-- **Delay.** Updates appear about **1–3 minutes** after publishing, or within about 5 minutes if the webhook isn't set up. Browsers and SiteGround may cache pages for a few more minutes.
+- **Delay.** Updates appear about **1–3 minutes** after publishing, or within 30 minutes if the webhook isn't set up. Browsers and SiteGround may cache pages for a few more minutes.
 - **YouTube lists** depend on YouTube's public feed, which sometimes returns errors for hours. The lists then stay as they were and refresh on a later run.
 - **Job openings.** A new job needs its detail page and application form created by the web team first. The dashboard then lists it.
