@@ -207,6 +207,27 @@ export function recurringAsSlide(e, today) {
 }
 
 /** Events page: one row of "Regular gatherings". */
+/** Homepage <head>: schema.org "Church" details for search engines (name, address, phone,
+    email, social profiles), taken from Site Settings so they never disagree with the footer. */
+export function churchSchema(site, base = "https://www.mercyseatchapel.org") {
+  const m = String(site.address || "").match(/^(.+?),\s*([^,]+),\s*([A-Z]{2})\s+(\d{5})/); // "street, city, ST 12345"
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "Church",
+    name: "Mercy Seat Chapel",
+    url: base + "/",
+    logo: base + "/assets/images/mercy-seat-logo-blue.png",
+    image: base + "/assets/images/church-1705.jpg", // same picture as the homepage link preview
+    telephone: site.phoneHref ? site.phoneHref.replace(/^tel:/, "") : undefined,
+    email: site.email || undefined,
+    address: m ? { "@type": "PostalAddress", streetAddress: m[1], addressLocality: m[2], addressRegion: m[3], postalCode: m[4], addressCountry: "US" } : undefined,
+    hasMap: site.mapsUrl || undefined,
+    parentOrganization: { "@type": "Organization", name: "The Redeemed Christian Church of God", url: "https://rccg.org" },
+    sameAs: Object.values(site.social || {}).filter((u) => /^https?:/.test(u))
+  };
+  return `<script type="application/ld+json">\n${JSON.stringify(data, null, 2).replace(/</g, "\\u003c")}\n</script>`;
+}
+
 /** Plan a Visit FAQ: every regular gathering in one sentence, with when it happens in brackets, e.g.
     "Our regular gatherings include Sunday Service (every Sunday, 10:00 AM), …, and Morning Glory (1st of every month, 6:00 AM)." */
 const lowerFirst = (s) => s.charAt(0).toLowerCase() + s.slice(1);
@@ -277,7 +298,8 @@ export function heroParts(c, home) {
   }).join("\n");
   const texts = slides.map((s, i) => lines(
     `<div class="hero__text${i === 0 ? " is-active" : ""}">`,
-    `  <h1>${emphasis(s.heading)}</h1>`,
+    // One h1 per page: the first slide's headline; later slides use an h2 that looks the same
+    i === 0 ? `  <h1>${emphasis(s.heading)}</h1>` : `  <h2 class="hero__title">${emphasis(s.heading)}</h2>`,
     s.lead && `  <p class="hero__lead">${esc(s.lead)}</p>`,
     `</div>`)).join("\n");
   const thumbs = slides.map((s, i) => {

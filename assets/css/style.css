@@ -87,6 +87,7 @@ small, .small { font-size: 14px; }
   body { font-size: 16px; }
   h1 { letter-spacing: -1px; }
   h2 { letter-spacing: -.5px; }
+  .hero .hero__title { letter-spacing: -1px; } /* matches h1 */
 }
 
 .skip-link {
@@ -381,8 +382,9 @@ body.menu-open { overflow: hidden; }
   font: 700 13px/1.3 var(--f-heading); letter-spacing: 1px; text-transform: uppercase;
 }
 .hero__kicker .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--c-secondary); box-shadow: 0 0 0 4px rgba(255, 72, 94, .25); }
-.hero h1 { color: var(--c-white); font-size: var(--fs-h1); max-width: 900px; margin-bottom: 20px; }
-.hero h1 em, .page-hero h1 em { color: var(--c-white); }
+/* Only the first slide's headline is the page's h1; the others are h2s styled the same */
+.hero h1, .hero .hero__title { color: var(--c-white); font-size: var(--fs-h1); font-weight: 800; line-height: 1.12; letter-spacing: -1.5px; max-width: 900px; margin-bottom: 20px; }
+.hero h1 em, .hero .hero__title em, .page-hero h1 em { color: var(--c-white); }
 /* Per-slide headline + lead, stacked in one grid cell so the height stays steady */
 .hero__copy { display: grid; }
 .hero__text { grid-area: 1 / 1; opacity: 0; visibility: hidden; transform: translateY(12px); transition: opacity .7s var(--ease), transform .7s var(--ease), visibility .7s; }

@@ -237,6 +237,7 @@ async function main() {
 
   // ---- Shared details (SITE) ----
   if (site) await region("assets/js/main.js", "site-settings", siteJs(site));
+  if (site) await region("index.html", "church-schema", R.churchSchema(site));
 
   // ---- Events & announcements ----
   const events = byType("event").filter((e) => !e.archived);
