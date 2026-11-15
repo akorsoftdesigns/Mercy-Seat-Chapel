@@ -1148,21 +1148,21 @@ html:not(.no-js) .place__tabs.reveal:not(.is-in) .place__tab { opacity: 0; }
   .journey__step:nth-child(n)::before { display: block; top: 64px; bottom: -28px; left: 27px; right: auto; border-top: 0; border-left: 2px dashed var(--c-secondary-light); }
   .journey__step:last-child::before { display: none; }
   .journey.reveal .journey__step::before { transform: scaleY(0); transform-origin: center top; } /* the line draws downwards */
-  /* Phones: the dashed line is a string. Each number slides down it from the stage above and
-     settles with a small bounce, then its text fades in and the string draws on to the next one. */
-  .journey.reveal { --step: .9s; }
+  /* Phones: the dashed line is a string. Each number slides gently down it from the stage above
+     (slowing smoothly to a stop, no bounce), then its text fades in and the string draws on to the next one. */
+  .journey.reveal { --step: 1.1s; }
   .journey.reveal .journey__step { opacity: 1; transform: none; } /* the stage stays; its parts animate */
   .journey.reveal .journey__num {
     --drop: 110px; opacity: 0; transform: translateY(calc(-1 * var(--drop)));
-    transition: transform .6s cubic-bezier(.34, 1.4, .55, 1), opacity .2s linear;
+    transition: transform .9s cubic-bezier(.25, .1, .25, 1), opacity .35s linear;
     transition-delay: calc(var(--i, 0) * var(--step));
   }
   .journey.reveal .journey__step:first-child .journey__num { --drop: 48px; } /* no string above the first one */
   .journey.reveal .journey__step > :not(.journey__num) {
     opacity: 0; transform: translateY(10px); transition: opacity .45s var(--ease), transform .45s var(--ease);
-    transition-delay: calc(var(--i, 0) * var(--step) + .45s);
+    transition-delay: calc(var(--i, 0) * var(--step) + .6s);
   }
-  .journey.reveal .journey__step::before { transition-delay: calc(var(--i, 0) * var(--step) + .55s); }
+  .journey.reveal .journey__step::before { transition-delay: calc(var(--i, 0) * var(--step) + .75s); }
   .journey.reveal.is-in .journey__num, .journey.reveal.is-in .journey__step > :not(.journey__num) { opacity: 1; transform: none; }
   .no-js .journey.reveal .journey__num, .no-js .journey.reveal .journey__step > :not(.journey__num) { opacity: 1; transform: none; }
 }
