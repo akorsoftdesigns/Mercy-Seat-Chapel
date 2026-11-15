@@ -1122,7 +1122,7 @@
    "_createdAt": "2026-11-07T23:57:39Z",
    "_id": "event-holy-communion",
    "_type": "event",
-   "_updatedAt": "2026-11-07T23:59:39Z",
+   "_updatedAt": "2026-11-15T02:21:07Z",
    "archived": false,
    "buttons": [
     {
@@ -1163,6 +1163,7 @@
      "y": 0.5
     }
    },
+   "inSlider": true,
    "kind": "recurring",
    "listed": true,
    "liveNote": "Holy Communion service",
@@ -1173,9 +1174,63 @@
     "weekday": "tuesday"
    },
    "shortTitle": "Holy Communion",
+   "sliderDaysBefore": 7,
+   "sliderImage": {
+    "_type": "image",
+    "alt": "Flyer: Holy Communion, …and when I see the blood. 1st Tuesday of every month at 7:30 PM",
+    "asset": {
+     "_ref": "image-5e0c71720c29603b39ce06d5a3e6feecd88b396d-1080x1080-jpg",
+     "_type": "reference"
+    }
+   },
    "startTime": "7:30 PM",
    "summary": "Held on the first Tuesday of each month.",
+   "theme": "…and when I see the blood",
    "title": "Holy Communion Service"
+  },
+  {
+   "_createdAt": "2026-11-15T02:21:11Z",
+   "_id": "event-morning-glory",
+   "_type": "event",
+   "_updatedAt": "2026-11-15T02:21:33Z",
+   "archived": false,
+   "attendance": "online",
+   "buttons": [
+    {
+     "_key": "prayerreq",
+     "_type": "button",
+     "icon": "",
+     "label": "Prayer request",
+     "link": {
+      "newTab": false,
+      "page": "contact.html#prayer"
+     },
+     "style": "outline"
+    }
+   ],
+   "category": "Prayer",
+   "icon": "sparkles",
+   "inSlider": true,
+   "kind": "recurring",
+   "listed": true,
+   "order": 9,
+   "recurrence": {
+    "dayOfMonth": 1,
+    "frequency": "monthly"
+   },
+   "showPrayerLine": true,
+   "sliderDaysBefore": 7,
+   "sliderImage": {
+    "_type": "image",
+    "alt": "Flyer: Morning Glory. Join us to seek the mind and purpose of God for the month. Every 1st day of the month at 6:00 AM, prayer line 1 857 216 6700, code 860476",
+    "asset": {
+     "_ref": "image-de77ba89bad995cfbb9b5c2a1af17b6b9fd06ed6-1079x1083-jpg",
+     "_type": "reference"
+    }
+   },
+   "startTime": "6:00 AM",
+   "summary": "Join us to seek the mind and purpose of God for the month over your life. The Holy Spirit will give you speed and favour.",
+   "title": "Morning Glory"
   },
   {
    "_createdAt": "2026-11-07T23:57:39Z",
@@ -1527,7 +1582,7 @@
    "_createdAt": "2026-11-07T23:57:39Z",
    "_id": "event-thanksgiving-sunday",
    "_type": "event",
-   "_updatedAt": "2026-11-07T23:59:39Z",
+   "_updatedAt": "2026-11-15T02:21:09Z",
    "archived": false,
    "badge": {
     "bottom": "Sunday",
@@ -1565,6 +1620,7 @@
      "_type": "reference"
     }
    },
+   "inSlider": true,
    "kind": "recurring",
    "listed": true,
    "order": 5,
@@ -1572,6 +1628,15 @@
     "frequency": "monthly",
     "weekOfMonth": 1,
     "weekday": "sunday"
+   },
+   "sliderDaysBefore": 7,
+   "sliderImage": {
+    "_type": "image",
+    "alt": "Flyer: Thanksgiving Service, Sunday 10 AM, Church Auditorium, 17604 Washington Grove Ln., Gaithersburg MD 20877. Stream on Instagram, Facebook and YouTube @mercyseatchapel",
+    "asset": {
+     "_ref": "image-291226f4bab50e4a729bc1cbead68ecdccfdda84-1080x1080-jpg",
+     "_type": "reference"
+    }
    },
    "startTime": "10:00 AM",
    "summary": "On the first Sunday of each month we come together to give thanks.",
