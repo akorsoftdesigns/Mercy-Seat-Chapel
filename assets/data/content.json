@@ -858,7 +858,7 @@
    "_createdAt": "2026-11-07T23:57:39Z",
    "_id": "event-bible-study",
    "_type": "event",
-   "_updatedAt": "2026-11-15T00:20:51Z",
+   "_updatedAt": "2026-11-19T02:58:10Z",
    "archived": false,
    "attendance": "both",
    "buttons": [
@@ -915,7 +915,7 @@
     "frequency": "weekly",
     "weekday": "tuesday"
    },
-   "sliderDaysBefore": 7,
+   "sliderDaysBefore": 3,
    "sliderImage": {
     "_type": "image",
     "alt": "Flyer: A Lifestyle of Word, every Tuesday at 7:30 PM on Zoom, meeting ID 849 0400 2964, passcode 860476",
@@ -1437,7 +1437,7 @@
    "_createdAt": "2026-11-07T23:57:39Z",
    "_id": "event-strength-in-prayer",
    "_type": "event",
-   "_updatedAt": "2026-11-15T00:20:51Z",
+   "_updatedAt": "2026-11-19T02:58:11Z",
    "archived": false,
    "attendance": "online",
    "buttons": [
@@ -1481,7 +1481,7 @@
    },
    "shortTitle": "Strength in Prayer",
    "showPrayerLine": true,
-   "sliderDaysBefore": 7,
+   "sliderDaysBefore": 3,
    "sliderImage": {
     "_type": "image",
     "alt": "Flyer: Strength in Prayer, every Wednesday at 9:00 PM, prayer line 1 857 216 6700, code 860476",
