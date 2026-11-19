@@ -29,7 +29,7 @@
   <div data-site-header></div>
 
   <main id="main">
-    <section class="page-hero" style="padding-bottom:160px">
+    <section class="page-hero">
       <div class="page-hero__bg" style="background-image:url('assets/images/hero-5.jpg')"></div>
       <div class="container">
         <ol class="crumbs"><li><a href="index.html">Home</a></li><li>Sermons</li><li>Watch Live</li></ol>
@@ -38,15 +38,17 @@
       </div>
     </section>
 
-    <section class="section" style="padding-top:0">
+    <section class="section">
       <div class="container">
-        <div class="reveal reveal--zoom" style="margin-top:-112px; position:relative">
-          <!-- data-live: plays the broadcast set in SITE.liveVideoId (assets/js/main.js). data-id is only the fallback thumbnail. -->
+        <div class="reveal reveal--zoom">
+          <!-- data-live: plays on this page the live stream, or if nothing is live, the most recent livestream
+               (picked automatically with the YouTube API; see SITE.liveVideoId in assets/js/main.js).
+               data-id is only the first thumbnail shown while the page loads. -->
           <div class="yt yt--rounded" data-live data-id="DEQygtr16JM" data-title="MSC Livestream" style="box-shadow:var(--shadow-md)"></div>
         </div>
         <!-- Opens the channel's current live stream on YouTube (link set in SITE.youtubeLiveUrl, assets/js/main.js) -->
         <div class="btn-row reveal" style="margin-top:20px"><a class="btn btn--outline" data-site="youtube-live" data-brand="youtube" href="#" target="_blank" rel="noopener">Watch on YouTube</a></div>
-        <div class="notice reveal" style="margin-top:20px"><i data-lucide="info"></i><p>Press play to join the current livestream. If we’re not live right now, catch the most recent services below or visit our <a data-site="youtube" href="#" target="_blank" rel="noopener">YouTube channel</a>.</p></div>
+        <div class="notice reveal" style="margin-top:20px"><i data-lucide="info"></i><p>Press play to join the current livestream. If we’re not live right now, the player shows our most recent livestream. More past services are below.</p></div>
       </div>
     </section>
 

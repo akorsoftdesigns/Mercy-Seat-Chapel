@@ -140,21 +140,45 @@ async function youtubeLive(channel, key) {
   const lists = await Promise.all(["UU", "UULV"].map((p) =>
     api("playlistItems", { part: "contentDetails", playlistId: p + channel.slice(2), maxResults: "5" })));
   const ids = [...new Set(lists.flatMap((l) => (l.items || []).map((i) => i.contentDetails?.videoId)).filter(Boolean))];
-  if (!ids.length) return { live: "", upcoming: "", latest: "" };
+  if (!ids.length) return { live: "", latest: "" };
   const { items = [] } = await api("videos", { part: "snippet,liveStreamingDetails", id: ids.join(",") });
-  const soon = Date.now() + 2 * 3600e3; // a scheduled stream counts from 2 hours before it starts
-  const upcoming = items.filter((v) => v.snippet?.liveBroadcastContent === "upcoming" && Date.parse(v.liveStreamingDetails?.scheduledStartTime) <= soon)
-    .sort((a, b) => Date.parse(a.liveStreamingDetails.scheduledStartTime) - Date.parse(b.liveStreamingDetails.scheduledStartTime))[0];
+  // The most recent livestream that has finished (scheduled, not-yet-started streams are ignored)
   const latest = items.filter((v) => v.liveStreamingDetails?.actualEndTime)
     .sort((a, b) => Date.parse(b.liveStreamingDetails.actualEndTime) - Date.parse(a.liveStreamingDetails.actualEndTime))[0];
   return {
     live: items.find((v) => v.snippet?.liveBroadcastContent === "live")?.id || "",
-    upcoming: upcoming?.id || "",
     latest: latest?.id || ""
   };
 }
 
-/* ---------- 3b. YouTube lists (replaces the old /youtube-feed server route) ---------- */
+/* ---------- 3b. A channel's livestreams (its YouTube "Live" tab), newest first ----------
+   With the YouTube API key (GitHub secret): up to 25, dated by when each stream started,
+   scheduled streams that haven't started left out (2 quota units). Without the key, or if
+   the API fails: YouTube's public feed (15 newest). Only video IDs, titles and dates are saved. */
+const churchDay = (iso) => new Intl.DateTimeFormat("en-CA", { timeZone: TIME_ZONE, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(iso));
+async function channelStreams(channel, key) {
+  if (key) {
+    try {
+      const api = async (endpoint, params) => {
+        const res = await fetch(`https://www.googleapis.com/youtube/v3/${endpoint}?${new URLSearchParams({ ...params, key })}`).catch(() => null);
+        if (!res?.ok) throw new Error(`YouTube API ${endpoint} answered ${res ? res.status : "nothing"}`); // (message never includes the key)
+        return res.json();
+      };
+      const list = await api("playlistItems", { part: "contentDetails", playlistId: "UULV" + channel.slice(2), maxResults: "25" });
+      const ids = (list.items || []).map((i) => i.contentDetails?.videoId).filter(Boolean);
+      if (!ids.length) return [];
+      const { items = [] } = await api("videos", { part: "snippet,liveStreamingDetails", id: ids.join(",") });
+      return items.filter((v) => v.snippet?.liveBroadcastContent !== "upcoming")
+        .map((v) => { const published = v.liveStreamingDetails?.actualStartTime || v.snippet.publishedAt; return { id: v.id, title: v.snippet.title, published, date: churchDay(published) }; })
+        .sort((a, b) => (a.published < b.published ? 1 : -1));
+    } catch (e) {
+      console.warn("[cms] YouTube API unavailable for channel streams, using the public feed:", e.message);
+    }
+  }
+  return youtubeFeed(channel, true);
+}
+
+/* ---------- 3c. YouTube lists (replaces the old /youtube-feed server route) ---------- */
 const xmlText = (s) => s.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
 async function youtubeFeed(channel, streams) {
   const q = streams ? "playlist_id=UULV" + channel.slice(2) : "channel_id=" + channel;
@@ -267,15 +291,15 @@ async function main() {
   };
 
   // ---- Live stream for the Watch Live player ----
-  // Order: what's live right now → a stream starting within 2 hours → the dashboard's
-  // "Current livestream link" → the most recent finished stream.
+  // Order: what's live right now → the most recent finished livestream. The dashboard's
+  // "Current livestream link" is only a fallback when YouTube finds neither (or the API fails).
   const ytKey = process.env.YOUTUBE_API_KEY;
   const ytChannel = site?.youtubeChannelId || (await file("assets/js/main.js")).match(/youtubeChannelId:\s*"(UC[\w-]{22})"/)?.[1];
   if (site && ytKey && ytChannel && !flag("--no-youtube")) {
     try {
       const yt = await youtubeLive(ytChannel, ytKey);
-      const chosen = yt.live || yt.upcoming || site.liveVideoId || yt.latest;
-      const status = yt.live ? "live" : yt.upcoming ? "upcoming" : site.liveVideoId ? "dashboard" : "latest";
+      const chosen = yt.live || yt.latest || site.liveVideoId;
+      const status = yt.live ? "live" : yt.latest ? "latest" : site.liveVideoId ? "dashboard" : "none";
       site.liveVideoId = chosen || "";
       // Public status file (no key in it): lets the mobile app show the same stream
       await writeWhole("assets/data/youtube-live.json", JSON.stringify({ liveVideoId: site.liveVideoId, status }, null, 1) + "\n");
@@ -358,9 +382,10 @@ async function main() {
   }
 
   // ---- Sermons ----
-  const sermons = byType("sermon").filter((s) => !s.archived && s.featured !== false && youtubeId(s.youtube))
-    .sort((a, b) => (a.order ?? 999) - (b.order ?? 999) || String(b.date || "").localeCompare(String(a.date || "")));
-  if (sermons.length) await region("sermons.html", "sermons-more", sermons.map((s, i) => R.sermonCard(c, s, i)).join("\n"));
+  // The Sermons page "Teaching series" now comes from the MSC Sermons YouTube channel (below),
+  // so the dashboard's Sermons no longer fill a page section (the mobile app still lists them).
+  // To bring the dashboard list back: put <!-- cms:sermons-more --> markers in sermons.html and
+  // restore: region("sermons.html", "sermons-more", sermons.map((s, i) => R.sermonCard(c, s, i)).join("\n"))
 
   // ---- YouTube lists ----
   const channel = site?.youtubeChannelId || (await file("assets/js/main.js")).match(/youtubeChannelId:\s*"(UC[\w-]{22})"/)?.[1];
@@ -371,13 +396,27 @@ async function main() {
       await writeWhole("assets/data/youtube-uploads.json", JSON.stringify(uploads, null, 1) + "\n");
       await writeWhole("assets/data/youtube-streams.json", JSON.stringify(streams, null, 1) + "\n");
       if (streams.length) await region("index.html", "latest-messages", R.messagesHtml(streams.slice(0, 5), name));
-      if (uploads.length) await region("sermons.html", "recent-services", uploads.slice(0, 4).map((v, i) => R.videoListItem(v, i + 1, name)).join("\n"));
+      // Sermons page: one big player with the newest video (the list beside it was removed, Nov 2026)
+      if (uploads.length) await region("sermons.html", "sermon-feature", R.sermonFeature(uploads[0], name));
       const liveId = site?.liveVideoId;
       const replays = streams.filter((v) => v.id !== liveId).slice(0, 4);
       if (replays.length) await region("live.html", "recent-livestreams", replays.map(R.streamCard).join("\n"));
       log(`YouTube: ${uploads.length} uploads, ${streams.length} live streams`);
     } catch (e) {
       console.warn("[cms] YouTube feed unavailable, video lists left as they were:", e.message);
+    }
+  }
+
+  // ---- Sermons page "Teaching series": livestreams of the MSC Sermons channel, newest first ----
+  const sermonsChannel = (await file("assets/js/main.js")).match(/sermonsChannelId:\s*"(UC[\w-]{22})"/)?.[1];
+  if (!flag("--no-youtube") && sermonsChannel) {
+    try {
+      const talks = await channelStreams(sermonsChannel, process.env.YOUTUBE_API_KEY);
+      await writeWhole("assets/data/youtube-sermons.json", JSON.stringify(talks, null, 1) + "\n");
+      if (talks.length) await region("sermons.html", "teaching-series", talks.slice(0, 12).map((v, i) => R.teachingCard(v, i, "MSC Sermons")).join("\n"));
+      log(`YouTube: ${talks.length} MSC Sermons livestreams`);
+    } catch (e) {
+      console.warn("[cms] MSC Sermons channel unavailable, Teaching series left as it was:", e.message);
     }
   }
 

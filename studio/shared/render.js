@@ -538,3 +538,14 @@ export function messagesHtml(videos, name) {
 /** Watch Live page "Recent livestreams" card. */
 export const streamCard = (v, i) =>
   `<article class="card reveal"${dStyle(i * 0.08)}><div class="yt" data-id="${v.id}" data-title="${attr(v.title)}"></div><div class="card__body"><h3 style="font-size:18px">${esc(v.title)}</h3><p>${longDate(v.date)}</p></div></article>`;
+
+/** Sermons page main player: the newest video from the church channel, with its title and date
+    underneath. Teaching-series thumbnails play in this same player (main.js playInPlayer). */
+export const sermonFeature = (v, name) => lines(
+  `<div class="yt" data-id="${v.id}" data-title="${attr(v.title)}"></div>`,
+  `<div class="video-feature__body"><h3>${esc(v.title)}</h3><p>${esc(`${name} · ${longDate(v.date)}`)}</p></div>`);
+
+/** Sermons page "Teaching series" card: a livestream from the MSC Sermons channel.
+    data-meta is the line shown under the main player when the card is played there. */
+export const teachingCard = (v, i, name) =>
+  `<article class="card reveal"${dStyle((i % 3) * 0.08)}><div class="yt" data-id="${v.id}" data-title="${attr(v.title)}" data-meta="${attr(`${name} · ${longDate(v.date)}`)}"></div><div class="card__body"><h3 style="font-size:18px">${esc(v.title)}</h3><p>${longDate(v.date)}</p></div></article>`;

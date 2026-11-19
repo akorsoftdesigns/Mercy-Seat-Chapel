@@ -41,24 +41,17 @@
     <section class="section">
       <div class="container">
         <div class="section-head section-head--split reveal">
-          <div><span class="eyebrow">Featured</span><h2>Recent services</h2></div>
+          <div><span class="eyebrow">Featured</span><h2>Latest message</h2></div>
           <a class="btn btn--outline" data-site="youtube" href="#" target="_blank" rel="noopener">Subscribe on YouTube <i data-lucide="arrow-up-right"></i></a>
         </div>
-        <!-- data-youtube-feed="5": the list is replaced with the channel's 5 newest uploads (newest first, pulled live from SITE.youtubeChannelId) and the newest is featured. 5 items fill the player's height exactly (video-list--fit), so there is no scrollbar. The markup below is only the fallback shown if the feed can't be reached. -->
-        <div class="messages reveal" data-playlist data-youtube-feed="5">
-          <div class="video-feature">
-            <div class="yt" data-uploads></div>
-            <div class="video-feature__body"><h3>Latest from our channel</h3><p>Newest service first · updates automatically</p></div>
-          </div>
-          <div class="video-list video-list--fit" aria-label="Recent services">
-            <button class="video-list__item is-active" data-uploads data-title="Latest from our channel" data-meta="Newest service first · updates automatically"><span class="video-list__thumb"><i data-lucide="radio"></i></span><span><strong>Latest from our channel</strong><span>Updates automatically</span></span></button>
-            <!-- cms:recent-services -->
-            <button class="video-list__item" data-id="O4nz-oL55B4" data-title="MSC Livestream" data-meta="Mercy Seat Chapel · November 16, 2026"><img src="https://i.ytimg.com/vi/O4nz-oL55B4/mqdefault.jpg" alt="" loading="lazy"><span><strong>MSC Livestream</strong><span>November 16, 2026</span></span></button>
-            <button class="video-list__item" data-id="gT1gh1X0wDc" data-title="The Seed and The Future | POM | November 2026" data-meta="Mercy Seat Chapel · November 15, 2026"><img src="https://i.ytimg.com/vi/gT1gh1X0wDc/mqdefault.jpg" alt="" loading="lazy"><span><strong>The Seed and The Future | POM | November 2026</strong><span>November 15, 2026</span></span></button>
-            <button class="video-list__item" data-id="j7aDDUrdEIU" data-title="MSC Livestream" data-meta="Mercy Seat Chapel · November 9, 2026"><img src="https://i.ytimg.com/vi/j7aDDUrdEIU/mqdefault.jpg" alt="" loading="lazy"><span><strong>MSC Livestream</strong><span>November 9, 2026</span></span></button>
-            <button class="video-list__item" data-id="fp6VGnafzz8" data-title="MSC Livestream" data-meta="Mercy Seat Chapel · November 8, 2026"><img src="https://i.ytimg.com/vi/fp6VGnafzz8/mqdefault.jpg" alt="" loading="lazy"><span><strong>MSC Livestream</strong><span>November 8, 2026</span></span></button>
-            <!-- /cms:recent-services -->
-          </div>
+        <!-- Main player: the church channel's newest video, played on this page. Any Teaching series
+             thumbnail below also plays here (data-plays-in="#sermon-player"). The section between the
+             cms markers is refreshed automatically by the website update (scripts/cms-build.mjs). -->
+        <div class="video-feature reveal" id="sermon-player">
+          <!-- cms:sermon-feature -->
+          <div class="yt" data-id="O4nz-oL55B4" data-title="MSC Livestream"></div>
+          <div class="video-feature__body"><h3>MSC Livestream</h3><p>Mercy Seat Chapel · November 16, 2026</p></div>
+          <!-- /cms:sermon-feature -->
         </div>
       </div>
     </section>
@@ -69,18 +62,26 @@
           <span class="eyebrow">Teaching series</span>
           <h2>More messages</h2>
         </div>
-        <!-- Managed in the dashboard (Sermons marked “Show in More messages”) -->
-        <div class="grid grid--3">
-          <!-- cms:sermons-more -->
-          <article class="card reveal"><div class="yt" data-id="px9hMO3-Yw0" data-title="DAY 6 - Positioned To Win | Pst. Adeyinka ARE"></div><div class="card__body"><div class="card__tag">Day 6</div><h3>Positioned To Win</h3><p>Pst. Adeyinka Are · August 2026</p></div></article>
-          <article class="card reveal" style="--d:.08s"><div class="yt" data-id="r5SShtgKHO0" data-title="DAY 4 - Conquering The Storm | PRAYER NIGHT"></div><div class="card__body"><div class="card__tag">Prayer Night</div><h3>Conquering The Storm</h3><p>Day 4 · August 2026</p></div></article>
-          <article class="card reveal" style="--d:.16s"><div class="yt" data-id="im8mYJoBWV8" data-title="DAY 4 - My Seed are Overcomers | Pst. Olu OLARINDE"></div><div class="card__body"><div class="card__tag">Day 4</div><h3>My Seed are Overcomers</h3><p>Pst. Olu Olarinde · August 2026</p></div></article>
-          <article class="card reveal"><div class="yt" data-id="NBZF-eCAVAY" data-title="Build For God, Build Your Dynasty | SHP 2023 | Pst. Ola Olarinde"></div><div class="card__body"><div class="card__tag">SHP 2023</div><h3>Build For God, Build Your Dynasty</h3><p>Pst. Ola Olarinde</p></div></article>
-          <article class="card reveal" style="--d:.08s"><div class="yt" data-id="FSbnlBd7BG0" data-title="Commissioned To Build | SHP 2023 | Rev. Kathy Kiuna"></div><div class="card__body"><div class="card__tag">SHP 2023</div><h3>Commissioned To Build</h3><p>Rev. Kathy Kiuna · September 7, 2023</p></div></article>
-          <article class="card reveal" style="--d:.16s"><div class="yt" data-id="plkOw2d5O80" data-title="Commissioned To Build | SHP 2023 | Rev. Dillimono Frama"></div><div class="card__body"><div class="card__tag">SHP 2023</div><h3>Commissioned To Build</h3><p>Rev. Dillimono Frama · September 7, 2023</p></div></article>
-          <!-- /cms:sermons-more -->
+        <!-- The newest livestreams from the MSC Sermons YouTube channel (SITE.sermonsChannelId in
+             assets/js/main.js), most recent first, refreshed automatically by the website update.
+             Clicking a thumbnail plays it in the main player above, on this page. -->
+        <div class="grid grid--3" data-plays-in="#sermon-player">
+          <!-- cms:teaching-series -->
+          <article class="card reveal"><div class="yt" data-id="uQ2uhMA93lY" data-title="MSC Livestream" data-meta="MSC Sermons · November 15, 2026"></div><div class="card__body"><h3 style="font-size:18px">MSC Livestream</h3><p>November 15, 2026</p></div></article>
+          <article class="card reveal" style="--d:.08s"><div class="yt" data-id="kzpJ39sHflY" data-title="MSC Livestream" data-meta="MSC Sermons · September 20, 2026"></div><div class="card__body"><h3 style="font-size:18px">MSC Livestream</h3><p>September 20, 2026</p></div></article>
+          <article class="card reveal" style="--d:.16s"><div class="yt" data-id="sifzz05CHPE" data-title="MSC Livestream" data-meta="MSC Sermons · September 7, 2026"></div><div class="card__body"><h3 style="font-size:18px">MSC Livestream</h3><p>September 7, 2026</p></div></article>
+          <article class="card reveal"><div class="yt" data-id="DpTtALnSmMg" data-title="MSC Livestream" data-meta="MSC Sermons · July 19, 2026"></div><div class="card__body"><h3 style="font-size:18px">MSC Livestream</h3><p>July 19, 2026</p></div></article>
+          <article class="card reveal" style="--d:.08s"><div class="yt" data-id="J5Qfyt1tgXo" data-title="MSC Livestream" data-meta="MSC Sermons · June 14, 2026"></div><div class="card__body"><h3 style="font-size:18px">MSC Livestream</h3><p>June 14, 2026</p></div></article>
+          <article class="card reveal" style="--d:.16s"><div class="yt" data-id="Ofi_zbjJO5w" data-title="MSC Livestream" data-meta="MSC Sermons · June 7, 2026"></div><div class="card__body"><h3 style="font-size:18px">MSC Livestream</h3><p>June 7, 2026</p></div></article>
+          <article class="card reveal"><div class="yt" data-id="bUPamce3FUA" data-title="MSC Livestream" data-meta="MSC Sermons · May 31, 2026"></div><div class="card__body"><h3 style="font-size:18px">MSC Livestream</h3><p>May 31, 2026</p></div></article>
+          <article class="card reveal" style="--d:.08s"><div class="yt" data-id="zMMGEk5e7GE" data-title="MSC Livestream" data-meta="MSC Sermons · May 24, 2026"></div><div class="card__body"><h3 style="font-size:18px">MSC Livestream</h3><p>May 24, 2026</p></div></article>
+          <article class="card reveal" style="--d:.16s"><div class="yt" data-id="LHNpQAo0N6E" data-title="MSC Livestream" data-meta="MSC Sermons · March 16, 2026"></div><div class="card__body"><h3 style="font-size:18px">MSC Livestream</h3><p>March 16, 2026</p></div></article>
+          <article class="card reveal"><div class="yt" data-id="VndbvBViIOM" data-title="MSC Livestream" data-meta="MSC Sermons · February 2, 2026"></div><div class="card__body"><h3 style="font-size:18px">MSC Livestream</h3><p>February 2, 2026</p></div></article>
+          <article class="card reveal" style="--d:.08s"><div class="yt" data-id="JUgSCraNMHc" data-title="MSC Livestream" data-meta="MSC Sermons · January 5, 2026"></div><div class="card__body"><h3 style="font-size:18px">MSC Livestream</h3><p>January 5, 2026</p></div></article>
+          <article class="card reveal" style="--d:.16s"><div class="yt" data-id="s-FvXsOzuaI" data-title="MSC Livestream" data-meta="MSC Sermons · October 26, 2025"></div><div class="card__body"><h3 style="font-size:18px">MSC Livestream</h3><p>October 26, 2025</p></div></article>
+          <!-- /cms:teaching-series -->
         </div>
-        <div class="text-center" style="margin-top:40px"><a class="btn btn--secondary" data-site="youtube" href="#" target="_blank" rel="noopener">See all messages on YouTube <i data-lucide="arrow-up-right"></i></a></div>
+        <div class="text-center" style="margin-top:40px"><a class="btn btn--secondary" data-site="sermons-channel" href="#" target="_blank" rel="noopener">See all sermons on YouTube <i data-lucide="arrow-up-right"></i></a></div>
       </div>
     </section>
 

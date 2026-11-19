@@ -125,11 +125,9 @@ The Watch Live player can find the live stream by itself, using a YouTube Data A
 
 **How the player chooses** (each run of *Update website from dashboard*):
 1. a stream that is live right now;
-2. else a stream scheduled to start within 2 hours (YouTube shows its waiting screen);
-3. else the dashboard's **Site Settings → Current livestream link**, if filled in;
-4. else the most recent finished stream.
+2. else the most recent finished livestream.
 
-Clear the dashboard's livestream link if you want the player to show the latest replay automatically between services. A link left there pins that video until a new stream goes live.
+The dashboard's **Site Settings → Current livestream link** is only a fallback, used when YouTube can't be asked (no key, or the API fails). The Watch Live page plays the chosen video on the page itself. It also re-reads `assets/data/youtube-live.json` when the page opens, in case the visitor's browser cached the page. Only the **Watch on YouTube** button sends people to YouTube.
 
 **How often:** every 30 minutes, and every 5 minutes on Sundays 8 AM–3 PM and Tuesdays 6–11 PM Eastern. Streams at other times appear within 30 minutes. GitHub sometimes starts scheduled runs a few minutes late. Actions minutes are free because the repository is public, and a run that finds nothing new changes nothing. The result is also saved to `assets/data/youtube-live.json` (video ID only), so the mobile app can use the same stream.
 

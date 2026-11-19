@@ -809,6 +809,13 @@ html:not(.no-js) .place__tabs.reveal:not(.is-in) .place__tab { opacity: 0; }
 .yt:hover .yt__play { transform: scale(1.06); box-shadow: 0 0 0 16px rgba(255, 72, 94, .18); }
 .yt iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 .yt--rounded { border-radius: var(--r-card); }
+/* Card whose video is playing in the page's main player (Sermons "Teaching series"):
+   coral outline plus a "Now playing" label, so it doesn't rely on colour alone */
+.card.is-playing { box-shadow: 0 0 0 3px var(--c-secondary), var(--shadow-md); }
+.card.is-playing .yt::after {
+  content: "Now playing"; position: absolute; left: 12px; top: 12px; padding: 4px 10px; border-radius: 999px;
+  background: var(--c-secondary); color: var(--c-white); font: 700 12px/1.4 var(--f-heading); letter-spacing: .04em;
+}
 
 /* ---------- Cards ---------- */
 .grid { display: grid; gap: 24px; }
