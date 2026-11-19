@@ -183,10 +183,9 @@ function renderFooter() {
             <li><a href="about.html">About</a></li>
             <li><a href="ministries.html">Ministries</a></li>
             <li><a href="departments.html">Departments</a></li>
-            <li><a href="sermons.html">Latest Messages</a></li>
-            <li><a href="live.html">Livestream</a></li>
-            <li><a href="events.html">Events</a></li>
-            <li><a href="job-center.html">MSC Job Center</a></li>
+            <li><a href="leadership.html">Leadership</a></li>
+            <li><a href="events.html">Events &amp; Programs</a></li>
+            <li><a href="https://workers.mercyseatchapel.org" target="_blank" rel="noopener">MSC Workers</a></li>
           </ul>
         </div>
         <div>
