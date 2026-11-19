@@ -20,7 +20,7 @@ If you don't see Publish, a publisher will review your draft.
 | Change today's livestream video | Site Settings → **Watch Live** → paste the YouTube link → Publish |
 | Add a special event (conference, fast, program) | Events & Programs → Special events → **+**. Add the dates, times, flyer and buttons. It shows in the slider until its end date. |
 | Cancel one week's Bible Study | Events & Programs → Regular gatherings → Bible Study → *When & where* → **Exceptions → Add** → date + "Cancelled" |
-| Show a regular gathering in the slider before each date | Events & Programs → Regular gatherings → open it → *Display* → tick **Show in "What's happening" slider before each date**, set **Days before** and add the **Flyer for the slider**. |
+| Show a regular gathering in the slider before each date | Events & Programs → Regular gatherings → open it → *Display* → tick **Show in "What's happening" slider before each date**, set **Days before** (leave empty for the usual: 3 for weekly gatherings, 7 for monthly) and add the **Flyer for the slider**. |
 | Set a gathering on a date each month (e.g. the 1st) | *When & where* → Repeats → **Every month, on a set day** → **On a fixed date** = 1 |
 | Post an announcement in the slider | Announcements → **+**. Add an image and tick "Show in What's happening". |
 | Add a sermon to “More messages” | Sermons → **+**. Paste the YouTube link; the thumbnail is automatic. |

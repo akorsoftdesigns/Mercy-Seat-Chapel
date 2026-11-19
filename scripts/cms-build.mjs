@@ -291,12 +291,12 @@ async function main() {
 
   // ---- Events & announcements ----
   const events = byType("event").filter((e) => !e.archived);
-  const live = (e) => e.kind === "oneoff" && (e.endDate || e.startDate) >= today;
+  const live = (e) => R.specialEventDue(e, today);
   // Regular gatherings marked "Show in slider" join it a few days before their next date,
   // and stay until the end of that day; sorted with special events by date (the build runs every 30 minutes, so it moves on by itself)
   const dueRecurring = events.filter((e) => e.kind === "recurring" && e.inSlider && !e.archived).map((e) => R.recurringAsSlide(e, today)).filter(Boolean);
   const slides = [
-    ...byType("announcement").filter((a) => a.featured && (a.image?.asset || a.image?._sanityAsset) && (!a.publishDate || a.publishDate <= today) && (!a.expiryDate || a.expiryDate >= today))
+    ...byType("announcement").filter((a) => a.featured && (a.image?.asset || a.image?._sanityAsset) && R.announcementDue(a, byId[a.relatedEvent?._ref], today))
       .sort((a, b) => (a.publishDate < b.publishDate ? 1 : -1))
       .map((a) => R.announcementAsSlide({ ...a, relatedEvent: byId[a.relatedEvent?._ref] })),
     ...[...events.filter((e) => live(e) && e.featured !== false), ...dueRecurring].sort((a, b) => (a.startDate < b.startDate ? -1 : 1))

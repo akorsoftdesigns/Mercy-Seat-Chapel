@@ -10,7 +10,7 @@
      c.link(link)  → { href, newTab }
      c.site        → Site Settings */
 import { youtubeId, ytThumb, toSeconds } from "./youtube.js";
-import { scheduleLabel, scheduleBadge, formatTimeRange, formatDateRange, upcomingChanges, nextOccurrence } from "./schedule.js";
+import { scheduleLabel, scheduleBadge, formatTimeRange, formatDateRange, upcomingChanges, nextOccurrence, addDays } from "./schedule.js";
 
 export const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 export const attr = (s) => esc(s).replace(/"/g, "&quot;");
@@ -208,6 +208,17 @@ export function upcomingEventsPartial(c, slides) {
     `</div>`) + "\n";
 }
 
+/** Slider rules for things that aren't regular gatherings: shown from the day they're
+    published until 11:59 PM on their last day (the build runs every 30 minutes, so they
+    go after midnight). A special event's last day is its end date (or its date).
+    An announcement uses its expiry date; without one, the date of its related event. */
+export const specialEventDue = (e, today) => e.kind === "oneoff" && !!(e.endDate || e.startDate) && (e.endDate || e.startDate) >= today;
+export function announcementDue(a, relatedEvent, today) {
+  if (a.publishDate && a.publishDate > today) return false;
+  const lastDay = a.expiryDate || relatedEvent?.endDate || relatedEvent?.startDate;
+  return !lastDay || lastDay >= today;
+}
+
 /** Announcements become slides of the same slider, so no new layout is needed. */
 export const announcementAsSlide = (a) => ({
   title: a.title, eyebrow: "Announcement", image: a.image, summary: a.summary, buttons: a.buttons, isAnnouncement: true,
@@ -215,17 +226,29 @@ export const announcementAsSlide = (a) => ({
   timeLines: a.relatedEvent?.timeLines || [], location: a.relatedEvent?.location
 });
 
+/** How many days before its date a regular gathering joins the slider: the dashboard's
+    "Days before to show it", or by default 3 for weekly gatherings and 7 for the rest. */
+export const sliderLeadDays = (e) => e.sliderDaysBefore ?? (e.recurrence?.frequency === "weekly" ? 3 : 7);
+
+/** Sunday that starts the week of a date (church weeks run Sunday to Saturday). */
+const weekOf = (ymd) => addDays(ymd, -new Date(`${ymd}T00:00:00Z`).getUTCDay());
+
+/** "Every Tuesday" → "This Tuesday" when the date is in the current week (Sunday–Saturday),
+    "Next Tuesday" when it falls in the following week. */
+export const weekLabel = (label, date, today) =>
+  String(label || "").replace(/^Every /, weekOf(date) === weekOf(today) ? "This " : "Next ");
+
 /** A regular gathering as a slide for its next date (or null when it isn't due yet).
-    It appears `sliderDaysBefore` days ahead (default 7) and moves on to the following
-    date once it has ended, so the slider always shows what's coming next. */
+    It appears `sliderLeadDays` days ahead, stays until 11:59 PM on the day, then moves
+    on to the following date, so the slider always shows what's coming next. */
 export function recurringAsSlide(e, today) {
-  const next = nextOccurrence(e, today, e.sliderDaysBefore ?? 7);
+  const next = nextOccurrence(e, today, sliderLeadDays(e));
   if (!next) return null;
   const time = e.timeNote || formatTimeRange(next.time, next.endTime);
   return {
     ...e, image: hasImage(e.sliderImage) ? e.sliderImage : e.image,
-    // The slide is about one date this week, so "Every Tuesday" reads "This Tuesday"
-    eyebrow: e.eyebrow || [(e.dayLabel || scheduleLabel(e.recurrence)).replace(/^Every /, "This "), e.category].filter(Boolean).join(" · "),
+    // The slide is about one date, so "Every Tuesday" reads "This Tuesday" or "Next Tuesday"
+    eyebrow: e.eyebrow || [weekLabel(e.dayLabel || scheduleLabel(e.recurrence), next.date, today), e.category].filter(Boolean).join(" · "),
     startDate: next.date, endDate: "", dateLabel: "",
     timeLines: [time, next.note].filter(Boolean)
   };

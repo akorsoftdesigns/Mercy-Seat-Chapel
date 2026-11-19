@@ -42,6 +42,7 @@ export const announcement = defineType({
     imageField("image", "Image", { description: "Needed to show in the “What’s happening” slider." }),
     defineField({ name: "publishDate", title: "Show from", type: "date", validation: (R) => R.required(), initialValue: () => new Date().toISOString().slice(0, 10) }),
     defineField({ name: "expiryDate", title: "Remove after (optional)", type: "date",
+      description: "Shown until 11:59 PM on this day. Left empty, it goes after the related event's day (or stays until removed if there's no related event).",
       validation: (R) => R.custom((v, c) => v && c.document?.publishDate && v < c.document.publishDate ? "This is before the “Show from” date." : true) }),
     defineField({ name: "relatedEvent", title: "Related event (optional)", type: "reference", to: [{ type: "event" }] }),
     buttons(),

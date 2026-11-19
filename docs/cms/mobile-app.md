@@ -47,7 +47,7 @@ Latest sermons:
 Active announcements:
 
 ```groq
-*[_type == "announcement" && publishDate <= $today && (!defined(expiryDate) || expiryDate >= $today)] | order(publishDate desc)
+*[_type == "announcement" && publishDate <= $today && coalesce(expiryDate, relatedEvent->endDate, relatedEvent->startDate, $today) >= $today] | order(publishDate desc)
 ```
 
 ## Shared logic to reuse

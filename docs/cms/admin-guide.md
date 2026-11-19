@@ -36,7 +36,7 @@ SANITY_STUDIO_SETTINGS_EDITORS=office@example.org
 ## What updates when
 
 - Publishing triggers a website update. Changes are visible in about 1–3 minutes, or within 30 minutes without the webhook.
-- Special events leave the slider automatically after their end date. Announcements leave after their "Remove after" date. Jobs leave after their deadline.
+- Special events show in the slider from the moment they're published until 11:59 PM on their end date, then leave automatically. Announcements leave after their "Remove after" date or, if that's empty, after their related event's day. Regular gatherings set to show in the slider appear a few days before each date (3 for weekly ones, labelled "This Tuesday" or "Next Tuesday") and leave at 11:59 PM that day. Jobs leave after their deadline.
 - Cancellations and time changes for regular gatherings show on the Events page for the 3 weeks before the date.
 
 ## Things the dashboard deliberately does not do
