@@ -547,28 +547,32 @@ export function liveScheduleNote(events) {
   return `<p><strong>When we stream:</strong> ${list}.</p>`;
 }
 
+/** One Watch Live video card: a link to the video on YouTube (new tab), never played on the site.
+    The link sits inside an <article> so anything a browser extension adds next to YouTube links
+    (e.g. a download button) stays inside the card instead of taking a space in the grid.
+    main.js builds the same card (videoCardHtml) for the videos "Show more" adds. */
+export const videoCard = (v, lists, hidden) =>
+  `<article class="card card--video" data-lists="${attr(lists.join(" "))}"${hidden ? " hidden" : ""}><a class="card__link" href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener" aria-label="${attr(`${v.title}, ${longDate(v.date)} (opens YouTube in a new tab)`)}"><div class="yt"><img src="${ytThumb(v.id, "hqdefault")}" alt="" loading="lazy"><span class="yt__play" aria-hidden="true"><i data-lucide="play"></i></span></div><div class="card__body"><h3 style="font-size:18px">${esc(v.title)}</h3><p>${longDate(v.date)} · YouTube <i data-lucide="arrow-up-right" class="card__ext"></i></p></div></a></article>`;
+
 /** Watch Live "Recent livestreams": filter buttons (All, then the channel's playlists, Sunday Service
-    first) and video cards that open on YouTube in a new tab. Every card lists the filters it belongs to
-    (data-lists); main.js initVideoFilters shows the first `perList` cards of the chosen filter.
-    Without JavaScript, the first `perList` of "All" show. */
-export function livestreamFilters(playlists, streams, liveId, perList = 8) {
-  const all = streams.filter((v) => v.id !== liveId).slice(0, perList);
+    first) and the first `perPage` video cards of each filter. Every card lists the filters it belongs
+    to (data-lists); each button says how many videos its filter has (data-total). "Show more" in
+    main.js (initVideoFilters) loads assets/data/youtube-playlists.json and adds `perPage` at a time
+    until the last video. Without JavaScript, the first `perPage` of "All" show. */
+export function livestreamFilters(playlists, allVideos, liveId, perPage = 8) {
+  const all = allVideos.filter((v) => v.id !== liveId);
   const cards = new Map(); // video id → { video, lists }
   const add = (v, list) => {
     if (!cards.has(v.id)) cards.set(v.id, { v, lists: [] });
     cards.get(v.id).lists.push(list);
   };
-  all.forEach((v) => add(v, "all"));
-  playlists.forEach((p) => p.videos.slice(0, perList).forEach((v) => add(v, p.id)));
+  all.slice(0, perPage).forEach((v) => add(v, "all"));
+  playlists.forEach((p) => p.videos.slice(0, perPage).forEach((v) => add(v, p.id)));
   const sorted = [...cards.values()].sort((a, b) => (a.v.published < b.v.published ? 1 : -1));
-  const tabs = [`<button class="place__tab" type="button" data-filter="all" aria-pressed="true">All</button>`,
-    ...playlists.map((p) => `<button class="place__tab" type="button" data-filter="${attr(p.id)}" aria-pressed="false">${esc(p.title)}</button>`)];
-  let shown = 0;
-  const cardHtml = sorted.map(({ v, lists }) => {
-    const visible = lists.includes("all") && shown++ < perList;
-    return `<a class="card card--video" href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener" data-lists="${attr(lists.join(" "))}"${visible ? "" : " hidden"} aria-label="${attr(`${v.title}, ${longDate(v.date)} (opens YouTube in a new tab)`)}"><div class="yt"><img src="${ytThumb(v.id, "hqdefault")}" alt="" loading="lazy"><span class="yt__play" aria-hidden="true"><i data-lucide="play"></i></span></div><div class="card__body"><h3 style="font-size:18px">${esc(v.title)}</h3><p>${longDate(v.date)} · YouTube <i data-lucide="arrow-up-right" class="card__ext"></i></p></div></a>`;
-  });
-  return { tabs: tabs.join("\n"), cards: cardHtml.join("\n") };
+  // data-total (not data-count: main.js animates every [data-count] element as a count-up number)
+  const tabs = [`<button class="place__tab" type="button" data-filter="all" data-total="${all.length}" aria-pressed="true">All</button>`,
+    ...playlists.map((p) => `<button class="place__tab" type="button" data-filter="${attr(p.id)}" data-total="${p.videos.length}" aria-pressed="false">${esc(p.title)}</button>`)];
+  return { tabs: tabs.join("\n"), cards: sorted.map(({ v, lists }) => videoCard(v, lists, !lists.includes("all"))).join("\n") };
 }
 
 /** Sermons page main player: the newest video from the church channel, with its title and date

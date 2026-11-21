@@ -769,24 +769,76 @@ function playInPlayer(player, box) {
 }
 
 /* Filter buttons for a card grid (Watch Live "Recent livestreams"):
-   <div data-filters="#grid"> holds buttons with data-filter="all" or a playlist ID; each card in
-   #grid lists its filters in data-lists. Pressing a button shows the first data-per cards of
-   that filter (newest first, as the cards are already ordered) and hides the rest. */
+   <div data-filters="#grid"> holds buttons with data-filter="all" or a playlist ID, and
+   data-total = how many videos that filter has (not data-count, which is the count-up number effect). The page holds the first data-per cards of each
+   filter (data-lists says which filters a card belongs to). Pressing a button shows those.
+   <button data-more="#grid"> ("Show more") loads the full lists once (data-source, a JSON file
+   from the website update) and shows data-per more each time, to the very last video; it hides
+   itself when there is nothing more. Cards link to YouTube (new tab); nothing plays on the site. */
+const videoDate = (ymd) => new Date(`${ymd}T00:00:00Z`).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+const videoCardHtml = (v) =>
+  `<article class="card card--video" data-added><a class="card__link" href="https://www.youtube.com/watch?v=${escAttr(v.id)}" target="_blank" rel="noopener" aria-label="${escAttr(`${v.title}, ${videoDate(v.date)} (opens YouTube in a new tab)`)}"><div class="yt"><img src="https://i.ytimg.com/vi/${escAttr(v.id)}/hqdefault.jpg" alt="" loading="lazy"><span class="yt__play" aria-hidden="true"><i data-lucide="play"></i></span></div><div class="card__body"><h3 style="font-size:18px">${escAttr(v.title)}</h3><p>${videoDate(v.date)} · YouTube <i data-lucide="arrow-up-right" class="card__ext"></i></p></div></a></article>`;
+
 function initVideoFilters() {
   document.querySelectorAll("[data-filters]").forEach((bar) => {
     const grid = document.querySelector(bar.dataset.filters);
     if (!grid) return;
     const per = parseInt(grid.dataset.per, 10) || 8;
+    const more = document.querySelector(`[data-more="${bar.dataset.filters}"]`);
+    let filter = "all", limit = per, data = null, enterFrom = Infinity;
+    const total = () => parseInt(bar.querySelector(`[aria-pressed="true"]`)?.dataset.total, 10) || 0;
+    // The chosen filter's full list from the loaded file (null until loaded, or if it has none)
+    const fullList = () => {
+      if (!data) return null;
+      const list = filter === "all" ? (data.all || []).filter((v) => v.id !== SITE.liveVideoId) : data.playlists?.find((p) => p.id === filter)?.videos;
+      return list?.length ? list : null;
+    };
+    const render = () => {
+      grid.querySelectorAll("[data-added]").forEach((c) => c.remove());
+      const list = limit > per && fullList();
+      let matches = 0;
+      grid.querySelectorAll("[data-lists]").forEach((card) => {
+        card.hidden = list || !(card.dataset.lists.split(" ").includes(filter) && matches++ < limit);
+      });
+      if (list) {
+        grid.insertAdjacentHTML("beforeend", list.slice(0, limit).map(videoCardHtml).join(""));
+        window.lucide && lucide.createIcons();
+      }
+      if (more) more.hidden = (list ? list.length : Math.max(total(), matches)) <= limit;
+      // Cards released by "Show more" fade gently up into place, one after another (style.css .card--enter)
+      [...grid.children].filter((c) => !c.hidden).slice(enterFrom).forEach((card, i) => {
+        card.style.setProperty("--enter-d", `${Math.min(i, 7) * 60}ms`);
+        card.classList.add("card--enter");
+        card.addEventListener("animationend", () => card.classList.remove("card--enter"), { once: true });
+      });
+      enterFrom = Infinity;
+    };
     bar.addEventListener("click", (e) => {
       const btn = e.target.closest("[data-filter]");
       if (!btn) return;
       bar.querySelectorAll("[data-filter]").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
-      let shown = 0;
-      grid.querySelectorAll("[data-lists]").forEach((card) => {
-        const match = card.dataset.lists.split(" ").includes(btn.dataset.filter);
-        card.hidden = !(match && shown++ < per);
-      });
+      filter = btn.dataset.filter;
+      limit = per;
+      render();
     });
+    more?.addEventListener("click", async () => {
+      const shownBefore = [...grid.children].filter((c) => !c.hidden).length;
+      if (!data && more.dataset.source) {
+        more.disabled = true;
+        try { data = await (await fetch(more.dataset.source)).json(); } catch (err) { data = {}; }
+        // Until the YouTube key has saved the full "All" list, use the recent-livestreams file (data-fallback)
+        if (!data.all?.length && more.dataset.fallback) {
+          try { data.all = await (await fetch(more.dataset.fallback)).json(); } catch (err) { /* keep what the page has */ }
+        }
+        more.disabled = false;
+      }
+      limit += per;
+      enterFrom = shownBefore; // only the newly released cards animate
+      render();
+      // move keyboard focus to the first newly shown card, so keyboard users continue from there
+      [...grid.children].filter((c) => !c.hidden)[shownBefore]?.querySelector("a")?.focus({ preventScroll: true });
+    });
+    render();
   });
 }
 

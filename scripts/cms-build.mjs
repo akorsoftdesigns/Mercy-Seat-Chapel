@@ -178,38 +178,52 @@ async function channelStreams(channel, key) {
   return youtubeFeed(channel, true);
 }
 
-/* ---------- 3c. The channel's playlists, for the Watch Live filter buttons ----------
-   Needs the YouTube API key. Buttons: "Sunday Service" first, then the other playlists by their
-   newest video. Only playlists with a video in the last PLAYLIST_MAX_AGE_DAYS days get a button,
-   at most PLAYLIST_BUTTONS of them. Refreshed at most once an hour (about 30 quota units each time);
-   otherwise, and without the key, the saved list (assets/data/youtube-playlists.json) is kept. */
+/* ---------- 3c. Every video, by playlist, for Watch Live "Recent livestreams" ----------
+   Needs the YouTube API key. "All" = every video on the channel (its uploads list); each button =
+   every video in that playlist, newest first, so "Show more" can go to the very last one.
+   Buttons: "Sunday Service" first, then the other playlists by their newest video. Only playlists
+   with a video in the last PLAYLIST_MAX_AGE_DAYS days get a button, at most PLAYLIST_BUTTONS.
+   Refreshed at most once an hour (1 quota unit per 50 videos read); otherwise, and without the key,
+   the saved file (assets/data/youtube-playlists.json) is kept. The page loads that file only when
+   someone presses "Show more". */
 const PLAYLIST_BUTTONS = 10, PLAYLIST_MAX_AGE_DAYS = 365, PLAYLIST_FIRST = /^sunday service$/i;
+const MAX_PAGES = 40; // 40 × 50 = up to 2,000 videos per list
 async function channelPlaylists(channel, key) {
   const api = async (endpoint, params) => {
     const res = await fetch(`https://www.googleapis.com/youtube/v3/${endpoint}?${new URLSearchParams({ ...params, key })}`).catch(() => null);
     if (!res?.ok) throw new Error(`YouTube API ${endpoint} answered ${res ? res.status : "nothing"}`); // (message never includes the key)
     return res.json();
   };
-  const { items: lists = [] } = await api("playlists", { part: "snippet", channelId: channel, maxResults: "50" });
-  const out = [];
-  for (const p of lists) {
+  // Every video in a playlist, newest first (private and deleted videos left out)
+  const playlistVideos = async (playlistId) => {
     const videos = [];
-    let pageToken = "";
-    for (let page = 0; page < 4; page++) { // playlists can be in any order, so read up to 200 items
-      const r = await api("playlistItems", { part: "snippet,contentDetails", playlistId: p.id, maxResults: "50", ...(pageToken && { pageToken }) });
+    for (let page = 0, pageToken = ""; page < MAX_PAGES; page++) {
+      const r = await api("playlistItems", { part: "snippet,contentDetails", playlistId, maxResults: "50", ...(pageToken && { pageToken }) });
       for (const it of r.items || []) {
         const published = it.contentDetails?.videoPublishedAt; // missing for private or deleted videos
         if (published) videos.push({ id: it.contentDetails.videoId, title: it.snippet.title, published, date: churchDay(published) });
       }
       if (!(pageToken = r.nextPageToken)) break;
     }
-    videos.sort((a, b) => (a.published < b.published ? 1 : -1));
-    if (videos.length) out.push({ id: p.id, title: p.snippet.title.trim(), latest: videos[0].published, videos: videos.slice(0, 12) });
+    return videos.sort((a, b) => (a.published < b.published ? 1 : -1));
+  };
+  // Every public playlist on the channel (50 per page; up to 200), so new ones are picked up automatically
+  const lists = [];
+  for (let page = 0, pageToken = ""; page < 4; page++) {
+    const r = await api("playlists", { part: "snippet", channelId: channel, maxResults: "50", ...(pageToken && { pageToken }) });
+    lists.push(...(r.items || []));
+    if (!(pageToken = r.nextPageToken)) break;
+  }
+  const out = [];
+  for (const p of lists) {
+    const videos = await playlistVideos(p.id);
+    if (videos.length) out.push({ id: p.id, title: p.snippet.title.trim(), latest: videos[0].published, videos });
   }
   const since = new Date(Date.now() - PLAYLIST_MAX_AGE_DAYS * 864e5).toISOString();
-  return out.filter((p) => PLAYLIST_FIRST.test(p.title) || p.latest >= since)
+  const playlists = out.filter((p) => PLAYLIST_FIRST.test(p.title) || p.latest >= since)
     .sort((a, b) => (PLAYLIST_FIRST.test(b.title) - PLAYLIST_FIRST.test(a.title)) || (a.latest < b.latest ? 1 : -1))
     .slice(0, PLAYLIST_BUTTONS);
+  return { all: await playlistVideos("UU" + channel.slice(2)), playlists };
 }
 
 /* ---------- 3d. YouTube lists (replaces the old /youtube-feed server route) ---------- */
@@ -435,15 +449,19 @@ async function main() {
       if (uploads.length) await region("sermons.html", "sermon-feature", R.sermonFeature(uploads[0], name));
       // Watch Live "Recent livestreams": playlist buttons + cards that open on YouTube
       const saved = existsSync(path.join(ROOT, "assets/data/youtube-playlists.json")) ? JSON.parse(await file("assets/data/youtube-playlists.json")) : { updated: "", playlists: [] };
-      let playlists = saved.playlists || [];
+      let { playlists = [], all = [] } = saved;
       if (ytKey && (!saved.updated || Date.now() - Date.parse(saved.updated) > 55 * 60e3)) {
         try {
-          playlists = await channelPlaylists(channel, ytKey);
-          await writeWhole("assets/data/youtube-playlists.json", JSON.stringify({ updated: new Date().toISOString(), playlists }, null, 1) + "\n");
-          log(`YouTube: ${playlists.length} playlists for Watch Live`);
+          ({ playlists, all } = await channelPlaylists(channel, ytKey));
+          // One compact file (one line per list), read by the page only when "Show more" is pressed
+          const lines = [`{"updated":${JSON.stringify(new Date().toISOString())},`, `"all":${JSON.stringify(all)},`, `"playlists":[`,
+            playlists.map((p) => JSON.stringify(p)).join(",\n"), `]}`];
+          await writeWhole("assets/data/youtube-playlists.json", lines.join("\n") + "\n");
+          log(`YouTube: ${all.length} videos and ${playlists.length} playlists for Watch Live`);
         } catch (e) { console.warn("[cms] YouTube playlists unavailable, kept the saved list:", e.message); }
       }
-      const live = R.livestreamFilters(playlists, streams, site?.liveVideoId);
+      // "All" = every channel video once the key has filled the file; until then the 15 newest livestreams
+      const live = R.livestreamFilters(playlists, all.length ? all : streams, site?.liveVideoId);
       if (streams.length) {
         await region("live.html", "livestream-tabs", live.tabs);
         await region("live.html", "recent-livestreams", live.cards);

@@ -106,6 +106,7 @@ small, .small { font-size: 14px; }
 .container { padding-left: max(var(--pad-x), env(safe-area-inset-left, 0px)); padding-right: max(var(--pad-x), env(safe-area-inset-right, 0px)); }
 .container--wide { max-width: calc(var(--w-wide) + var(--pad-x) * 2); }
 .section { padding: var(--pad-section) 0; }
+.section--flush-top { padding-top: 0; } /* follows a section with the same background: one gap instead of two */
 .section--white { background: var(--c-white); }
 .section--soft { background: var(--c-soft); }
 .section--navy { background: var(--c-primary); color: rgba(255, 255, 255, .82); }
@@ -739,7 +740,9 @@ html:not(.no-js) .place__tabs.reveal:not(.is-in) .place__tab { opacity: 0; }
 .place__tabs--light { margin-bottom: 28px; }
 .place__tabs--light .place__tab { border-color: var(--c-border); background: var(--c-white); color: var(--c-primary); }
 .place__tabs--light .place__tab:hover { border-color: var(--c-secondary); color: var(--c-primary); }
-.place__tab[aria-pressed="true"] { background: var(--c-secondary); border-color: var(--c-secondary); color: var(--c-white); }
+.place__tab[aria-pressed="true"],
+.place__tabs--light .place__tab[aria-pressed="true"],
+.place__tabs--light .place__tab[aria-pressed="true"]:hover { background: var(--c-secondary); border-color: var(--c-secondary); color: var(--c-white); } /* selected pill keeps white text on hover, like Plan Your Visit */
 .place__tab:nth-child(n+7) { --pill-d: .9s; }
 /* Phones: the filter buttons stay on one line that swipes sideways, instead of a tall stack */
 @media (max-width: 639px) {
@@ -844,9 +847,17 @@ html:not(.no-js) .place__tabs.reveal:not(.is-in) .place__tab { opacity: 0; }
 }
 .card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
 .card[hidden] { display: none; } /* filtered out (Watch Live playlist buttons) */
-/* Whole-card link to a video on YouTube (Watch Live "Recent livestreams") */
-a.card--video { color: inherit; text-decoration: none; }
-a.card--video:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 3px; }
+.btn[data-more][hidden] { display: none; } /* "Show more" when there's nothing more to show */
+/* Cards released by "Show more": a soft fade while rising 16px, 60ms apart (main.js sets --enter-d) */
+.card--enter { animation: cardEnter .6s var(--ease) backwards; animation-delay: var(--enter-d, 0s); } /* backwards: hidden while waiting, back to normal (hover lift works) once done */
+@keyframes cardEnter { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .card--enter { animation: none; } }
+/* Whole-card link to a video on YouTube (Watch Live "Recent livestreams"). Anything a browser
+   extension inserts next to the link (e.g. a download button) floats in the corner of the card. */
+.card--video { position: relative; }
+.card--video > .card__link { display: flex; flex-direction: column; flex: 1; color: inherit; text-decoration: none; border-radius: inherit; }
+.card--video > .card__link:focus-visible { outline: 3px solid var(--c-accent); outline-offset: -3px; } /* inside, as the card clips its edges */
+.card--video > :not(.card__link) { position: absolute; top: 10px; right: 10px; z-index: 1; }
 .card__ext { width: 14px; height: 14px; vertical-align: -2px; }
 .card__media { aspect-ratio: 4 / 3; overflow: hidden; }
 .card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease); }
