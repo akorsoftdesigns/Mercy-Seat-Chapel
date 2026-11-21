@@ -178,7 +178,41 @@ async function channelStreams(channel, key) {
   return youtubeFeed(channel, true);
 }
 
-/* ---------- 3c. YouTube lists (replaces the old /youtube-feed server route) ---------- */
+/* ---------- 3c. The channel's playlists, for the Watch Live filter buttons ----------
+   Needs the YouTube API key. Buttons: "Sunday Service" first, then the other playlists by their
+   newest video. Only playlists with a video in the last PLAYLIST_MAX_AGE_DAYS days get a button,
+   at most PLAYLIST_BUTTONS of them. Refreshed at most once an hour (about 30 quota units each time);
+   otherwise, and without the key, the saved list (assets/data/youtube-playlists.json) is kept. */
+const PLAYLIST_BUTTONS = 10, PLAYLIST_MAX_AGE_DAYS = 365, PLAYLIST_FIRST = /^sunday service$/i;
+async function channelPlaylists(channel, key) {
+  const api = async (endpoint, params) => {
+    const res = await fetch(`https://www.googleapis.com/youtube/v3/${endpoint}?${new URLSearchParams({ ...params, key })}`).catch(() => null);
+    if (!res?.ok) throw new Error(`YouTube API ${endpoint} answered ${res ? res.status : "nothing"}`); // (message never includes the key)
+    return res.json();
+  };
+  const { items: lists = [] } = await api("playlists", { part: "snippet", channelId: channel, maxResults: "50" });
+  const out = [];
+  for (const p of lists) {
+    const videos = [];
+    let pageToken = "";
+    for (let page = 0; page < 4; page++) { // playlists can be in any order, so read up to 200 items
+      const r = await api("playlistItems", { part: "snippet,contentDetails", playlistId: p.id, maxResults: "50", ...(pageToken && { pageToken }) });
+      for (const it of r.items || []) {
+        const published = it.contentDetails?.videoPublishedAt; // missing for private or deleted videos
+        if (published) videos.push({ id: it.contentDetails.videoId, title: it.snippet.title, published, date: churchDay(published) });
+      }
+      if (!(pageToken = r.nextPageToken)) break;
+    }
+    videos.sort((a, b) => (a.published < b.published ? 1 : -1));
+    if (videos.length) out.push({ id: p.id, title: p.snippet.title.trim(), latest: videos[0].published, videos: videos.slice(0, 12) });
+  }
+  const since = new Date(Date.now() - PLAYLIST_MAX_AGE_DAYS * 864e5).toISOString();
+  return out.filter((p) => PLAYLIST_FIRST.test(p.title) || p.latest >= since)
+    .sort((a, b) => (PLAYLIST_FIRST.test(b.title) - PLAYLIST_FIRST.test(a.title)) || (a.latest < b.latest ? 1 : -1))
+    .slice(0, PLAYLIST_BUTTONS);
+}
+
+/* ---------- 3d. YouTube lists (replaces the old /youtube-feed server route) ---------- */
 const xmlText = (s) => s.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
 async function youtubeFeed(channel, streams) {
   const q = streams ? "playlist_id=UULV" + channel.slice(2) : "channel_id=" + channel;
@@ -346,7 +380,8 @@ async function main() {
     const times = deref(home.serviceTimes);
     if (times.length) await region("index.html", "service-times", times.map((e, i) => R.timeCard(c, e, i)).join("\n"));
     const liveTimes = deref(home.liveSchedule);
-    if (liveTimes.length) await region("live.html", "live-schedule", liveTimes.map((e, i) => R.liveCard(c, e, i)).join("\n"));
+    // Watch Live: "When we stream" is a short line under the player (the cards section was removed, Nov 2026)
+    if (liveTimes.length) await region("live.html", "live-schedule-note", R.liveScheduleNote(liveTimes));
     const mins = deref(home.featuredMinistries);
     if (mins.length) await region("index.html", "place-tabs", R.placeTabs(c, mins));
     const outs = deref(home.featuredOutreach);
@@ -398,9 +433,21 @@ async function main() {
       if (streams.length) await region("index.html", "latest-messages", R.messagesHtml(streams.slice(0, 5), name));
       // Sermons page: one big player with the newest video (the list beside it was removed, Nov 2026)
       if (uploads.length) await region("sermons.html", "sermon-feature", R.sermonFeature(uploads[0], name));
-      const liveId = site?.liveVideoId;
-      const replays = streams.filter((v) => v.id !== liveId).slice(0, 4);
-      if (replays.length) await region("live.html", "recent-livestreams", replays.map(R.streamCard).join("\n"));
+      // Watch Live "Recent livestreams": playlist buttons + cards that open on YouTube
+      const saved = existsSync(path.join(ROOT, "assets/data/youtube-playlists.json")) ? JSON.parse(await file("assets/data/youtube-playlists.json")) : { updated: "", playlists: [] };
+      let playlists = saved.playlists || [];
+      if (ytKey && (!saved.updated || Date.now() - Date.parse(saved.updated) > 55 * 60e3)) {
+        try {
+          playlists = await channelPlaylists(channel, ytKey);
+          await writeWhole("assets/data/youtube-playlists.json", JSON.stringify({ updated: new Date().toISOString(), playlists }, null, 1) + "\n");
+          log(`YouTube: ${playlists.length} playlists for Watch Live`);
+        } catch (e) { console.warn("[cms] YouTube playlists unavailable, kept the saved list:", e.message); }
+      }
+      const live = R.livestreamFilters(playlists, streams, site?.liveVideoId);
+      if (streams.length) {
+        await region("live.html", "livestream-tabs", live.tabs);
+        await region("live.html", "recent-livestreams", live.cards);
+      }
       log(`YouTube: ${uploads.length} uploads, ${streams.length} live streams`);
     } catch (e) {
       console.warn("[cms] YouTube feed unavailable, video lists left as they were:", e.message);

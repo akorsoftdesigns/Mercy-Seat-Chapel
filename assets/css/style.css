@@ -735,6 +735,18 @@ html:not(.no-js) .place__tabs.reveal:not(.is-in) .place__tab { opacity: 0; }
 .place__tab:nth-child(5) { --pill-d: .6s; }
 .place__tab:nth-child(6) { --pill-d: .75s; }
 @keyframes pillIn { from { opacity: 0; transform: translateX(-48px); } to { opacity: 1; transform: none; } }
+/* Same pills on a light background, used as filter buttons (Watch Live "Recent livestreams") */
+.place__tabs--light { margin-bottom: 28px; }
+.place__tabs--light .place__tab { border-color: var(--c-border); background: var(--c-white); color: var(--c-primary); }
+.place__tabs--light .place__tab:hover { border-color: var(--c-secondary); color: var(--c-primary); }
+.place__tab[aria-pressed="true"] { background: var(--c-secondary); border-color: var(--c-secondary); color: var(--c-white); }
+.place__tab:nth-child(n+7) { --pill-d: .9s; }
+/* Phones: the filter buttons stay on one line that swipes sideways, instead of a tall stack */
+@media (max-width: 639px) {
+  .place__tabs--light { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-right: calc(-1 * var(--pad-x)); padding-right: var(--pad-x); }
+  .place__tabs--light::-webkit-scrollbar { display: none; }
+  .place__tabs--light .place__tab { flex-shrink: 0; white-space: nowrap; }
+}
 .place__panel { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: center; position: relative; }
 .place__panel[hidden] { display: none; }
 .place__panel.is-entering .place__text { animation: fadeUp .6s var(--ease) both; }
@@ -831,6 +843,11 @@ html:not(.no-js) .place__tabs.reveal:not(.is-in) .place__tab { opacity: 0; }
   transition: transform .3s var(--ease), box-shadow .3s var(--ease);
 }
 .card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+.card[hidden] { display: none; } /* filtered out (Watch Live playlist buttons) */
+/* Whole-card link to a video on YouTube (Watch Live "Recent livestreams") */
+a.card--video { color: inherit; text-decoration: none; }
+a.card--video:focus-visible { outline: 3px solid var(--c-accent); outline-offset: 3px; }
+.card__ext { width: 14px; height: 14px; vertical-align: -2px; }
 .card__media { aspect-ratio: 4 / 3; overflow: hidden; }
 .card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease); }
 .card:hover .card__media img { transform: scale(1.05); }
@@ -1279,6 +1296,7 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
 .notice { display: flex; gap: 14px; align-items: flex-start; padding: 18px 20px; border-radius: var(--r-card); background: var(--c-soft); border: 1px solid var(--c-border); font-size: 15px; }
 .notice svg { width: 22px; height: 22px; color: var(--c-accent); flex-shrink: 0; margin-top: 1px; }
 .notice p { margin: 0; }
+.notice__text { display: grid; gap: 8px; }
 
 /* Jobs */
 .job { display: grid; grid-template-columns: 1fr auto; gap: 20px; align-items: center; padding: 24px 28px; background: var(--c-white); border: 1px solid var(--c-border); border-radius: var(--r-card); transition: box-shadow .2s, transform .2s; }

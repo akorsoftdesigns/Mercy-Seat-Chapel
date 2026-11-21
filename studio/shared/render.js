@@ -539,6 +539,38 @@ export function messagesHtml(videos, name) {
 export const streamCard = (v, i) =>
   `<article class="card reveal"${dStyle(i * 0.08)}><div class="yt" data-id="${v.id}" data-title="${attr(v.title)}"></div><div class="card__body"><h3 style="font-size:18px">${esc(v.title)}</h3><p>${longDate(v.date)}</p></div></article>`;
 
+/** Watch Live page: the dashboard's "When we stream" gatherings as one short line under the player,
+    e.g. "When we stream: Sunday Service (every Sunday, 10:00 AM) and Bible Study (every Tuesday, 7:30 PM)." */
+export function liveScheduleNote(events) {
+  const parts = events.map((e) => `${esc(cardTitle(e))} (${esc(whenInWords(e))})`);
+  const list = parts.length > 1 ? `${parts.slice(0, -1).join(", ")} and ${parts.at(-1)}` : parts[0];
+  return `<p><strong>When we stream:</strong> ${list}.</p>`;
+}
+
+/** Watch Live "Recent livestreams": filter buttons (All, then the channel's playlists, Sunday Service
+    first) and video cards that open on YouTube in a new tab. Every card lists the filters it belongs to
+    (data-lists); main.js initVideoFilters shows the first `perList` cards of the chosen filter.
+    Without JavaScript, the first `perList` of "All" show. */
+export function livestreamFilters(playlists, streams, liveId, perList = 8) {
+  const all = streams.filter((v) => v.id !== liveId).slice(0, perList);
+  const cards = new Map(); // video id → { video, lists }
+  const add = (v, list) => {
+    if (!cards.has(v.id)) cards.set(v.id, { v, lists: [] });
+    cards.get(v.id).lists.push(list);
+  };
+  all.forEach((v) => add(v, "all"));
+  playlists.forEach((p) => p.videos.slice(0, perList).forEach((v) => add(v, p.id)));
+  const sorted = [...cards.values()].sort((a, b) => (a.v.published < b.v.published ? 1 : -1));
+  const tabs = [`<button class="place__tab" type="button" data-filter="all" aria-pressed="true">All</button>`,
+    ...playlists.map((p) => `<button class="place__tab" type="button" data-filter="${attr(p.id)}" aria-pressed="false">${esc(p.title)}</button>`)];
+  let shown = 0;
+  const cardHtml = sorted.map(({ v, lists }) => {
+    const visible = lists.includes("all") && shown++ < perList;
+    return `<a class="card card--video" href="https://www.youtube.com/watch?v=${v.id}" target="_blank" rel="noopener" data-lists="${attr(lists.join(" "))}"${visible ? "" : " hidden"} aria-label="${attr(`${v.title}, ${longDate(v.date)} (opens YouTube in a new tab)`)}"><div class="yt"><img src="${ytThumb(v.id, "hqdefault")}" alt="" loading="lazy"><span class="yt__play" aria-hidden="true"><i data-lucide="play"></i></span></div><div class="card__body"><h3 style="font-size:18px">${esc(v.title)}</h3><p>${longDate(v.date)} · YouTube <i data-lucide="arrow-up-right" class="card__ext"></i></p></div></a>`;
+  });
+  return { tabs: tabs.join("\n"), cards: cardHtml.join("\n") };
+}
+
 /** Sermons page main player: the newest video from the church channel, with its title and date
     underneath. Teaching-series thumbnails play in this same player (main.js playInPlayer). */
 export const sermonFeature = (v, name) => lines(
@@ -548,4 +580,4 @@ export const sermonFeature = (v, name) => lines(
 /** Sermons page "Teaching series" card: a livestream from the MSC Sermons channel.
     data-meta is the line shown under the main player when the card is played there. */
 export const teachingCard = (v, i, name) =>
-  `<article class="card reveal"${dStyle((i % 3) * 0.08)}><div class="yt" data-id="${v.id}" data-title="${attr(v.title)}" data-meta="${attr(`${name} · ${longDate(v.date)}`)}"></div><div class="card__body"><h3 style="font-size:18px">${esc(v.title)}</h3><p>${longDate(v.date)}</p></div></article>`;
+  `<article class="card reveal"${dStyle((i % 4) * 0.08)}><div class="yt" data-id="${v.id}" data-title="${attr(v.title)}" data-meta="${attr(`${name} · ${longDate(v.date)}`)}"></div><div class="card__body"><h3 style="font-size:18px">${esc(v.title)}</h3><p>${longDate(v.date)}</p></div></article>`;

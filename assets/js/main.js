@@ -768,6 +768,28 @@ function playInPlayer(player, box) {
   player.scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "center" });
 }
 
+/* Filter buttons for a card grid (Watch Live "Recent livestreams"):
+   <div data-filters="#grid"> holds buttons with data-filter="all" or a playlist ID; each card in
+   #grid lists its filters in data-lists. Pressing a button shows the first data-per cards of
+   that filter (newest first, as the cards are already ordered) and hides the rest. */
+function initVideoFilters() {
+  document.querySelectorAll("[data-filters]").forEach((bar) => {
+    const grid = document.querySelector(bar.dataset.filters);
+    if (!grid) return;
+    const per = parseInt(grid.dataset.per, 10) || 8;
+    bar.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-filter]");
+      if (!btn) return;
+      bar.querySelectorAll("[data-filter]").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+      let shown = 0;
+      grid.querySelectorAll("[data-lists]").forEach((card) => {
+        const match = card.dataset.lists.split(" ").includes(btn.dataset.filter);
+        card.hidden = !(match && shown++ < per);
+      });
+    });
+  });
+}
+
 // Thumbnail with a play button; the YouTube player only loads when clicked
 function setupYt(box) {
   if (!box.innerHTML.trim()) box.innerHTML = ytMarkup(box.dataset.id, box.dataset.title || "video");
@@ -801,6 +823,7 @@ function initVideos() {
   document.querySelectorAll(".yt[data-uploads]").forEach((box) => { box.innerHTML = ytUploadsMarkup(); });
   document.querySelectorAll(".yt[data-id], .yt[data-uploads]").forEach(setupYt);
   document.querySelectorAll("[data-youtube-grid]").forEach(loadFeedGrid);
+  initVideoFilters();
 
   // Playlist: clicking a list item swaps the featured video
   document.querySelectorAll("[data-playlist]").forEach((pl) => {

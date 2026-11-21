@@ -1,0 +1,553 @@
+{
+ "updated": "",
+ "playlists": [
+  {
+   "id": "PLNJg4KyzzgILXqe-hz_wISYgii8h7Ik0-",
+   "title": "Sunday Service",
+   "latest": "2026-11-08T15:35:58+00:00",
+   "videos": [
+    {
+     "id": "fp6VGnafzz8",
+     "title": "MSC Livestream",
+     "published": "2026-11-08T15:35:58+00:00",
+     "date": "2026-11-08"
+    },
+    {
+     "id": "x_wIj8QaS6E",
+     "title": "Holy Communion Service | November 2026",
+     "published": "2026-11-04T21:16:08+00:00",
+     "date": "2026-11-04"
+    },
+    {
+     "id": "Qk-mXA77zY8",
+     "title": "Thanksgiving Service, November 2026",
+     "published": "2026-11-02T08:01:22+00:00",
+     "date": "2026-11-02"
+    },
+    {
+     "id": "Zg8AQ9CMOZ4",
+     "title": "Day 2 | Daniel Fast | Prayers",
+     "published": "2026-10-28T13:37:17+00:00",
+     "date": "2026-10-28"
+    },
+    {
+     "id": "DEQygtr16JM",
+     "title": "MSC Livestream",
+     "published": "2026-10-19T04:26:32+00:00",
+     "date": "2026-10-19"
+    },
+    {
+     "id": "leklo-Cz5k4",
+     "title": "MSC Livestream",
+     "published": "2026-10-12T04:07:12+00:00",
+     "date": "2026-10-12"
+    },
+    {
+     "id": "jweyiR5Kn88",
+     "title": "Thanksgiving Service, October 2026",
+     "published": "2026-10-05T05:26:48+00:00",
+     "date": "2026-10-05"
+    },
+    {
+     "id": "0f45Foc8Ncw",
+     "title": "MSC Livestream",
+     "published": "2026-09-28T04:17:49+00:00",
+     "date": "2026-09-28"
+    },
+    {
+     "id": "0X1rbTR4cx8",
+     "title": "Kingdom Stewardship | Dcn. 'Lekan ABIOYE",
+     "published": "2026-09-21T05:44:22+00:00",
+     "date": "2026-09-21"
+    },
+    {
+     "id": "f5yAVyjReT0",
+     "title": "MSC Livestream",
+     "published": "2026-09-14T04:33:30+00:00",
+     "date": "2026-09-14"
+    },
+    {
+     "id": "rOxu9a40Qgw",
+     "title": "Thanksgiving Service, September 2026",
+     "published": "2026-09-07T05:37:34+00:00",
+     "date": "2026-09-07"
+    },
+    {
+     "id": "NI96r23J10w",
+     "title": "Holy Communion Service, September 2026",
+     "published": "2026-09-02T14:16:26+00:00",
+     "date": "2026-09-02"
+    }
+   ]
+  },
+  {
+   "id": "PLNJg4KyzzgIJAh23mXa_8QtxF5uZSKXvk",
+   "title": "Holy Communion Service",
+   "latest": "2026-11-04T21:16:08+00:00",
+   "videos": [
+    {
+     "id": "x_wIj8QaS6E",
+     "title": "Holy Communion Service | November 2026",
+     "published": "2026-11-04T21:16:08+00:00",
+     "date": "2026-11-04"
+    },
+    {
+     "id": "NI96r23J10w",
+     "title": "Holy Communion Service, September 2026",
+     "published": "2026-09-02T14:16:26+00:00",
+     "date": "2026-09-02"
+    },
+    {
+     "id": "6PoQRQJWBlA",
+     "title": "Holy Communion Service, June 2026",
+     "published": "2026-06-03T13:33:04+00:00",
+     "date": "2026-06-03"
+    },
+    {
+     "id": "aMJEX_WbfMk",
+     "title": "Holy Communion Service, May 2026",
+     "published": "2026-05-06T13:29:56+00:00",
+     "date": "2026-05-06"
+    },
+    {
+     "id": "pL_VgsfrRdQ",
+     "title": "Holy Communion Service, April 2026",
+     "published": "2026-04-08T13:31:22+00:00",
+     "date": "2026-04-08"
+    },
+    {
+     "id": "YHL6S5-thNI",
+     "title": "Holy Communion Service, March 2026",
+     "published": "2026-03-04T14:09:21+00:00",
+     "date": "2026-03-04"
+    },
+    {
+     "id": "gSJHA02EqSo",
+     "title": "Holy Communion Service | February, 2026",
+     "published": "2026-02-04T14:42:02+00:00",
+     "date": "2026-02-04"
+    },
+    {
+     "id": "vxy2HARehfw",
+     "title": "Holy Communion Service | December, 2025",
+     "published": "2025-12-03T14:11:55+00:00",
+     "date": "2025-12-03"
+    },
+    {
+     "id": "_ACOoj2OBFQ",
+     "title": "Holy Communion Service | November, 2025",
+     "published": "2025-11-05T14:24:01+00:00",
+     "date": "2025-11-05"
+    },
+    {
+     "id": "-nWXuS5dBgE",
+     "title": "Holy Communion Service, August 2025",
+     "published": "2025-08-06T13:14:34+00:00",
+     "date": "2025-08-06"
+    },
+    {
+     "id": "4KvknNaXHpA",
+     "title": "Holy Communion Service, July 2025",
+     "published": "2025-07-02T13:14:47+00:00",
+     "date": "2025-07-02"
+    },
+    {
+     "id": "QdnZrjyoJgM",
+     "title": "Holy Communion Service, June 2025 | Pst. Ola OLARINDE",
+     "published": "2025-06-04T13:14:42+00:00",
+     "date": "2025-06-04"
+    }
+   ]
+  },
+  {
+   "id": "PLNJg4KyzzgILAPBCbuxDkx9Dv0bAsdULM",
+   "title": "Pillars of Mercy Women Ministry",
+   "latest": "2026-10-31T18:29:27+00:00",
+   "videos": [
+    {
+     "id": "WPIwhbdyghg",
+     "title": "PILLARS OF MERCY | GRACE TO FINISH WELL, 2026",
+     "published": "2026-10-31T18:29:27+00:00",
+     "date": "2026-10-31"
+    },
+    {
+     "id": "NQ1wWMk17sA",
+     "title": "Pillars of Mercy: From Glory to Greater Glory, 2026",
+     "published": "2026-08-01T05:10:01+00:00",
+     "date": "2026-08-01"
+    },
+    {
+     "id": "WnNRYdYStsc",
+     "title": "Mother's Day Bible Study, 2026",
+     "published": "2026-05-13T13:13:53+00:00",
+     "date": "2026-05-13"
+    },
+    {
+     "id": "CtuBC4vEkYo",
+     "title": "Mother's Day Service, 2026",
+     "published": "2026-05-10T14:05:55+00:00",
+     "date": "2026-05-10"
+    },
+    {
+     "id": "-Qc5vsu45to",
+     "title": "PoM Vigil | Soaring On Eagles Wings | March, 2026",
+     "published": "2026-03-28T17:40:50+00:00",
+     "date": "2026-03-28"
+    },
+    {
+     "id": "-zWHOIgs3_k",
+     "title": "DAY 7 | Real Talk | PWO Conference, 2025",
+     "published": "2025-10-01T01:43:13+00:00",
+     "date": "2025-09-30"
+    },
+    {
+     "id": "oGSAZQBStWU",
+     "title": "DAY 6 | PWO Conference, 2025",
+     "published": "2025-09-28T17:07:38+00:00",
+     "date": "2025-09-28"
+    },
+    {
+     "id": "6FgPWpChUmc",
+     "title": "DAY 4 | Praise From Every Nation |PWO Conference, 2025",
+     "published": "2025-09-27T02:15:18+00:00",
+     "date": "2025-09-26"
+    },
+    {
+     "id": "A0ISVoX0Zys",
+     "title": "DAY 3 | REAL TALK | Ever Changing Environment",
+     "published": "2025-09-24T01:44:47+00:00",
+     "date": "2025-09-23"
+    },
+    {
+     "id": "iAwuB_laXbg",
+     "title": "Time At Shiloh | PoM Vigil | June, 2025",
+     "published": "2025-06-28T05:29:21+00:00",
+     "date": "2025-06-28"
+    },
+    {
+     "id": "f0pKyKoGkJA",
+     "title": "Mother's Day, 2025 | Lively Hope | Pst. Olu OLARINDE",
+     "published": "2025-05-11T16:42:50+00:00",
+     "date": "2025-05-11"
+    },
+    {
+     "id": "3kvvU2ulHUg",
+     "title": "Greater Grace | PoM Vigil - April, 2025",
+     "published": "2025-04-26T05:51:31+00:00",
+     "date": "2025-04-26"
+    }
+   ]
+  },
+  {
+   "id": "PLNJg4KyzzgIKK6BxB5BgvZkYikBNc50I3",
+   "title": "MSC Kidz",
+   "latest": "2026-07-27T04:21:18+00:00",
+   "videos": [
+    {
+     "id": "4Dp8_MABdOA",
+     "title": "Day 3: Teens Takeover | Deeper Conference, 2026",
+     "published": "2026-07-27T04:21:18+00:00",
+     "date": "2026-07-27"
+    },
+    {
+     "id": "QYuT2W2NlkY",
+     "title": "Day 1: Worship Night | Deeper Conference, 2026",
+     "published": "2026-07-25T13:21:43+00:00",
+     "date": "2026-07-25"
+    },
+    {
+     "id": "xPUdCHNBaX0",
+     "title": "DAY 1: Deeper Conference, 2025 | MSC Davidz",
+     "published": "2025-07-26T01:55:36+00:00",
+     "date": "2025-07-25"
+    },
+    {
+     "id": "0jFcIzRp3-Q",
+     "title": "MSC Teens Takeover 2022 pt. 2",
+     "published": "2022-07-31T16:20:23+00:00",
+     "date": "2022-07-31"
+    },
+    {
+     "id": "bBQ2GiS8WrI",
+     "title": "Teens Takeover 2021 | MSC Davidz",
+     "published": "2021-07-25T16:20:56+00:00",
+     "date": "2021-07-25"
+    },
+    {
+     "id": "QPsCkYrzwaA",
+     "title": "HALLELUJAH PRAISE NIGHT",
+     "published": "2020-10-31T23:37:37+00:00",
+     "date": "2020-10-31"
+    }
+   ]
+  },
+  {
+   "id": "PLNJg4KyzzgIIFwueASYM05LrZtq00zKU7",
+   "title": "The FundaMENtals Men Ministry",
+   "latest": "2026-06-24T13:14:15+00:00",
+   "videos": [
+    {
+     "id": "S57V_-GeUio",
+     "title": "Men Thriving With Courage",
+     "published": "2026-06-24T13:14:15+00:00",
+     "date": "2026-06-24"
+    },
+    {
+     "id": "SBo8_3N1y0Q",
+     "title": "Father's Day Service, 2026",
+     "published": "2026-06-22T04:46:34+00:00",
+     "date": "2026-06-22"
+    },
+    {
+     "id": "l9lleqSt0jY",
+     "title": "DAY 4: Thanksgiving Service | The FundaMENtals Conference, 2025",
+     "published": "2025-07-20T16:45:24+00:00",
+     "date": "2025-07-20"
+    },
+    {
+     "id": "m2hxyuX5zCk",
+     "title": "DAY 3: The EmpowerMENt | The FundaMENtals Conference, 2025",
+     "published": "2025-07-19T16:47:51+00:00",
+     "date": "2025-07-19"
+    },
+    {
+     "id": "xfWKUAbFegU",
+     "title": "DAY 2: Night of Worship 3.0 | The FundaMENtals Biennial Conference, 2025",
+     "published": "2025-07-19T13:39:38+00:00",
+     "date": "2025-07-19"
+    },
+    {
+     "id": "s4797Ry6Bw8",
+     "title": "DAY 1: The CompleMENt | The FundaMENtals Biennial Conference, 2025",
+     "published": "2025-07-16T13:22:16+00:00",
+     "date": "2025-07-16"
+    },
+    {
+     "id": "e_yYTuAyU1w",
+     "title": "Father's Love | Dcn. 'Lekan ABIOYE",
+     "published": "2025-06-18T13:23:34+00:00",
+     "date": "2025-06-18"
+    },
+    {
+     "id": "BR_AXrim-AU",
+     "title": "Father's Day, 2025",
+     "published": "2025-06-15T16:41:28+00:00",
+     "date": "2025-06-15"
+    },
+    {
+     "id": "wq0OQU7uPtE",
+     "title": "Power Of His Resurrection | Dcn. 'Lekan ABIOYE",
+     "published": "2023-04-09T17:08:23+00:00",
+     "date": "2023-04-09"
+    },
+    {
+     "id": "vldIdebj9zc",
+     "title": "HEADSHIP: A Unique Role | The CompleMENt | Nov, 2022",
+     "published": "2022-11-30T02:20:56+00:00",
+     "date": "2022-11-29"
+    },
+    {
+     "id": "mjObP2uyAvk",
+     "title": "Soaring Together | The CompleMENt TalkShow | April, 2022",
+     "published": "2022-04-27T01:10:03+00:00",
+     "date": "2022-04-26"
+    },
+    {
+     "id": "ff0SrtkOQd4",
+     "title": "DAY 3: The FundaMENtals Conference | The EmpowerMENt",
+     "published": "2021-08-14T15:55:43+00:00",
+     "date": "2021-08-14"
+    }
+   ]
+  },
+  {
+   "id": "PLNJg4KyzzgIKUm_DbU2185ptQnt-nzzTO",
+   "title": "Designed Growth Prayer",
+   "latest": "2026-05-13T13:13:53+00:00",
+   "videos": [
+    {
+     "id": "WnNRYdYStsc",
+     "title": "Mother's Day Bible Study, 2026",
+     "published": "2026-05-13T13:13:53+00:00",
+     "date": "2026-05-13"
+    },
+    {
+     "id": "kGcudH9XrP8",
+     "title": "DAY 7: Designed Growth | Pst. Ola OLARINDE",
+     "published": "2025-07-27T13:42:10+00:00",
+     "date": "2025-07-27"
+    },
+    {
+     "id": "wfbyOq8FQWU",
+     "title": "DAY 5: Designed Growth | Pst. Anosike NWOKOYE",
+     "published": "2025-07-25T13:41:31+00:00",
+     "date": "2025-07-25"
+    },
+    {
+     "id": "ae8NejT8s1A",
+     "title": "DAY 4: Designed Growth | Pst. Patricia ANYAKWO",
+     "published": "2025-07-24T13:37:59+00:00",
+     "date": "2025-07-24"
+    },
+    {
+     "id": "OFWpoeFogGM",
+     "title": "DAY 3: Designed Growth | Pst. Adeyinka ARE",
+     "published": "2025-07-23T13:28:34+00:00",
+     "date": "2025-07-23"
+    },
+    {
+     "id": "TpUBF9sTXAc",
+     "title": "DAY 2: Designed Growth | Pst. Toyin OMOLA",
+     "published": "2025-07-22T13:37:43+00:00",
+     "date": "2025-07-22"
+    },
+    {
+     "id": "HhF34AO0cTg",
+     "title": "DAY 1: Designed Growth | Pst. Olu OLARINDE",
+     "published": "2025-07-21T18:06:09+00:00",
+     "date": "2025-07-21"
+    }
+   ]
+  },
+  {
+   "id": "PLNJg4KyzzgIIdaqNnEG_GZKp4aBow6uTH",
+   "title": "Courage To Florish",
+   "latest": "2026-03-11T07:13:23+00:00",
+   "videos": [
+    {
+     "id": "ecxKD-cKd80",
+     "title": "Day 20 | Courage To Flourish | Dcn. George OYEDELE",
+     "published": "2026-03-11T07:13:23+00:00",
+     "date": "2026-03-11"
+    },
+    {
+     "id": "VXzsA6EKwzo",
+     "title": "End of Courage To Flourish Prayer & Fasting | Pst. Toyin OMOLA",
+     "published": "2026-03-03T14:42:22+00:00",
+     "date": "2026-03-03"
+    },
+    {
+     "id": "CB7RAcyh1WI",
+     "title": "Day 28 | Courage To Flourish | Dcn. Jide WALE-AREMU",
+     "published": "2026-03-01T14:46:37+00:00",
+     "date": "2026-03-01"
+    },
+    {
+     "id": "Q9p5XKWeX54",
+     "title": "Day 27 | Courage To Flourish | Pst. Patricia ANYAKWO",
+     "published": "2026-02-28T14:37:33+00:00",
+     "date": "2026-02-28"
+    },
+    {
+     "id": "UlbPEA-fICI",
+     "title": "Day 25 | Courage To Flourish | Min. Sinmi ONAFUWA",
+     "published": "2026-02-26T14:47:50+00:00",
+     "date": "2026-02-26"
+    },
+    {
+     "id": "luz6DmfIP4E",
+     "title": "Day 22 | Courage To Flourish | Min. Temitope ALADE",
+     "published": "2026-02-23T17:14:26+00:00",
+     "date": "2026-02-23"
+    },
+    {
+     "id": "zbRykmvLJxg",
+     "title": "Day 19 | Courage To Flourish | Dcns. Roseline UBADIKE",
+     "published": "2026-02-20T14:40:34+00:00",
+     "date": "2026-02-20"
+    },
+    {
+     "id": "l9s9bDglf0o",
+     "title": "Day 18 | Courage To Flourish | Dcns. Biola AKINYOSOYE",
+     "published": "2026-02-19T14:37:28+00:00",
+     "date": "2026-02-19"
+    },
+    {
+     "id": "4M6Opbqhf74",
+     "title": "Day 17 | Courage To Flourish | Pst. Adeyinka ARE",
+     "published": "2026-02-18T14:17:40+00:00",
+     "date": "2026-02-18"
+    },
+    {
+     "id": "LNTRXsDUM4E",
+     "title": "Day 15 | Courage To Flourish | Pst. Adeyinka ARE",
+     "published": "2026-02-16T14:43:23+00:00",
+     "date": "2026-02-16"
+    },
+    {
+     "id": "mRvBP3nR6_U",
+     "title": "Day 14 - Courage To Flourish | Min. Toyin LADIPO",
+     "published": "2026-02-15T14:41:59+00:00",
+     "date": "2026-02-15"
+    },
+    {
+     "id": "MTyq_RPHXz0",
+     "title": "Day 12 - Courage To Flourish | Dcn. 'Lekan ABIOYE",
+     "published": "2026-02-13T14:35:14+00:00",
+     "date": "2026-02-13"
+    }
+   ]
+  },
+  {
+   "id": "PLNJg4KyzzgILxXrxMk2KxH9C6Knu61w0N",
+   "title": "Lead Me Oh Lord",
+   "latest": "2026-01-08T16:08:09+00:00",
+   "videos": [
+    {
+     "id": "V9lQI1XqoVc",
+     "title": "Lead Me Oh Lord | Day 3",
+     "published": "2026-01-08T16:08:09+00:00",
+     "date": "2026-01-08"
+    },
+    {
+     "id": "MwiX-EJjgdE",
+     "title": "Lead Me Oh Lord | Day 2",
+     "published": "2026-01-07T15:42:17+00:00",
+     "date": "2026-01-07"
+    },
+    {
+     "id": "GBn4k5eKT5A",
+     "title": "Lead Me Oh Lord | Day 1",
+     "published": "2026-01-06T15:39:18+00:00",
+     "date": "2026-01-06"
+    },
+    {
+     "id": "0A_QsZzxUX8",
+     "title": "Lead Me Oh Lord | Day 3 | Pst. Ola OLARINDE",
+     "published": "2024-01-12T16:49:27+00:00",
+     "date": "2024-01-12"
+    },
+    {
+     "id": "c4_eT6au8gk",
+     "title": "Lead Me Oh Lord | Day 2 | Pst. Ola OLARINDE",
+     "published": "2024-01-11T14:28:24+00:00",
+     "date": "2024-01-11"
+    },
+    {
+     "id": "PshafVSf9Gs",
+     "title": "Lead Me Oh Lord | Day 1 | Pst. Ola OLARINDE",
+     "published": "2024-01-10T13:52:36+00:00",
+     "date": "2024-01-10"
+    },
+    {
+     "id": "twt7y5ZS-lw",
+     "title": "Lead Me Oh Lord | DAY 3",
+     "published": "2023-01-06T02:50:05+00:00",
+     "date": "2023-01-05"
+    },
+    {
+     "id": "F6VHqSJYUZQ",
+     "title": "Lead Me Oh Lord | DAY 2",
+     "published": "2023-01-05T02:21:38+00:00",
+     "date": "2023-01-04"
+    },
+    {
+     "id": "Lg-bJU_9190",
+     "title": "Lead Me Oh Lord | DAY 1",
+     "published": "2023-01-04T02:14:03+00:00",
+     "date": "2023-01-03"
+    }
+   ]
+  }
+ ]
+}
