@@ -238,6 +238,25 @@ async function channelPlaylists(channel, key) {
   return { all: await playlistVideos("UU" + channel.slice(2)), playlists };
 }
 
+/* ---------- 3c2. Scheduled streams that haven't started ----------
+   YouTube's public feeds list a scheduled stream as soon as it is created, as if it were a finished
+   video (Nov 2026: an extra "Sunday Service" stream that never started showed on the homepage).
+   With the API key, one call (1 quota unit, up to 50 IDs) finds which of the given videos are still
+   "upcoming", so the lists can leave them out until they go live. Without the key: nothing is left out. */
+async function upcomingIds(ids, key) {
+  const want = [...new Set(ids.filter(Boolean))].slice(0, 50);
+  if (!key || !want.length) return new Set();
+  try {
+    const res = await fetch(`https://www.googleapis.com/youtube/v3/videos?${new URLSearchParams({ part: "snippet", id: want.join(","), key })}`).catch(() => null);
+    if (!res?.ok) throw new Error(`YouTube API videos answered ${res ? res.status : "nothing"}`); // (message never includes the key)
+    const { items = [] } = await res.json();
+    return new Set(items.filter((v) => v.snippet?.liveBroadcastContent === "upcoming").map((v) => v.id));
+  } catch (e) {
+    console.warn("[cms] Could not check for scheduled streams, lists left as the feed gave them:", e.message);
+    return new Set();
+  }
+}
+
 /* ---------- 3d. YouTube lists (replaces the old /youtube-feed server route) ---------- */
 const xmlText = (s) => s.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1").replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
 async function youtubeFeed(channel, streams) {
@@ -453,23 +472,35 @@ async function main() {
   const channel = site?.youtubeChannelId || (await file("assets/js/main.js")).match(/youtubeChannelId:\s*"(UC[\w-]{22})"/)?.[1];
   if (!flag("--no-youtube") && channel) {
     try {
-      const [uploads, streams] = await Promise.all([youtubeFeed(channel, false), youtubeFeed(channel, true)]);
+      let [uploads, streams] = await Promise.all([youtubeFeed(channel, false), youtubeFeed(channel, true)]);
       const name = "Mercy Seat Chapel";
-      await writeWhole("assets/data/youtube-uploads.json", JSON.stringify(uploads, null, 1) + "\n");
-      await writeWhole("assets/data/youtube-streams.json", JSON.stringify(streams, null, 1) + "\n");
-      if (streams.length) await region("index.html", "latest-messages", R.messagesHtml(streams.slice(0, 5), name));
       // Watch Live "Recent livestreams": playlist buttons + cards that open on YouTube
       const saved = existsSync(path.join(ROOT, "assets/data/youtube-playlists.json")) ? JSON.parse(await file("assets/data/youtube-playlists.json")) : { updated: "", playlists: [] };
       let { playlists = [], all = [] } = saved;
+      let fresh = false;
       if (ytKey && (!saved.updated || Date.now() - Date.parse(saved.updated) > 55 * 60e3)) {
-        try {
-          ({ playlists, all } = await channelPlaylists(channel, ytKey));
-          // One compact file (one line per list), read by the page only when "Show more" is pressed
-          const lines = [`{"updated":${JSON.stringify(new Date().toISOString())},`, `"all":${JSON.stringify(all)},`, `"playlists":[`,
-            playlists.map((p) => JSON.stringify(p)).join(",\n"), `]}`];
-          await writeWhole("assets/data/youtube-playlists.json", lines.join("\n") + "\n");
-          log(`YouTube: ${all.length} videos and ${playlists.length} playlists for Watch Live`);
-        } catch (e) { console.warn("[cms] YouTube playlists unavailable, kept the saved list:", e.message); }
+        try { ({ playlists, all } = await channelPlaylists(channel, ytKey)); fresh = true; }
+        catch (e) { console.warn("[cms] YouTube playlists unavailable, kept the saved list:", e.message); }
+      }
+      // Leave out scheduled streams that haven't started yet (they are always among the newest videos)
+      const upcoming = await upcomingIds([...uploads, ...streams, ...all.slice(0, 10), ...playlists.flatMap((p) => p.videos.slice(0, 3))].map((v) => v.id), ytKey);
+      if (upcoming.size) {
+        const keep = (list) => list.filter((v) => !upcoming.has(v.id));
+        uploads = keep(uploads); streams = keep(streams); all = keep(all);
+        playlists = playlists.map((p) => ({ ...p, videos: keep(p.videos) })).filter((p) => p.videos.length);
+        log(`YouTube: left out ${upcoming.size} scheduled stream(s) that haven't started`);
+      }
+      await writeWhole("assets/data/youtube-uploads.json", JSON.stringify(uploads, null, 1) + "\n");
+      await writeWhole("assets/data/youtube-streams.json", JSON.stringify(streams, null, 1) + "\n");
+      if (streams.length) await region("index.html", "latest-messages", R.messagesHtml(streams.slice(0, 5), name));
+      if (fresh || upcoming.size) {
+        // One compact file (one line per list), read by the page only when "Show more" is pressed.
+        // "updated" is the time of the last full refresh (an hourly one), not of a scheduled-stream clean-up.
+        const updated = fresh ? new Date().toISOString() : saved.updated;
+        const lines = [`{"updated":${JSON.stringify(updated)},`, `"all":${JSON.stringify(all)},`, `"playlists":[`,
+          playlists.map((p) => JSON.stringify(p)).join(",\n"), `]}`];
+        await writeWhole("assets/data/youtube-playlists.json", lines.join("\n") + "\n");
+        if (fresh) log(`YouTube: ${all.length} videos and ${playlists.length} playlists for Watch Live`);
       }
       // "All" = every channel video once the key has filled the file; until then the 15 newest livestreams
       const live = R.livestreamFilters(playlists, all.length ? all : streams, site?.liveVideoId);
@@ -489,12 +520,14 @@ async function main() {
     try {
       const talks = await channelStreams(sermonsChannel, process.env.YOUTUBE_API_KEY);
       await writeWhole("assets/data/youtube-sermons.json", JSON.stringify(talks, null, 1) + "\n");
-      // The page holds the newest 8; its "Show more" adds 8 at a time from youtube-sermons.json (main.js initMoreVideos)
-      if (talks.length) await region("sermons.html", "teaching-series", talks.slice(0, 8).map((v, i) => R.teachingCard(v, i, "MSC Sermons")).join("\n"));
-      // Main player above it: the newest finished message from that same list (never a live or scheduled
-      // stream; until Nov 2026 it took the church channel's newest upload, which could be a not-yet-started stream)
+      // Main player: the newest finished message from that list (never a live or scheduled stream; until
+      // Nov 2026 it took the church channel's newest upload, which could be a not-yet-started stream)
       const featured = talks.find((v) => !v.live);
       if (featured) await region("sermons.html", "sermon-feature", R.sermonFeature(featured, "MSC Sermons"));
+      // Teaching series below it: the next 8, leaving out the one already in the player; its "Show more"
+      // adds 8 at a time from youtube-sermons.json and skips the player's message too (main.js initMoreVideos)
+      const rest = talks.filter((v) => v !== featured);
+      if (rest.length) await region("sermons.html", "teaching-series", rest.slice(0, 8).map((v, i) => R.teachingCard(v, i, "MSC Sermons")).join("\n"));
       log(`YouTube: ${talks.length} MSC Sermons livestreams`);
     } catch (e) {
       console.warn("[cms] MSC Sermons channel unavailable, Teaching series left as it was:", e.message);

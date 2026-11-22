@@ -1388,7 +1388,7 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
 .job-aside h4 { font-size: 17px; margin-bottom: 6px; }
 
 /* ---------- Multi-step application form ---------- */
-#apply, .app-form, .app-success { scroll-margin-top: 110px; }
+#apply, .app-form, .app-success, #replay { scroll-margin-top: 110px; } /* #replay: Watch Live's replay list, linked from the homepage */
 .app-wrap { max-width: calc(880px + var(--pad-x) * 2); }
 .app-wrap .section-head { margin-bottom: 32px; }
 /* ---------- 404 page: open Bible with pages turning in a loop ---------- */

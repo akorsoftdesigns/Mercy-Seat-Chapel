@@ -802,7 +802,8 @@ function initVideoFilters() {
     // The chosen filter's full list from the loaded file (null until loaded, or if it has none)
     const fullList = () => {
       if (!data) return null;
-      const list = filter === "all" ? (data.all || []).filter((v) => v.id !== SITE.liveVideoId) : data.playlists?.find((p) => p.id === filter)?.videos;
+      // "All" includes the video in the Watch Live player too, like the playlist buttons (Nov 2026)
+      const list = filter === "all" ? data.all : data.playlists?.find((p) => p.id === filter)?.videos;
       return list?.length ? list : null;
     };
     const render = () => {
@@ -865,7 +866,9 @@ function initMoreVideos() {
     if (!grid || document.querySelector(`[data-filters="${sel}"]`)) return; // grids with filter buttons: initVideoFilters
     const per = parseInt(grid.dataset.per, 10) || 8, name = more.dataset.name || "";
     let list = null;
-    const shownIds = () => new Set([...grid.querySelectorAll(".yt[data-id]")].map((b) => b.dataset.id));
+    // The message already in the page's main player (data-plays-in) is left out of the list
+    const playerId = document.querySelector(`${grid.dataset.playsIn || "#none"} .yt[data-id]`)?.dataset.id;
+    const shownIds = () => new Set([playerId, ...[...grid.querySelectorAll(".yt[data-id]")].map((b) => b.dataset.id)]);
     const load = async () => {
       if (!list) {
         try { list = (await (await fetch(more.dataset.source)).json()).filter((v) => v.id && v.date && !v.live); } catch (err) { list = []; }

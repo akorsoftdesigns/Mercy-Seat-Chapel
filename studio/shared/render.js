@@ -558,9 +558,11 @@ export const videoCard = (v, lists, hidden) =>
     first) and the first `perPage` video cards of each filter. Every card lists the filters it belongs
     to (data-lists); each button says how many videos its filter has (data-total). "Show more" in
     main.js (initVideoFilters) loads assets/data/youtube-playlists.json and adds `perPage` at a time
-    until the last video. Without JavaScript, the first `perPage` of "All" show. */
+    until the last video. Without JavaScript, the first `perPage` of "All" show.
+    "All" includes the video in the Watch Live player too, like the playlist buttons (Nov 2026; until
+    then it was left out). liveId is no longer used here; to leave it out again, filter allVideos by it. */
 export function livestreamFilters(playlists, allVideos, liveId, perPage = 8) {
-  const all = allVideos.filter((v) => v.id !== liveId);
+  const all = allVideos;
   const cards = new Map(); // video id → { video, lists }
   const add = (v, list) => {
     if (!cards.has(v.id)) cards.set(v.id, { v, lists: [] });
