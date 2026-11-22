@@ -152,8 +152,8 @@ async function youtubeLive(channel, key) {
 }
 
 /* ---------- 3b. A channel's livestreams (its YouTube "Live" tab), newest first ----------
-   With the YouTube API key (GitHub secret): up to 25, dated by when each stream started,
-   scheduled streams that haven't started left out (2 quota units). Without the key, or if
+   With the YouTube API key (GitHub secret): all of them, dated by when each stream started,
+   scheduled streams that haven't started left out (2 quota units per 50 videos). Without the key, or if
    the API fails: YouTube's public feed (15 newest). Only video IDs, titles and dates are saved. */
 const churchDay = (iso) => new Intl.DateTimeFormat("en-CA", { timeZone: TIME_ZONE, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(iso));
 async function channelStreams(channel, key) {
@@ -164,12 +164,24 @@ async function channelStreams(channel, key) {
         if (!res?.ok) throw new Error(`YouTube API ${endpoint} answered ${res ? res.status : "nothing"}`); // (message never includes the key)
         return res.json();
       };
-      const list = await api("playlistItems", { part: "contentDetails", playlistId: "UULV" + channel.slice(2), maxResults: "25" });
-      const ids = (list.items || []).map((i) => i.contentDetails?.videoId).filter(Boolean);
+      // Every livestream on the channel (50 per page, up to 20 pages), so the Sermons page's
+      // "Show more" can go all the way to the first one
+      const ids = [];
+      let pageToken = "";
+      for (let page = 0; page < 20; page++) {
+        const list = await api("playlistItems", { part: "contentDetails", playlistId: "UULV" + channel.slice(2), maxResults: "50", ...(pageToken && { pageToken }) });
+        ids.push(...(list.items || []).map((i) => i.contentDetails?.videoId).filter(Boolean));
+        if (!(pageToken = list.nextPageToken)) break;
+      }
       if (!ids.length) return [];
-      const { items = [] } = await api("videos", { part: "snippet,liveStreamingDetails", id: ids.join(",") });
+      const items = [];
+      for (let i = 0; i < ids.length; i += 50) items.push(...((await api("videos", { part: "snippet,liveStreamingDetails", id: ids.slice(i, i + 50).join(",") })).items || []));
       return items.filter((v) => v.snippet?.liveBroadcastContent !== "upcoming")
-        .map((v) => { const published = v.liveStreamingDetails?.actualStartTime || v.snippet.publishedAt; return { id: v.id, title: v.snippet.title, published, date: churchDay(published) }; })
+        .map((v) => {
+          const published = v.liveStreamingDetails?.actualStartTime || v.snippet.publishedAt;
+          // live: still streaming (kept in the list, but never chosen for the Sermons page's main player)
+          return { id: v.id, title: v.snippet.title, published, date: churchDay(published), ...(v.snippet.liveBroadcastContent === "live" && { live: true }) };
+        })
         .sort((a, b) => (a.published < b.published ? 1 : -1));
     } catch (e) {
       console.warn("[cms] YouTube API unavailable for channel streams, using the public feed:", e.message);
@@ -446,8 +458,6 @@ async function main() {
       await writeWhole("assets/data/youtube-uploads.json", JSON.stringify(uploads, null, 1) + "\n");
       await writeWhole("assets/data/youtube-streams.json", JSON.stringify(streams, null, 1) + "\n");
       if (streams.length) await region("index.html", "latest-messages", R.messagesHtml(streams.slice(0, 5), name));
-      // Sermons page: one big player with the newest video (the list beside it was removed, Nov 2026)
-      if (uploads.length) await region("sermons.html", "sermon-feature", R.sermonFeature(uploads[0], name));
       // Watch Live "Recent livestreams": playlist buttons + cards that open on YouTube
       const saved = existsSync(path.join(ROOT, "assets/data/youtube-playlists.json")) ? JSON.parse(await file("assets/data/youtube-playlists.json")) : { updated: "", playlists: [] };
       let { playlists = [], all = [] } = saved;
@@ -479,7 +489,12 @@ async function main() {
     try {
       const talks = await channelStreams(sermonsChannel, process.env.YOUTUBE_API_KEY);
       await writeWhole("assets/data/youtube-sermons.json", JSON.stringify(talks, null, 1) + "\n");
-      if (talks.length) await region("sermons.html", "teaching-series", talks.slice(0, 12).map((v, i) => R.teachingCard(v, i, "MSC Sermons")).join("\n"));
+      // The page holds the newest 8; its "Show more" adds 8 at a time from youtube-sermons.json (main.js initMoreVideos)
+      if (talks.length) await region("sermons.html", "teaching-series", talks.slice(0, 8).map((v, i) => R.teachingCard(v, i, "MSC Sermons")).join("\n"));
+      // Main player above it: the newest finished message from that same list (never a live or scheduled
+      // stream; until Nov 2026 it took the church channel's newest upload, which could be a not-yet-started stream)
+      const featured = talks.find((v) => !v.live);
+      if (featured) await region("sermons.html", "sermon-feature", R.sermonFeature(featured, "MSC Sermons"));
       log(`YouTube: ${talks.length} MSC Sermons livestreams`);
     } catch (e) {
       console.warn("[cms] MSC Sermons channel unavailable, Teaching series left as it was:", e.message);

@@ -77,8 +77,8 @@ const NAV = [
     { label: "Gallery", href: "gallery.html" }
   ]},
   { label: "Sermons", href: "sermons.html", children: [
-    { label: "Latest Messages", href: "sermons.html" },
-    { label: "Watch Live", href: "live.html" }
+    { label: "Watch Live", href: "live.html" },
+    { label: "Latest Messages", href: "sermons.html" }
   ]},
   { label: "Contact", href: "contact.html" }
 ];
@@ -854,6 +854,58 @@ function initVideoFilters() {
   });
 }
 
+/* "Show more" for a plain video grid with no filter buttons (Sermons page "Teaching series"):
+   <button data-more="#grid" data-source="file.json" data-name="MSC Sermons" hidden>. The page holds the
+   first data-per cards; each press adds data-per more from the JSON list (from the website update), to
+   the very last video, and the button hides itself when there is nothing more. The new cards play in
+   the page's main player like the others (data-plays-in on the grid); nothing goes to YouTube. */
+function initMoreVideos() {
+  document.querySelectorAll("[data-more][data-source]").forEach((more) => {
+    const sel = more.dataset.more, grid = document.querySelector(sel);
+    if (!grid || document.querySelector(`[data-filters="${sel}"]`)) return; // grids with filter buttons: initVideoFilters
+    const per = parseInt(grid.dataset.per, 10) || 8, name = more.dataset.name || "";
+    let list = null;
+    const shownIds = () => new Set([...grid.querySelectorAll(".yt[data-id]")].map((b) => b.dataset.id));
+    const load = async () => {
+      if (!list) {
+        try { list = (await (await fetch(more.dataset.source)).json()).filter((v) => v.id && v.date && !v.live); } catch (err) { list = []; }
+      }
+      return list;
+    };
+    const left = () => { const shown = shownIds(); return list.filter((v) => !shown.has(v.id)); };
+    load().then(() => { more.hidden = !left().length; }); // small file; shows the button only if there is more
+    more.addEventListener("click", async () => {
+      more.disabled = true;
+      await load();
+      more.disabled = false;
+      const next = left().slice(0, per);
+      next.forEach((v, i) => {
+        const card = document.createElement("article");
+        card.className = "card card--enter";
+        card.style.setProperty("--enter-d", `${Math.min(i, 7) * 60}ms`);
+        const box = document.createElement("div");
+        box.className = "yt";
+        Object.assign(box.dataset, { id: v.id, title: v.title || "", meta: [name, videoDate(v.date)].filter(Boolean).join(" · ") });
+        const body = document.createElement("div");
+        body.className = "card__body";
+        const h3 = document.createElement("h3");
+        h3.style.fontSize = "18px";
+        h3.textContent = v.title || "";
+        const p = document.createElement("p");
+        p.textContent = videoDate(v.date);
+        body.append(h3, p);
+        card.append(box, body);
+        card.addEventListener("animationend", () => card.classList.remove("card--enter"), { once: true });
+        grid.append(card);
+        setupYt(box);
+      });
+      window.lucide && lucide.createIcons();
+      more.hidden = !left().length;
+      grid.querySelector(`.yt[data-id="${next[0]?.id}"] button`)?.focus({ preventScroll: true }); // keyboard users carry on from the new cards
+    });
+  });
+}
+
 // Thumbnail with a play button; the YouTube player only loads when clicked
 function setupYt(box) {
   if (!box.innerHTML.trim()) box.innerHTML = ytMarkup(box.dataset.id, box.dataset.title || "video");
@@ -888,6 +940,7 @@ function initVideos() {
   document.querySelectorAll(".yt[data-id], .yt[data-uploads]").forEach(setupYt);
   document.querySelectorAll("[data-youtube-grid]").forEach(loadFeedGrid);
   initVideoFilters();
+  initMoreVideos();
 
   // Playlist: clicking a list item swaps the featured video
   document.querySelectorAll("[data-playlist]").forEach((pl) => {
