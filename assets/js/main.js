@@ -16,7 +16,10 @@ const SITE_FIXED = {
   // "MSC Sermons" YouTube channel: its livestreams fill "Teaching series" on the Sermons page
   // (scripts/cms-build.mjs reads the ID from here). The link is for "See all sermons on YouTube".
   sermonsChannelId: "UCbp8b4Zy37UxfPlrLodUmqQ",
-  sermonsChannelUrl: "https://www.youtube.com/@mscsermons/streams"
+  sermonsChannelUrl: "https://www.youtube.com/@mscsermons/streams",
+  // The church's position on Google Maps (latitude,longitude), where the map "zoom in" on the Contact and
+  // Plan a Visit pages heads (main.js initMapZoom). Update it together with the address if the church moves.
+  mapCenter: "39.1448497,-77.1731099"
 };
 
 /* Contact details, service times, links and the Watch Live video are edited in the
@@ -121,7 +124,7 @@ function renderHeader() {
     if (!item.children) return `<div class="m-group"><a href="${item.href}">${item.label}</a></div>`;
     return `<div class="m-group"><button type="button" aria-expanded="false">${item.label}<i data-lucide="plus"></i></button>
       <div class="m-sub"><div>${item.children.map((c) => `<a href="${c.href}">${c.label}</a>`).join("")}</div></div></div>`;
-  }).join("") + `<div class="m-group"><button class="m-search" type="button" aria-controls="site-search" aria-expanded="false">Search<i data-lucide="search"></i></button></div>`;
+  }).join("") + `<div class="m-group m-group--search"><form class="m-searchbar" role="search"><input type="search" placeholder="Search" aria-label="Search the site" autocomplete="off" enterkeyhint="search"><button type="submit" aria-label="Search" aria-controls="site-search"><i data-lucide="search"></i></button></form></div>`;
 
   el.outerHTML = `
   <a class="skip-link" href="#main">Skip to content</a>
@@ -203,7 +206,7 @@ function renderFooter() {
             <li><i data-lucide="phone"></i><a href="${SITE.phoneHref}">${SITE.phone}</a></li>
             <li><i data-lucide="mail"></i><a href="mailto:${SITE.email}">${SITE.email}</a></li>
           </ul>
-          <div class="footer-socials">${socialLinks("")}</div>
+          <div class="footer-socials reveal">${socialLinks("")}</div>
         </div>
       </div>
       <div class="footer-bottom">
@@ -308,7 +311,7 @@ function initHeader() {
     document.querySelectorAll(".primary-nav .nav-item.is-open").forEach((i) => { i.classList.remove("is-open"); i.querySelector("button.nav-link")?.setAttribute("aria-expanded", "false"); });
   });
   // Mobile accordion: one submenu open at a time; clicking an open one closes it.
-  const groupButtons = menu.querySelectorAll(".m-group > button:not(.m-search)");
+  const groupButtons = menu.querySelectorAll(".m-group > button");
   groupButtons.forEach((b) => b.addEventListener("click", () => {
     const open = !b.parentElement.classList.contains("is-open");
     groupButtons.forEach((other) => {
@@ -331,8 +334,17 @@ function initSearch() {
   const input = panel.querySelector("input");
   const status = panel.querySelector(".search-panel__status");
   const list = panel.querySelector(".search-panel__results");
-  const openers = document.querySelectorAll(".nav-search, .m-search");
+  const openers = document.querySelectorAll(".nav-search");
   let pages, opener, timer;
+  // Search box in the mobile menu: Enter or its magnifier opens this panel with the words already typed in
+  const menuForm = document.querySelector(".m-searchbar");
+  menuForm?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const words = menuForm.querySelector("input").value.trim();
+    input.value = words;
+    setOpen(true, menuForm.querySelector("input"));
+    if (words) search();
+  });
 
   const setOpen = (open, btn) => {
     panel.classList.toggle("is-open", open);
@@ -1136,6 +1148,163 @@ function initTabnav() {
   // Deep link (about.html#pastor): re-align once the header and fonts have settled
   const deep = links.find((a) => a.hash === location.hash);
   if (deep) addEventListener("load", () => { update(); lock(deep); document.getElementById(deep.hash.slice(1)).scrollIntoView({ behavior: "instant" }); });
+  else previewTabnav(nav);
+}
+
+/* Phones only: once the page has loaded, the section tabs scroll slowly sideways in a loop (the tabs
+   wrap round like a ticker) for one full lap, so visitors see every tab; it stops when the first tab is
+   back in its starting place. While a mouse is over the bar, a finger is on it, or keyboard focus is in
+   it, it pauses; a moment after that ends it carries on from where the bar is (also after a swipe)
+   until the first tab is back. Skipped when the visitor prefers reduced motion or all tabs already fit.
+   Hover is worked out from where the pointer is on screen (checked every frame), not only from
+   "entered/left" events, because some browsers and phone simulators don't send those reliably.
+   How it loops: a copy of the tabs is added after the real ones (hidden from screen readers and the
+   keyboard; tapping a copy still goes to its section) and removed again when the lap ends. */
+function previewTabnav(nav) {
+  if (!matchMedia("(max-width: 767px)").matches || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const SPEED = 40, DELAY = 800, RESUME = 900; // px per second (lower = slower); wait after load; wait after a pause, in ms
+  const list = nav.querySelector(".tabnav__list");
+  const canHover = matchMedia("(any-hover: hover)");
+  let done = false, copies = [], lap = 0, pos = 0, last = 0, dir = 1, heldAt = 0, wasHeld = false;
+  let pointer = null, touching = false; // last mouse position on screen; finger currently down on the bar
+
+  const over = () => {
+    if (!pointer) return false;
+    const r = nav.getBoundingClientRect();
+    return pointer.x >= r.left && pointer.x <= r.right && pointer.y >= r.top && pointer.y <= r.bottom;
+  };
+  const holding = () => touching || over() || (canHover.matches && nav.matches(":hover")) || !!nav.querySelector(":focus-visible");
+
+  // Where the mouse is (any element, so it works even if a browser reports the wrong target)
+  const track = (e) => { if (e.pointerType !== "touch") pointer = { x: e.clientX, y: e.clientY }; };
+  document.addEventListener("pointermove", track, { passive: true });
+  document.addEventListener("pointerdown", track, { passive: true });
+  nav.addEventListener("pointerenter", track, { passive: true });
+  document.documentElement.addEventListener("mouseleave", () => { pointer = null; }); // mouse left the window
+  // Fingers: down on the bar holds it; lifted anywhere lets go
+  nav.addEventListener("touchstart", () => { touching = true; }, { passive: true });
+  ["touchend", "touchcancel"].forEach((t) => document.addEventListener(t, (e) => { if (!e.touches.length) touching = false; }, { passive: true }));
+  // Mouse wheel on the bar: treat as a short hold
+  nav.addEventListener("wheel", () => { heldAt = performance.now(); wasHeld = true; }, { passive: true });
+
+  const step = (now) => {
+    if (done) return;
+    if (holding()) { heldAt = now; wasHeld = true; last = 0; requestAnimationFrame(step); return; }
+    if (wasHeld) {
+      if (now - heldAt < RESUME) { requestAnimationFrame(step); return; }
+      wasHeld = false;
+      pos = nav.scrollLeft; // carry on from wherever the bar is now (the visitor may have swiped)
+      dir = pos > lap ? -1 : 1; // swiped past the end point: drift gently back to it instead of starting another lap
+    }
+    pos += dir * (last ? (now - last) / 1000 : 0) * SPEED;
+    if (dir * (pos - lap) > 0) pos = lap;
+    last = now;
+    nav.scrollLeft = pos;
+    if (pos !== lap) { requestAnimationFrame(step); return; }
+    // The first tab is back where it started: swap the copies out unseen and stop for good
+    done = true; nav.scrollLeft = 0; copies.forEach((li) => li.remove()); copies = [];
+  };
+
+  const run = () => {
+    if (!list || nav.scrollWidth - nav.clientWidth < 8) { done = true; return; }
+    const items = [...list.children];
+    copies = items.map((li) => {
+      const copy = li.cloneNode(true);
+      copy.setAttribute("aria-hidden", "true");
+      copy.querySelectorAll("a").forEach((a) => { a.tabIndex = -1; a.removeAttribute("aria-current"); });
+      list.append(copy);
+      return copy;
+    });
+    lap = copies[0].offsetLeft - items[0].offsetLeft; // one lap = the copy of the first tab reaches the first tab's place
+    pos = nav.scrollLeft; dir = pos > lap ? -1 : 1;
+    requestAnimationFrame(step);
+  };
+  const begin = () => setTimeout(run, DELAY);
+  if (document.readyState === "complete") begin(); else addEventListener("load", begin, { once: true });
+}
+
+/* Map "zoom in" (Contact and Plan a Visit): <div class="map-zoom" data-map-zoom="8"><iframe class="map" …></iframe></div>
+   (heads for SITE.mapCenter; a data-map-center="lat,lng" on the wrapper overrides it for that map)
+   The map first appears as a wide view (Google zoom level = data-map-zoom: 8 = the state, 12 = the town),
+   then, once it is in view, zooms in one continuous move to its normal street view (level 17).
+   How: the real map is kept invisible (.is-waiting) while copies of the map load on top, ahead of time as
+   the visitor scrolls towards it, so the street view never shows first. One copy per LAYER_STEP levels
+   (8 and 12 here), widest on top. All of them follow one shared zoom timeline: each copy grows towards
+   the church while it is the one on show, then fades into the next, and the last fades into the real
+   map, which is untouched and ready to use straight after. The copies are centred on the church's
+   coordinates, which gives them no red pin (a pin would be blown up into a big red blob).
+   Skipped with reduced motion; if the copies are slow to load they are removed and the normal map shows. */
+function initMapZoom() {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
+  const MS_PER_LEVEL = 720, START_DELAY = 500, LAYER_STEP = 4; // zoom speed; pause on the wide view; levels per copy
+  document.querySelectorAll("[data-map-zoom]").forEach((box) => {
+    const map = box.querySelector("iframe");
+    if (!map) return;
+    const from = parseInt(box.dataset.mapZoom, 10) || 12, to = 17; // to = the level Google's embed opens an address at (checked Nov 2026)
+    const center = (box.dataset.mapCenter || SITE.mapCenter || "").replace(/\s/g, "");
+    const srcAt = (z) => /^-?\d+(\.\d+)?,-?\d+(\.\d+)?$/.test(center)
+      ? `https://www.google.com/maps?ll=${center}&z=${z}&output=embed`
+      : map.src.replace(/([?&])z=\d+/, "$1") + `&z=${z}`;
+    const loaded = (f) => new Promise((ok) => f.addEventListener("load", ok, { once: true }));
+    const mapLoaded = loaded(map);
+    box.classList.add("is-waiting"); // real map hidden until the wide view covers it
+
+    const levels = []; // copies at from, from + LAYER_STEP, … (none closer than 3 levels to the street view)
+    for (let z = from; z === from || z <= to - 3; z += LAYER_STEP) levels.push(z);
+    let layers = [], ready = null;
+    const removeAll = () => { layers.forEach((f) => f.remove()); layers = []; };
+    const prepare = () => {
+      if (ready) return; // only once, whichever observer below fires first
+      layers = levels.map((z, n) => {
+        const f = document.createElement("iframe");
+        f.className = "map-zoom__wide";
+        f.src = srcAt(z);
+        f.tabIndex = -1; f.setAttribute("aria-hidden", "true"); f.title = "";
+        f.style.zIndex = levels.length - n; // widest on top
+        // Copies after the first are twice the box's size (centred), so at half scale they can already show
+        // the view one level wider than their own, and take over before the copy above swells too much
+        if (n > 0) Object.assign(f.style, { width: "200%", height: "200%", left: "-50%", top: "-50%" });
+        box.append(f);
+        return f;
+      });
+      const giveUp = setTimeout(() => { removeAll(); box.classList.remove("is-waiting"); }, 12000);
+      ready = Promise.all([...layers.map(loaded), mapLoaded]).then(() => { clearTimeout(giveUp); box.classList.remove("is-waiting"); });
+    };
+    // Load the copies ahead of time, while the map is still a screen or so away
+    const early = new IntersectionObserver(([en]) => { if (en.isIntersecting) { early.disconnect(); prepare(); } }, { rootMargin: "100% 0px" });
+    early.observe(box);
+
+    // One shared timeline: the view's zoom level L goes from `from` to `to`, each level taking the same time.
+    // A copy at level z is scaled 2^(L - z) (never below its starting size: 1, or 0.5 for the double-size
+    // copies). It fades out while it still shows clear roads and labels: over 1.5 levels from 2.75 levels
+    // before the next copy's level, or, for the last copy, over 2 levels from 2.75 before the street view.
+    const SAMPLES = 60;
+    const framesFor = (z, next, minScale) => {
+      const frames = [], fadeFrom = next - 2.75, fadeLen = next === to ? 2 : 1.5;
+      for (let i = 0; i <= SAMPLES; i++) {
+        const p = i / SAMPLES, L = from + (to - from) * p;
+        const fade = Math.min(1, Math.max(0, (L - fadeFrom) / fadeLen));
+        frames.push({ offset: p, transform: `scale(${Math.max(minScale, 2 ** (L - z))})`, opacity: 1 - fade });
+      }
+      return frames;
+    };
+    // Zoom once most of the map is on screen and everything has loaded
+    const go = new IntersectionObserver(([en]) => {
+      if (!en.isIntersecting) return;
+      go.disconnect();
+      prepare();
+      ready.then(() => setTimeout(() => {
+        if (!layers.length || !layers[0].isConnected) return;
+        const duration = (to - from) * MS_PER_LEVEL;
+        layers.forEach((f, n) => {
+          f.classList.add("is-going");
+          f.animate(framesFor(levels[n], levels[n + 1] ?? to, n > 0 ? 0.5 : 1), { duration, easing: "cubic-bezier(.45, 0, .4, 1)", fill: "forwards" })
+            .finished.finally(() => f.remove());
+        });
+      }, START_DELAY));
+    }, { threshold: 0.5 });
+    go.observe(box);
+  });
 }
 
 /* US states for any form: <select data-us-states> gets one option per state
@@ -1220,6 +1389,7 @@ loadIncludes().then(() => {
   initMinisters();
   initSubnav();
   initTabnav();
+  initMapZoom();
   initForms();
   if (window.lucide) lucide.createIcons();
 });

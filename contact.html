@@ -69,8 +69,11 @@
       </div>
     </section>
 
-    <!-- Map: full screen width -->
-    <iframe class="map map--full" title="Map to Mercy Seat Chapel" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=17604+Washington+Grove+Lane,+Gaithersburg,+MD+20877&amp;output=embed"></iframe>
+    <!-- Map: full screen width. data-map-zoom: it "zooms in" from this wider Google zoom level when it first
+         comes into view (main.js initMapZoom, centred on SITE.mapCenter); remove data-map-zoom to switch it off. -->
+    <div class="map-zoom" data-map-zoom="12">
+      <iframe class="map map--full" title="Map to Mercy Seat Chapel" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=17604+Washington+Grove+Lane,+Gaithersburg,+MD+20877&amp;output=embed"></iframe>
+    </div>
 
     <!-- First-time visitors + Job Center: two short cards linking to their own pages -->
     <section class="section section--white" id="get-connected">

@@ -129,7 +129,11 @@
 
     <section class="section section--white" style="padding-top:0">
       <div class="container">
-        <iframe class="map reveal" title="Map to Mercy Seat Chapel" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=17604+Washington+Grove+Lane,+Gaithersburg,+MD+20877&amp;output=embed" style="height:420px"></iframe>
+        <!-- data-map-zoom: the map "zooms in" from this wider Google zoom level when it first comes into view
+             (main.js initMapZoom, centred on SITE.mapCenter); remove data-map-zoom to switch it off. -->
+        <div class="map-zoom map-zoom--card reveal" data-map-zoom="12">
+          <iframe class="map" title="Map to Mercy Seat Chapel" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=17604+Washington+Grove+Lane,+Gaithersburg,+MD+20877&amp;output=embed" style="height:420px"></iframe>
+        </div>
       </div>
     </section>
   </main>

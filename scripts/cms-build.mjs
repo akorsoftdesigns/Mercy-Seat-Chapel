@@ -394,8 +394,9 @@ async function main() {
     const times = deref(home.serviceTimes);
     if (times.length) await region("index.html", "service-times", times.map((e, i) => R.timeCard(c, e, i)).join("\n"));
     const liveTimes = deref(home.liveSchedule);
-    // Watch Live: "When we stream" is a short line under the player (the cards section was removed, Nov 2026)
-    if (liveTimes.length) await region("live.html", "live-schedule-note", R.liveScheduleNote(liveTimes));
+    // Watch Live: the "When we stream" line under the player was removed at the user's request (Nov 2026).
+    // To bring it back, put <!-- cms:live-schedule-note --><!-- /cms:live-schedule-note --> in live.html's notice and uncomment:
+    // if (liveTimes.length) await region("live.html", "live-schedule-note", R.liveScheduleNote(liveTimes));
     const mins = deref(home.featuredMinistries);
     if (mins.length) await region("index.html", "place-tabs", R.placeTabs(c, mins));
     const outs = deref(home.featuredOutreach);

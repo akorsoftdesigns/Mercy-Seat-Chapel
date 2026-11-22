@@ -269,6 +269,7 @@ small, .small { font-size: 14px; }
   .brand img { height: auto; max-height: 28px; width: 100%; object-fit: contain; object-position: left center; }
   .nav-actions { gap: 6px; }
   .nav-cta { padding: 10px 11px; min-height: 40px; font-size: 14px; }
+  .mobile-menu__cta .btn { font-size: 14px; } /* phone menu buttons match the header's Plan Your Visit (wider screens: both 15px) */
   .nav-give { display: none; }
   .nav-toggle { padding: 10px 12px; min-height: 40px; }
   .nav-toggle span { display: none; }
@@ -318,11 +319,23 @@ small, .small { font-size: 14px; }
   position: fixed; inset: 0; z-index: 200;
   background: var(--c-primary); color: var(--c-white);
   display: flex; flex-direction: column;
-  opacity: 0; visibility: hidden; transform: translateY(-12px);
-  transition: opacity .3s var(--ease), transform .3s var(--ease), visibility .3s;
+  /* Opening: the panel unrolls from the top like a curtain (clip-path), then the items drop in one by one */
+  visibility: hidden; clip-path: inset(0 0 100% 0);
+  transition: clip-path .55s cubic-bezier(.65, 0, .35, 1), visibility .55s;
   overflow-y: auto;
 }
-.mobile-menu.is-open { opacity: 1; visibility: visible; transform: none; }
+.mobile-menu.is-open { visibility: visible; clip-path: inset(0); }
+.mobile-menu.is-open :is(.mobile-menu__top, .m-group, .mobile-menu__cta, .mobile-menu__meta) { animation: menuDrop .5s var(--ease) both; animation-delay: var(--md, .1s); }
+.mobile-menu .m-group:nth-child(2) { --md: .15s; }
+.mobile-menu .m-group:nth-child(3) { --md: .2s; }
+.mobile-menu .m-group:nth-child(4) { --md: .25s; }
+.mobile-menu .m-group:nth-child(5) { --md: .3s; }
+.mobile-menu .m-group:nth-child(6) { --md: .35s; }
+.mobile-menu .m-group:nth-child(n+7) { --md: .4s; }
+.mobile-menu__cta { --md: .45s; }
+.mobile-menu__meta { --md: .5s; }
+.mobile-menu__top { --md: 0s; }
+@keyframes menuDrop { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: none; } }
 .mobile-menu__top { display: flex; justify-content: space-between; align-items: center; padding: 22px var(--pad-x); }
 .mobile-menu__top img { height: 27px; width: auto; }
 .mobile-close {
@@ -335,20 +348,38 @@ small, .small { font-size: 14px; }
 .m-group > a, .m-group > button {
   width: 100%; display: flex; justify-content: space-between; align-items: center;
   padding: 18px 0; background: none; border: 0; color: var(--c-white); text-decoration: none; cursor: pointer;
-  font: 700 21px/1.2 var(--f-heading); text-align: left;
+  font: 700 19px/1.2 var(--f-heading); text-align: left;
 }
 .m-group > button svg { width: 22px; height: 22px; color: var(--c-secondary); transition: transform .25s var(--ease); }
 .m-group > a:hover, .m-group > button:hover { color: var(--c-secondary-light); }
 .m-group.is-open > button svg { transform: rotate(45deg); }
+/* Search box at the end of the mobile menu: soft see-through field on the blue; solid white while in use */
+.m-group--search { border-bottom: 0; padding-top: 22px; }
+.m-searchbar { position: relative; display: flex; align-items: center; }
+.m-searchbar input {
+  width: 100%; height: 50px; padding: 0 52px 0 16px; border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, .3); background: rgba(255, 255, 255, .08); color: var(--c-white);
+  font: 400 16px/1.2 var(--f-body); /* 16px keeps iPhones from zooming in on tap */
+  -webkit-appearance: none; appearance: none; transition: background-color .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease);
+}
+.m-searchbar input::placeholder { color: rgba(255, 255, 255, .65); }
+.m-searchbar input::-webkit-search-cancel-button { -webkit-appearance: none; }
+.m-searchbar button { position: absolute; right: 4px; width: 44px; height: 44px; display: grid; place-items: center; border: 0; background: none; color: var(--c-secondary); cursor: pointer; border-radius: 6px; }
+.m-searchbar button svg { width: 20px; height: 20px; }
+.m-searchbar:focus-within input, .m-searchbar input:not(:placeholder-shown) { background: var(--c-white); border-color: var(--c-white); color: var(--c-primary); }
+.m-searchbar:focus-within input::placeholder { color: var(--c-muted); }
+.m-searchbar input:focus-visible { outline: 2px solid var(--c-secondary); outline-offset: 2px; }
 .m-sub { list-style: none; margin: 0; padding: 0 0 0 4px; display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s var(--ease); }
 .m-group.is-open .m-sub { grid-template-rows: 1fr; }
 .m-sub > div { overflow: hidden; visibility: hidden; transition: visibility .3s; }
 .m-group.is-open .m-sub > div { visibility: visible; }
-.m-sub a { display: block; padding: 10px 0; min-height: 44px; color: rgba(255, 255, 255, .8); text-decoration: none; font-size: 17px; }
+.m-sub a { display: block; padding: 10px 0; min-height: 44px; color: rgba(255, 255, 255, .8); text-decoration: none; font-size: 15px; }
 .m-sub a:hover { color: var(--c-secondary-light); }
 .m-sub > div > a:last-child { margin-bottom: 14px; }
 .mobile-menu__cta { padding: 0 var(--pad-x) 32px; max-width: 640px; width: 100%; margin: 0 auto; display: grid; gap: 12px; }
-.mobile-menu__meta { padding: 0 var(--pad-x) 40px; max-width: 640px; width: 100%; margin: 0 auto; color: rgba(255, 255, 255, .7); font-size: 15px; }
+.mobile-menu__meta { padding: 0 var(--pad-x) 40px; max-width: 640px; width: 100%; margin: 0 auto; color: rgba(255, 255, 255, .7); font-size: 13px; }
+/* The two menu buttons share one row when there's room (370px+ wide); narrower phones keep them stacked */
+@media (min-width: 370px) { .mobile-menu__cta { grid-template-columns: 1fr 1fr; } .mobile-menu__cta .btn { padding-left: 12px; padding-right: 12px; white-space: nowrap; } }
 body.menu-open { overflow: hidden; }
 
 /* ---------- Hero (home) ---------- */
@@ -540,7 +571,7 @@ body.menu-open { overflow: hidden; }
   .special-program__body { padding: 36px; }
 }
 @media (max-width: 1023px) {
-  .special-program { grid-template-columns: 1fr; }
+  .special-program { grid-template-columns: 1fr; grid-template-rows: auto 1fr; } /* flyer keeps its height; a shorter slide's spare room goes below its text, not between flyer and text */
   .special-program__media { min-height: 0; }
   .special-program__body { padding: 30px 24px; }
 }
@@ -744,12 +775,6 @@ html:not(.no-js) .place__tabs.reveal:not(.is-in) .place__tab { opacity: 0; }
 .place__tabs--light .place__tab[aria-pressed="true"],
 .place__tabs--light .place__tab[aria-pressed="true"]:hover { background: var(--c-secondary); border-color: var(--c-secondary); color: var(--c-white); } /* selected pill keeps white text on hover, like Plan Your Visit */
 .place__tab:nth-child(n+7) { --pill-d: .9s; }
-/* Phones: the filter buttons stay on one line that swipes sideways, instead of a tall stack */
-@media (max-width: 639px) {
-  .place__tabs--light { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-right: calc(-1 * var(--pad-x)); padding-right: var(--pad-x); }
-  .place__tabs--light::-webkit-scrollbar { display: none; }
-  .place__tabs--light .place__tab { flex-shrink: 0; white-space: nowrap; }
-}
 .place__panel { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: center; position: relative; }
 .place__panel[hidden] { display: none; }
 .place__panel.is-entering .place__text { animation: fadeUp .6s var(--ease) both; }
@@ -899,8 +924,8 @@ html:not(.no-js) .place__tabs.reveal:not(.is-in) .place__tab { opacity: 0; }
 .step-tile__tag { position: absolute; top: 22px; left: 22px; padding: 6px 12px; border-radius: 999px; background: rgba(255, 255, 255, .14); border: 1px solid rgba(255, 255, 255, .25); font: 700 11px/1.3 var(--f-heading); letter-spacing: 1.5px; text-transform: uppercase; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
 .step-tile__tag { color: var(--c-white); transition: background-color .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease); }
 .step-tile:hover .step-tile__tag, .step-tile:focus-visible .step-tile__tag { background: var(--c-secondary); border-color: var(--c-secondary); color: var(--c-white); }
-.step-tile h3 { color: var(--c-white); font-size: 24px; margin-bottom: 8px; }
-.step-tile p { color: rgba(255, 255, 255, .82); font-size: 15px; margin-bottom: 16px; }
+.step-tile h3 { color: var(--c-white); font-size: 24px; line-height: 1.15; margin-bottom: 6px; }
+.step-tile p { color: rgba(255, 255, 255, .82); font-size: 15px; line-height: 1.5; margin-bottom: 10px; } /* tighter than body text so heading, text and link read as one block */
 .step-tile .link-arrow { color: var(--c-secondary-light); }
 
 /* ---------- Events ---------- */
@@ -937,6 +962,7 @@ html:not(.no-js) .place__tabs.reveal:not(.is-in) .place__tab { opacity: 0; }
 .event-row__meta svg { width: 15px; height: 15px; color: var(--c-accent); }
 .pill { display: inline-block; padding: 4px 10px; border-radius: 999px; font: 700 11px/1.4 var(--f-heading); letter-spacing: 1px; text-transform: uppercase; background: var(--c-soft); color: var(--c-accent); }
 @media (max-width: 700px) { .event-row { grid-template-columns: 72px 1fr; gap: 16px; } .event-row > :last-child { grid-column: 1 / -1; } }
+@media (max-width: 700px) { .event-row > .date-block { align-self: start; } } /* phones: the date box lines up with the top of the title, not the middle of the text */
 
 /* ---------- Get connected (ICF-style) ---------- */
 .connect { background: var(--c-primary); color: rgba(255, 255, 255, .78); padding: var(--pad-section) 0; position: relative; overflow: hidden; }
@@ -1031,7 +1057,7 @@ html:not(.no-js) .place__tabs.reveal:not(.is-in) .place__tab { opacity: 0; }
    size), slides away while reading downward and comes back on scroll up. */
 .tabnav { position: relative; z-index: 50; background: var(--c-white); border-bottom: 1px solid var(--c-border); overflow-x: auto; scrollbar-width: none; transition: transform .22s var(--ease); }
 .tabnav::-webkit-scrollbar { display: none; }
-.tabnav__list { display: flex; justify-content: center; gap: 8px; width: max-content; min-width: 100%; max-width: var(--w-content); margin: 0 auto; padding: 0 var(--pad-x); list-style: none; }
+.tabnav__list { display: flex; justify-content: center; gap: 8px; width: max-content; min-width: 100%; margin: 0 auto; padding: 0 var(--pad-x); list-style: none; } /* no max-width: when the tabs are wider than the screen the list grows, so the bar scrolls from the first tab (a cap made centred tabs spill off the left, out of reach) */
 .tabnav a { position: relative; display: flex; align-items: center; height: 56px; padding: 0 18px; white-space: nowrap; font: 600 15px/1 var(--f-heading); color: var(--c-muted); text-decoration: none; transition: color .2s var(--ease); }
 .tabnav a::after { content: ""; position: absolute; left: 18px; right: 18px; bottom: 0; height: 3px; background: var(--c-secondary); transform: scaleX(0); transition: transform .25s var(--ease); }
 .tabnav a:hover, .tabnav a[aria-current="true"] { color: var(--c-primary); }
@@ -1301,6 +1327,13 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
 .info-list a:hover { color: var(--c-accent); text-decoration: underline; }
 .map { border: 0; width: 100%; height: 100%; min-height: 380px; border-radius: var(--r-card); filter: grayscale(.2); }
 .map--full { display: block; height: 450px; border-radius: 0; }
+/* Contact map "zoom in" (main.js initMapZoom): a wide copy of the map on top grows towards the church
+   and fades out, revealing the normal map underneath */
+.map-zoom { position: relative; overflow: hidden; background: #e8eaed; } /* map-grey while the maps load */
+.map-zoom.is-waiting > .map { opacity: 0; } /* the street view stays hidden until the town view covers it */
+.map-zoom > .map { display: block; }
+.map-zoom--card { border-radius: var(--r-card); } /* rounded map inside a page (Plan a Visit): the zoom stays inside the corners */
+.map-zoom__wide { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; pointer-events: none; filter: grayscale(.2); transform-origin: 50% 50%; }
 @media (max-width: 767px) { .map--full { height: 340px; min-height: 0; } }
 
 /* Notice */
@@ -1500,7 +1533,7 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
 
 /* Stat strip */
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-.stat b { display: block; font: 800 44px/1 var(--f-heading); letter-spacing: -1px; color: var(--c-primary); font-variant-numeric: tabular-nums; }
+.stat b { display: block; font: 700 44px/1 var(--f-heading); letter-spacing: -1px; color: var(--c-primary); font-variant-numeric: tabular-nums; }
 .stat span { font-size: 15px; color: var(--c-muted); }
 .section--navy .stat b { color: var(--c-secondary-light); }
 .section--navy .stat span { color: rgba(255, 255, 255, .72); }
@@ -1524,6 +1557,19 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
 .store-btn__logo { width: 28px; height: 28px; flex-shrink: 0; }
 .store-btn span { display: flex; flex-direction: column; font: 700 18px/1.05 var(--f-heading); letter-spacing: -.01em; }
 .store-btn small { font-size: 11px; font-weight: 500; letter-spacing: .02em; margin-bottom: 3px; }
+/* Entrance: once the text column appears, the feature pills slide in one by one (same motion as the filter
+   buttons, pillIn), then the App Store and Google Play buttons rise into place one after the other.
+   "backwards" fill so the buttons' hover lift still works after the animation. */
+html:not(.no-js) .app-promo__text:not(.is-in) :is(.app-promo__features li, .store-btn) { opacity: 0; }
+.app-promo__text.is-in .app-promo__features li { animation: pillIn .5s var(--ease) backwards; animation-delay: var(--pill-d, .3s); }
+.app-promo__features li:nth-child(2) { --pill-d: .45s; }
+.app-promo__features li:nth-child(3) { --pill-d: .6s; }
+.app-promo__features li:nth-child(4) { --pill-d: .75s; }
+.app-promo__features li:nth-child(5) { --pill-d: .9s; }
+.app-promo__features li:nth-child(n+6) { --pill-d: 1.05s; }
+.app-promo__text.is-in .store-btn { animation: storeUp .6s var(--ease) backwards; animation-delay: 1.35s; }
+.app-promo__text.is-in .store-btn + .store-btn { animation-delay: 1.6s; }
+@keyframes storeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
 .app-promo__note { display: flex; align-items: center; gap: 8px; margin: 18px 0 0; font-size: 14px; color: var(--c-muted); }
 .app-promo__note svg { width: 16px; height: 16px; color: var(--c-accent); }
 
@@ -1620,6 +1666,17 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
 .footer-socials.footer-socials--light a { border: 2px solid var(--c-primary); color: var(--c-primary); }
 .footer-socials.footer-socials--light a:hover,
 .footer-socials.footer-socials--light a:focus-visible { background: var(--c-secondary); border-color: var(--c-secondary); color: var(--c-white); }
+/* Social icons slide in one after another (same motion as the filter buttons; "backwards" so the hover
+   colours still work afterwards): on the Contact page once their column appears, in the footer once the
+   icon row itself scrolls into view (it has the .reveal class but doesn't fade or move as a whole) */
+.footer-socials.reveal { opacity: 1; transform: none; --soc-base: .1s; }
+html:not(.no-js) :is(.reveal:not(.is-in) .footer-socials--light, .footer-socials.reveal:not(.is-in)) a { opacity: 0; }
+:is(.reveal.is-in .footer-socials--light, .footer-socials.reveal.is-in) a { animation: pillIn .5s var(--ease) backwards; animation-delay: calc(var(--soc-base, .5s) + var(--soc-i, 0) * .12s); }
+.footer-socials a:nth-child(2) { --soc-i: 1; }
+.footer-socials a:nth-child(3) { --soc-i: 2; }
+.footer-socials a:nth-child(4) { --soc-i: 3; }
+.footer-socials a:nth-child(5) { --soc-i: 4; }
+.footer-socials a:nth-child(n+6) { --soc-i: 5; }
 .footer-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 24px 0 calc(24px + env(safe-area-inset-bottom, 0px)); font-size: 14px; color: rgba(255, 255, 255, .6); }
 .footer-bottom nav { display: flex; gap: 18px; flex-wrap: wrap; }
 .footer-parish { display: inline-flex; align-items: center; gap: 10px; }
@@ -1678,7 +1735,33 @@ fieldset.field { border: 0; margin: 0; padding: 0; }
 .converge > :nth-child(2) { --from: 36px -28px; --d: .08s; }
 .converge > :nth-child(3) { --from: -36px 28px; --d: .16s; }
 .converge > :nth-child(4) { --from: 36px 28px; --d: .24s; }
+/* Phones (one column): the cards rise straight up one after another, in page order, instead of from their corners */
+@media (max-width: 639px) {
+  .converge > .reveal { --from: 0 28px; scale: 1; }
+  .converge > :nth-child(2) { --d: .12s; }
+  .converge > :nth-child(3) { --d: .24s; }
+  .converge > :nth-child(4) { --d: .36s; }
+}
 .no-js .reveal, .no-js .cta-band--inline .btn { opacity: 1; transform: none; translate: none; scale: none; }
+
+/* Phones and tablets: the events slider's text starts at the top of its panel (slides share the tallest
+   slide's height, so a shorter one used to sit low). */
+@media (max-width: 1023px) { .special-program__body { justify-content: flex-start; } }
+/* Phones: one roomy padding inside every box (text panels only, photos are not padded).
+   Change --box-pad here to adjust them all; remove this block to go back to each box's own padding. */
+@media (max-width: 639px) {
+  :root { --box-pad: 32px; }
+  .special-program__body, .card__body, .value-card .card__body, .video-feature__body,
+  .time-card, .time-card--lg, .icon-card, .form-card, .leader, .event-row, .pillar,
+  .belief, .job, .job-cta, .follow-block { padding: var(--box-pad); }
+  .cta-band { padding: 40px var(--box-pad); }
+  .notice { padding: 20px 24px; }
+}
+/* Tighter boxes on larger screens (Departments "Vision/Goal" cards, RCCG timeline box); phones use --box-pad above */
+@media (min-width: 640px) {
+  .icon-card--compact { padding: 22px; }
+  .form-card--compact { padding: 32px 28px; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }

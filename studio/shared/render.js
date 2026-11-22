@@ -100,7 +100,7 @@ export function zzRow(c, d, i) {
   const media = cards.length
     ? lines(`<div class="zz__media reveal reveal--${m}">`, indent(lines(imgTag(c, d.image),
         `<div class="grid grid--2" style="gap:16px; margin-top:24px">`,
-        indent(cards.map((x) => `<div class="icon-card" style="padding:22px"><h3 style="font-size:17px">${esc(x.title)}</h3><p>${esc(x.text)}</p></div>`).join("\n")),
+        indent(cards.map((x) => `<div class="icon-card icon-card--compact"><h3 style="font-size:17px">${esc(x.title)}</h3><p>${esc(x.text)}</p></div>`).join("\n")),
         `</div>`)), `</div>`)
     : `<div class="zz__media reveal reveal--${m}">${imgTag(c, d.image)}${logo}</div>`;
   const aside = d.aside?.text ? `<blockquote class="scripture zz__aside reveal reveal--${m}">${esc(d.aside.text)}${d.aside.cite ? `<cite>${esc(d.aside.cite)}</cite>` : ""}</blockquote>` : "";
