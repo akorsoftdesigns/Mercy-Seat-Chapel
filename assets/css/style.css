@@ -376,6 +376,12 @@ small, .small { font-size: 14px; }
 .m-sub a { display: block; padding: 10px 0; min-height: 44px; color: rgba(255, 255, 255, .8); text-decoration: none; font-size: 15px; }
 .m-sub a:hover { color: var(--c-secondary-light); }
 .m-sub > div > a:last-child { margin-bottom: 14px; }
+/* Submenu links sit one level in from the menu titles */
+.m-sub a { padding-left: 18px; }
+/* Opening a submenu: its links drop in one after another (--sd = each link's delay) */
+.m-group.is-open .m-sub a { animation: menuDrop .45s var(--ease) both; animation-delay: var(--sd, .08s); }
+.m-sub a:nth-child(2) { --sd: .2s; } .m-sub a:nth-child(3) { --sd: .32s; } .m-sub a:nth-child(4) { --sd: .44s; }
+.m-sub a:nth-child(5) { --sd: .56s; } .m-sub a:nth-child(6) { --sd: .68s; } .m-sub a:nth-child(n+7) { --sd: .8s; }
 .mobile-menu__cta { padding: 0 var(--pad-x) 32px; max-width: 640px; width: 100%; margin: 0 auto; display: grid; gap: 12px; }
 .mobile-menu__meta { padding: 0 var(--pad-x) 40px; max-width: 640px; width: 100%; margin: 0 auto; color: rgba(255, 255, 255, .7); font-size: 13px; }
 /* The two menu buttons share one row when there's room (370px+ wide); narrower phones keep them stacked */
