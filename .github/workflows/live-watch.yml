@@ -1,0 +1,54 @@
+# Live watcher: puts the stream in Watch Live within about a minute of going live.
+#
+# GitHub's scheduled website updates often run 10–40 minutes late (on 22 Nov 2026 none ran
+# between 9:34 and 10:11 AM, so Watch Live showed last week's service until 10:11). This
+# workflow is started many times before each service, so at least one start lands in time
+# even when GitHub is late. Only one watcher runs at a time. It waits for the watch window,
+# asks YouTube every 45 seconds whether the channel is live, and as soon as it is, starts
+# "Update website from dashboard" (cms-publish.yml), which switches the Watch Live player.
+#
+# Watch windows and check interval: scripts/live-watch.mjs (Eastern time).
+# The start times below are in UTC and cover both summer (EDT) and winter (EST) time:
+#   Sunday:  every 10 min 13:03–14:53 UTC (8:03–9:53 AM EST / 9:03–10:53 AM EDT)
+#   Tuesday: every 10 min 22:03–23:53 UTC (5:03–6:53 PM EST / 6:03–7:53 PM EDT)
+# Needs the YOUTUBE_API_KEY secret (the same one the website update uses).
+# To turn the watcher off: GitHub → Actions → Live watcher → "…" → Disable workflow.
+name: Live watcher
+
+on:
+  schedule:
+    - cron: "3,13,23,33,43,53 13,14 * * 0"   # before the Sunday service
+    - cron: "3,13,23,33,43,53 22,23 * * 2"   # before Tuesday Bible Study
+  workflow_dispatch:
+
+# One watcher at a time; later starts wait (and are dropped if one is already waiting)
+concurrency:
+  group: live-watch
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  actions: write   # to start the website update
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Wait for the live stream
+        id: watch
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}  # only this step sees the key
+        run: node scripts/live-watch.mjs | tee watch.log && grep '^live=' watch.log | tail -1 >> "$GITHUB_OUTPUT"
+
+      - name: Update the website now
+        if: steps.watch.outputs.live != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run cms-publish.yml --ref main

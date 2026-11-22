@@ -1290,7 +1290,7 @@ html:not(.no-js) .place__tabs.reveal:not(.is-in) .place__tab { opacity: 0; }
 .faq summary .plus svg { width: 18px; height: 18px; }
 .faq details[open] summary .plus { transform: rotate(45deg); background: var(--c-secondary); color: var(--c-white); }
 .faq .faq__body { padding: 0 26px 24px; }
-.faq .faq__body p:last-child { margin-bottom: 0; }
+.faq .faq__body p:last-child, .faq .faq__body > ul:last-child { margin-bottom: 0; }
 /* ---------- Forms ---------- */
 .form-card { background: var(--c-white); border: 1px solid var(--c-border); border-radius: var(--r-card); padding: 40px; box-shadow: var(--shadow-sm); }
 .form-card--dark { background: var(--c-primary); border-color: var(--c-primary); color: rgba(255, 255, 255, .82); }

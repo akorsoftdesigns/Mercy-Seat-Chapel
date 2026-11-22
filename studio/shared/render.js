@@ -276,18 +276,19 @@ export function churchSchema(site, base = "https://www.mercyseatchapel.org") {
   return `<script type="application/ld+json">\n${JSON.stringify(data, null, 2).replace(/</g, "\\u003c")}\n</script>`;
 }
 
-/** Plan a Visit FAQ: every regular gathering in one sentence, with when it happens in brackets, e.g.
-    "Our regular gatherings include Sunday Service (every Sunday, 10:00 AM), …, and Morning Glory (1st of every month, 6:00 AM)." */
+/** Plan a Visit FAQ: every regular gathering as a list, one per line, e.g.
+    "Sunday Service: Every Sunday, 10:00 AM". (Until Nov 2026 it was one long sentence; the name stayed.) */
 const lowerFirst = (s) => s.charAt(0).toLowerCase() + s.slice(1);
 const whenInWords = (e) => {
   const day = (e.dayLabel || scheduleLabel(e.recurrence)).replace(/^(.+) · Monthly$/, "every $1"); // "1st Sunday · Monthly" → "every 1st Sunday"
   return [day, eventTime(e, false)].filter(Boolean).map(lowerFirst).join(", ");
 };
-export const gatheringsSentence = (events) => {
-  const parts = events.map((e) => `${esc(e.title)} (${esc(whenInWords(e))})`);
-  const list = parts.length > 1 ? `${parts.slice(0, -1).join(", ")} and ${parts.at(-1)}` : parts[0];
-  return `<p>Our regular gatherings include ${list}.</p>`;
-};
+const upperFirst = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+export const gatheringsSentence = (events) => lines(
+  `<p>Our regular gatherings:</p>`,
+  `<ul class="check-list">`,
+  ...events.map((e) => `  <li><strong>${esc(e.title)}</strong>: ${esc(upperFirst(whenInWords(e)))}</li>`),
+  `</ul>`);
 
 /** Events page calendar badge: the next date the gathering takes place, e.g. "Next Sun / 22 / Nov 2026"
     ("Today" on the day itself; cancelled dates are skipped). The site rebuilds every 30 minutes, so it
