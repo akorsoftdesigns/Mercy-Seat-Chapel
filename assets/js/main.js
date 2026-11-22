@@ -42,7 +42,7 @@ const SITE_SETTINGS = {
   appStoreUrl: "#",
   playStoreUrl: "#",
   youtubeChannelId: "UCVoCauuDqWoSh4fDPtVdt5g",
-  liveVideoId: "O4nz-oL55B4",
+  liveVideoId: "0qQW8oawPZs",
   youtubeLiveUrl: "https://www.youtube.com/@MercySeatChapel/live",
   social: { youtube: "https://www.youtube.com/c/Mercyseatchapel", instagram: "https://www.instagram.com/mercyseatchapel/", facebook: "https://www.facebook.com/Mercyseatchapel/", twitter: "https://twitter.com/mercyseatchapel", tiktok: "https://www.tiktok.com/@mercyseatchapel" },
   times: [
